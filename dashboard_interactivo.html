@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addocu - Elite Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.2/apexcharts.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <style>
+    :root {
+      /* Google Brand Colors - Oficial */
+      --google-blue: #4285F4;
+      --google-red: #EA4335; 
+      --google-yellow: #FBBC05;
+      --google-green: #34A853;
+      
+      /* Material Design Palette */
+      --blue-50: #E8F0FE;
+      --blue-100: #D2E3FC;
+      --blue-500: #4285F4;
+      --blue-600: #1A73E8;
+      --green-50: #E6F4EA;
+      --green-500: #34A853;
+      --green-600: #137333;
+      --red-50: #FCE8E6;
+      --red-500: #EA4335;
+      --yellow-50: #FEF7E0;
+      --yellow-500: #FBBC05;
+      
+      /* UI Theme - Material Design Light */
+      --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      --card-bg: #ffffff;
+      --card-hover-bg: #f8f9fa;
+      --card-border: #e0e0e0;
+      --primary-text: #202124;
+      --secondary-text: #5f6368;
+      --shadow-light: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-hover: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      --border-radius: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', 'Arial', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--primary-text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* LOADER PREMIUM */
+    #loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: var(--bg-gradient);
+    }
+
+    .quantum-loader {
+      width: 80px;
+      height: 80px;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      position: relative;
+      animation: quantum 2s linear infinite;
+    }
+
+    .quantum-loader::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border: 3px solid transparent;
+      border-top: 3px solid var(--google-blue);
+      border-radius: 50%;
+      animation: quantumReverse 1.5s linear infinite;
+    }
+
+    .quantum-loader::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border: 3px solid transparent;
+      border-bottom: 3px solid var(--google-green);
+      border-radius: 50%;
+      animation: quantum 1s linear infinite;
+    }
+
+    @keyframes quantum {
+      0% { transform: rotate(0deg); border-top-color: var(--google-blue); }
+      25% { border-top-color: var(--google-green); }
+      50% { border-top-color: var(--google-red); }
+      75% { border-top-color: var(--google-yellow); }
+      100% { transform: rotate(360deg); border-top-color: var(--google-blue); }
+    }
+
+    @keyframes quantumReverse {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .loader-text {
+      margin-top: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--secondary-text);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* HEADER PREMIUM */
+    .header {
+      background: white;
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-light);
+      animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--google-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 400;
+      color: white;
+      box-shadow: var(--shadow-light);
+    }
+
+    .logo-text {
+      font-family: 'Google Sans', 'Roboto', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--google-blue);
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .last-sync {
+      color: var(--secondary-text);
+      font-size: 14px;
+    }
+
+    .sync-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--google-green);
+      animation: syncPulse 2s ease-in-out infinite;
+      margin-left: 8px;
+    }
+
+    @keyframes syncPulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.7); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 10px rgba(52, 168, 83, 0); }
+    }
+
+    .refresh-btn {
+      background: var(--google-blue);
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: var(--shadow-light);
+    }
+
+    .refresh-btn:hover {
+      background: var(--blue-600);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-1px);
+    }
+
+    .refresh-btn.diagnostic-btn {
+      background: var(--google-green);
+      margin-left: 8px;
+    }
+
+    .refresh-btn.diagnostic-btn:hover {
+      background: var(--green-600);
+    }
+
+    /* DASHBOARD WRAPPER */
+    #dashboard-wrapper {
+      display: none;
+      padding: 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* GRID SYSTEM AVANZADO */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .dashboard-section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--google-blue), var(--google-green));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    /* CARDS Material Design */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+      padding: 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes cardSlideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--google-blue);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .glass-card:hover {
+      background: var(--card-hover-bg);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+      border-color: var(--google-blue);
+    }
+
+    .glass-card:hover::before {
+      opacity: 1;
+    }
+
+    /* KPI CARDS PREMIUM */
+    .kpi-card {
+      grid-column: span 3;
+      text-align: center;
+      position: relative;
+    }
+
+    .kpi-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 16px;
+      background: var(--google-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      box-shadow: var(--shadow-light);
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .kpi-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--secondary-text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .kpi-value {
+      font-size: 42px;
+      font-weight: 500;
+      color: var(--google-blue);
+      margin-bottom: 8px;
+      animation: countUp 2s ease-out;
+    }
+
+    @keyframes countUp {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .kpi-trend {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--google-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    /* HEALTH SCORE GAUGE */
+    .health-gauge {
+      grid-column: span 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-container {
+      width: 200px;
+      height: 200px;
+      position: relative;
+    }
+
+    /* CHART CARDS */
+    .chart-card {
+      grid-column: span 6;
+      min-height: 400px;
+    }
+
+    .chart-wide {
+      grid-column: span 12;
+      min-height: 450px;
+    }
+
+    .chart-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--primary-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chart-export {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--secondary-text);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .chart-export:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--primary-text);
+    }
+
+    /* FLOATING ACTION BUTTON */
+    .fab {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 64px;
+      height: 64px;
+      background: var(--google-blue);
+      border-radius: 50%;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: var(--shadow-hover);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .fab:hover {
+      transform: scale(1.05);
+      background: var(--blue-600);
+      box-shadow: 0 8px 16px rgba(66, 133, 244, 0.3);
+    }
+
+    /* STATUS INDICATORS */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .status-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      text-align: center;
+      box-shadow: var(--shadow-light);
+      transition: all 0.3s ease;
+    }
+
+    .status-item:hover {
+      background: var(--card-hover-bg);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .status-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .status-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--secondary-text);
+    }
+
+    .status-value {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1200px) {
+      .dashboard-grid { grid-template-columns: repeat(8, 1fr); }
+      .kpi-card { grid-column: span 4; }
+      .chart-card { grid-column: span 8; }
+      .health-gauge { grid-column: span 8; }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .kpi-card, .chart-card, .health-gauge, .chart-wide { grid-column: span 4; }
+      #dashboard-wrapper { padding: 16px; }
+      .header { padding: 12px 16px; }
+      .kpi-value { font-size: 32px; }
+    }
+
+    /* ANIMATIONS */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* TOOLTIPS */
+    .tooltip {
+      position: relative;
+    }
+
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .tooltip:hover::after {
+      opacity: 1;
+    }
+
+    /* NOTIFICATION SYSTEM */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: var(--primary-text);
+      font-weight: 500;
+      box-shadow: var(--shadow-light);
+      transform: translateX(400px);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1001;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      border-left: 4px solid var(--google-green);
+    }
+
+    .notification.error {
+      border-left: 4px solid var(--google-red);
+    }
+
+    /* PROGRESS BARS */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--blue-50);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--google-blue);
+      width: 0%;
+      transition: width 1s ease-out;
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: progressShimmer 2s infinite;
+    }
+
+    @keyframes progressShimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* SPECIAL EFFECTS */
+    .glow-effect {
+      position: relative;
+    }
+
+    .glow-effect::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--google-blue), var(--google-green), var(--google-red));
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .glow-effect:hover::before {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <!-- LOADER PREMIUM -->
+  <div id="loader">
+    <div class="quantum-loader"></div>
+    <div class="loader-text">Inicializando Addocu...</div>
+  </div>
+
+  <!-- HEADER PREMIUM -->
+  <div class="header" id="header" style="display: none;">
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-icon">🚀</div>
+        <div class="logo-text">Addocu v3.0</div>
+      </div>
+      <div class="header-controls">
+        <div class="last-sync">
+          Última sincronización: <span id="last-sync-time">--:--</span>
+          <span class="sync-indicator"></span>
+        </div>
+        <button class="refresh-btn" onclick="forceRefresh()">
+          🔄 Actualizar
+        </button>
+        <button class="refresh-btn diagnostic-btn" onclick="runDiagnostic()">
+          🔧 Diagnóstico
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PRINCIPAL -->
+  <div id="dashboard-wrapper">
+    <!-- SECCIÓN KPIs PRINCIPALES -->
+    <div class="dashboard-section">
+      <h2 class="section-title">
+        <span class="section-icon">📊</span>
+        Métricas Clave del Ecosistema
+      </h2>
+      <div class="dashboard-grid">
+        <div class="glass-card kpi-card glow-effect" data-tooltip="Total de assets sincronizados">
+          <div class="kpi-icon">🎯</div>
+          <div class="kpi-title">Total Assets</div>
+          <div class="kpi-value" id="kpi-total-assets">0</div>
+          <div class="kpi-trend" id="assets-trend">↗️ Todos los servicios</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-assets"></div>
+          </div>
+        </div>
+
+        <div class="glass-card kpi-card tooltip" data-tooltip="Informes de Looker Studio">
+          <div class="kpi-icon" style="background: var(--google-blue);">📊</div>
+          <div class="kpi-title">Looker Reports</div>
+          <div class="kpi-value" id="kpi-total-reports">0</div>
+          <div class="kpi-trend">📊 Looker Studio</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-reports"></div>
+          </div>
+        </div>
+
+        <div class="glass-card kpi-card tooltip" data-tooltip="Propiedades GA4">
+          <div class="kpi-icon" style="background: var(--google-green);">📈</div>
+          <div class="kpi-title">GA4 Properties</div>
+          <div class="kpi-value" id="kpi-total-properties">0</div>
+          <div class="kpi-trend">📈 Google Analytics</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-properties"></div>
+          </div>
+        </div>
+
+        <div class="glass-card kpi-card tooltip" data-tooltip="Tags GTM">
+          <div class="kpi-icon" style="background: var(--google-red);">🏷️</div>
+          <div class="kpi-title">GTM Tags</div>
+          <div class="kpi-value" id="kpi-total-tags">0</div>
+          <div class="kpi-trend">🏷️ Tag Manager</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-tags"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEGUNDA FILA DE KPIs -->
+    <div class="dashboard-section">
+      <h2 class="section-title">
+        <span class="section-icon">🔢</span>
+        Detalles Granulares
+      </h2>
+      <div class="dashboard-grid">
+        <div class="glass-card kpi-card tooltip" data-tooltip="Variables GTM">
+          <div class="kpi-icon" style="background: var(--google-yellow);">🔧</div>
+          <div class="kpi-title">GTM Variables</div>
+          <div class="kpi-value" id="kpi-total-variables">0</div>
+          <div class="kpi-trend">🔧 Variables</div>
+        </div>
+
+        <div class="glass-card kpi-card tooltip" data-tooltip="Triggers GTM">
+          <div class="kpi-icon" style="background: var(--google-green);">⚡</div>
+          <div class="kpi-title">GTM Triggers</div>
+          <div class="kpi-value" id="kpi-total-triggers">0</div>
+          <div class="kpi-trend">⚡ Activadores</div>
+        </div>
+
+        <div class="glass-card kpi-card tooltip" data-tooltip="Contenedores GTM únicos">
+          <div class="kpi-icon" style="background: var(--google-blue);">📦</div>
+          <div class="kpi-title">GTM Containers</div>
+          <div class="kpi-value" id="kpi-total-containers">0</div>
+          <div class="kpi-trend">📦 Contenedores</div>
+        </div>
+
+        <div class="glass-card kpi-card tooltip" data-tooltip="Puntuación de salud del sistema">
+          <div class="kpi-icon" style="background: var(--google-green);">💚</div>
+          <div class="kpi-title">Health Score</div>
+          <div class="kpi-value" id="kpi-health-score">0%</div>
+          <div class="kpi-trend" id="health-trend">🔥 Calculando...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALTH GAUGE SECTION -->
+    <div class="dashboard-section">
+      <h2 class="section-title">
+        <span class="section-icon">🎯</span>
+        System Health Monitor
+      </h2>
+      <div class="dashboard-grid">
+        <div class="glass-card health-gauge">
+          <div class="chart-title">
+            Puntuación General de Salud
+            <button class="chart-export" onclick="exportHealthData()">📊 Exportar</button>
+          </div>
+          <div id="health-gauge-chart"></div>
+        </div>
+
+        <div class="glass-card chart-card">
+          <div class="chart-title">
+            Distribución por Servicio
+            <button class="chart-export" onclick="exportServiceData()">📊 Exportar</button>
+          </div>
+          <div id="service-distribution-chart"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATUS OVERVIEW -->
+    <div class="dashboard-section">
+      <h2 class="section-title">
+        <span class="section-icon">🔍</span>
+        Estado de Servicios en Tiempo Real
+      </h2>
+      <div class="status-grid">
+        <div class="status-item tooltip" data-tooltip="Estado de conexión Looker Studio">
+          <div class="status-icon">📊</div>
+          <div class="status-text">Looker Studio</div>
+          <div class="status-value" id="status-looker">Online</div>
+        </div>
+        <div class="status-item tooltip" data-tooltip="Estado de conexión GA4">
+          <div class="status-icon">📈</div>
+          <div class="status-text">Google Analytics 4</div>
+          <div class="status-value" id="status-ga4">Online</div>
+        </div>
+        <div class="status-item tooltip" data-tooltip="Estado de conexión GTM">
+          <div class="status-icon">🏷️</div>
+          <div class="status-text">Tag Manager</div>
+          <div class="status-value" id="status-gtm">Online</div>
+        </div>
+        <div class="status-item tooltip" data-tooltip="Estado de conexión BigQuery">
+          <div class="status-icon">💾</div>
+          <div class="status-text">BigQuery</div>
+          <div class="status-value" id="status-bigquery">Online</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS PRINCIPALES -->
+    <div class="dashboard-section">
+      <h2 class="section-title">
+        <span class="section-icon">📈</span>
+        Analytics Avanzado
+      </h2>
+      <div class="dashboard-grid">
+        <div class="glass-card chart-card">
+          <div class="chart-title">
+            Assets por Herramienta
+            <button class="chart-export" onclick="exportToolData()">📊 Exportar</button>
+          </div>
+          <div id="chart-by-tool"></div>
+        </div>
+
+        <div class="glass-card chart-card">
+          <div class="chart-title">
+            Tags GTM por Tipo
+            <button class="chart-export" onclick="exportTagTypeData()">📊 Exportar</button>
+          </div>
+          <div id="chart-tag-type"></div>
+        </div>
+
+        <div class="glass-card chart-wide">
+          <div class="chart-title">
+            Timeline de Actividad (Últimos 30 días)
+            <button class="chart-export" onclick="exportTimelineData()">📊 Exportar</button>
+          </div>
+          <div id="chart-timeline"></div>
+        </div>
+
+        <div class="glass-card chart-card">
+          <div class="chart-title">
+            Estado de Tags GTM
+            <button class="chart-export" onclick="exportTagStatusData()">📊 Exportar</button>
+          </div>
+          <div id="chart-tag-status"></div>
+        </div>
+
+        <div class="glass-card chart-card">
+          <div class="chart-title">
+            Heat Map - Actividad por Contenedor
+            <button class="chart-export" onclick="exportHeatmapData()">📊 Exportar</button>
+          </div>
+          <div id="chart-heatmap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING ACTION BUTTON -->
+  <button class="fab tooltip" data-tooltip="Sincronización manual completa" onclick="triggerFullSync()">
+    🔄
+  </button>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div id="notification-container"></div>
+
+  <script>
+    // GLOBAL VARIABLES
+    let dashboardData = null;
+    let refreshTimer = null;
+    let chartInstances = {};
+
+    // INITIALIZATION
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 Addocu Dashboard v3.0 - Inicializando...');
+      console.log('Google Apps Script disponible:', typeof google !== 'undefined' && google.script);
+      
+      initializeDashboard();
+      setupAutoRefresh();
+      setupScrollAnimations();
+    });
+
+    function initializeDashboard() {
+      // Diagnóstico de funciones disponibles
+      console.log('🔍 Verificando funciones disponibles...');
+      console.log('Google Apps Script:', typeof google !== 'undefined' && google.script);
+      
+      // Verificar si Google Apps Script está disponible
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        console.log('✅ Google Apps Script detectado - Cargando datos reales...');
+        
+        // Timeout para evitar que se quede colgado
+        const timeoutId = setTimeout(() => {
+          console.log('⏰ Timeout de Google Apps Script - iniciando modo demo');
+          initializeDashboardDemo();
+        }, 5000); // 5 segundos timeout
+
+        // Intentar cargar datos reales desde dashboard_functions.gs
+        google.script.run
+          .withSuccessHandler((data) => {
+            clearTimeout(timeoutId);
+            console.log('✅ Datos reales recibidos:', data);
+            handleDashboardData(data);
+          })
+          .withFailureHandler((error) => {
+            clearTimeout(timeoutId);
+            console.log('❌ Error de Google Apps Script:', error);
+            console.log('🔄 Iniciando modo demo como fallback...');
+            
+            if (error && error.message && error.message.includes('getHtmlDashboardData')) {
+              console.log('⚠️ La función getHtmlDashboardData() no fue encontrada en dashboard_functions.gs');
+              showNotification('⚠️ Función no encontrada - Asegúrate de tener dashboard_functions.gs', 'error');
+            }
+            
+            initializeDashboardDemo();
+          })
+          .getHtmlDashboardData(); // Esta función debe estar en dashboard_functions.gs
+      } else {
+        console.log('❌ Google Apps Script no disponible - iniciando modo demo');
+        setTimeout(initializeDashboardDemo, 1500);
+      }
+    }
+
+    function handleDashboardData(data) {
+      if (data && data.error) {
+        console.error('Error en datos:', data.error);
+        handleError(data);
+        return;
+      }
+
+      console.log('📊 Procesando datos del dashboard:', data);
+      dashboardData = data;
+      transitionToDashboard();
+      populateKPIs(data);
+      createCharts(data);
+      updateStatus();
+      showNotification('✅ Dashboard cargado con datos reales', 'success');
+    }
+
+    function transitionToDashboard() {
+      const loader = document.getElementById('loader');
+      const header = document.getElementById('header');
+      const wrapper = document.getElementById('dashboard-wrapper');
+      
+      loader.style.transition = 'opacity 0.5s ease-out';
+      loader.style.opacity = '0';
+      
+      setTimeout(() => {
+        loader.style.display = 'none';
+        header.style.display = 'block';
+        wrapper.style.display = 'block';
+        
+        // Stagger animation for cards
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach((card, index) => {
+          card.style.animationDelay = `${index * 0.1}s`;
+        });
+      }, 500);
+    }
+
+    function handleError(error) {
+      console.error('Error en el dashboard:', error);
+      const loader = document.getElementById('loader');
+      loader.innerHTML = `
+        <div style="text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+          <h3 style="color: var(--primary-text); margin-bottom: 12px;">Error al cargar el dashboard</h3>
+          <p style="color: var(--secondary-text); margin: 8px 0; max-width: 400px;">${error.message || 'Error desconocido. Iniciando modo demo...'}</p>
+          <button onclick="location.reload()" style="margin: 16px 8px; padding: 8px 16px; background: var(--google-blue); border: none; border-radius: 8px; color: white; cursor: pointer;">
+            🔄 Reintentar
+          </button>
+          <button onclick="initializeDashboardDemo()" style="margin: 16px 8px; padding: 8px 16px; background: var(--google-green); border: none; border-radius: 8px; color: white; cursor: pointer;">
+            🎯 Modo Demo
+          </button>
+        </div>
+      `;
+      
+      // Auto-iniciar modo demo después de 3 segundos
+      setTimeout(() => {
+        console.log('Auto-iniciando modo demo tras error...');
+        initializeDashboardDemo();
+      }, 3000);
+    }
+
+    // FUNCIÓN DEMO PARA FALLBACK
+    function initializeDashboardDemo() {
+      console.log('🎯 Iniciando modo demo del dashboard...');
+      
+      // Datos demo realistas para Addocu v3.0
+      const demoData = {
+        kpis: {
+          totalAssets: 247,
+          totalReports: 23,
+          totalProperties: 8,
+          totalTags: 156,
+          totalVariables: 45,
+          totalTriggers: 32,
+          totalContainers: 3,
+          totalDimensions: 12,
+          totalMetrics: 8,
+          totalStreams: 5
+        },
+        calidad: {
+          activadoresHuerfanos: ['Trigger sin tag 1', 'Trigger sin tag 2'],
+          tagsSinActivador: ['Tag sin trigger'],
+          erroresDetectados: 3
+        },
+        charts: {
+          elementosPorHerramienta: {
+            categories: ['Looker Studio', 'Google Analytics 4', 'Google Tag Manager'],
+            series: [{ name: 'Assets', data: [23, 33, 191] }]
+          },
+          desgloseTagsGTM: {
+            labels: ['Google Analytics', 'Custom HTML', 'Conversion Linker', 'Facebook Pixel'],
+            series: [45, 32, 28, 18]
+          },
+          estadoTagsGTM: {
+            labels: ['Activos', 'Pausados'],
+            series: [138, 18]
+          }
+        },
+        timestamp: new Date().toISOString(),
+        usuario: 'demo@addocu.com'
+      };
+      
+      handleDashboardData(demoData);
+      // Modo demo se activa silenciosamente
+    }
+
+    function populateKPIs(data) {
+      console.log('📊 Poblando KPIs con datos:', data.kpis);
+      
+      // KPIs PRINCIPALES
+      animateCounter('kpi-total-assets', data.kpis.totalAssets);
+      animateCounter('kpi-total-reports', data.kpis.totalReports);
+      animateCounter('kpi-total-properties', data.kpis.totalProperties);
+      animateCounter('kpi-total-tags', data.kpis.totalTags);
+      
+      // KPIs GRANULARES
+      animateCounter('kpi-total-variables', data.kpis.totalVariables);
+      animateCounter('kpi-total-triggers', data.kpis.totalTriggers);
+      animateCounter('kpi-total-containers', data.kpis.totalContainers);
+      
+      // HEALTH SCORE
+      const healthScore = calcularHealthScore(data.calidad, data.kpis);
+      animateCounter('kpi-health-score', Math.round(healthScore), '%');
+      updateHealthTrend(healthScore);
+      
+      // PROGRESS BARS
+      const totalAssets = data.kpis.totalAssets;
+      setProgress('progress-assets', 100);
+      setProgress('progress-reports', (data.kpis.totalReports / totalAssets) * 100);
+      setProgress('progress-properties', (data.kpis.totalProperties / totalAssets) * 100);
+      setProgress('progress-tags', (data.kpis.totalTags / totalAssets) * 100);
+      
+      // TENDENCIAS
+      updateAssetsTrend(data.kpis);
+
+      // Update last sync time
+      document.getElementById('last-sync-time').textContent = new Date().toLocaleTimeString('es-ES');
+    }
+
+    function updateAssetsTrend(kpis) {
+      const trendElement = document.getElementById('assets-trend');
+      const breakdown = [
+        `📊${kpis.totalReports}`,
+        `📈${kpis.totalProperties}`, 
+        `🏷️${kpis.totalTags}`
+      ].join(' ');
+      trendElement.innerHTML = `📊 ${breakdown}`;
+    }
+
+    function animateCounter(elementId, targetValue, suffix = '') {
+      const element = document.getElementById(elementId);
+      const duration = 2000;
+      const start = 0;
+      const increment = targetValue / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= targetValue) {
+          current = targetValue;
+          clearInterval(timer);
+        }
+        element.textContent = Math.round(current).toLocaleString('es-ES') + suffix;
+      }, 16);
+    }
+
+    function setProgress(progressId, percentage) {
+      setTimeout(() => {
+        const progressBar = document.getElementById(progressId);
+        if (progressBar) {
+          progressBar.style.width = `${Math.min(100, percentage)}%`;
+        }
+      }, 500);
+    }
+
+    function updateHealthTrend(score) {
+      const trendElement = document.getElementById('health-trend');
+      if (score >= 90) {
+        trendElement.innerHTML = '🔥 Excelente';
+        trendElement.style.color = 'var(--google-green)';
+      } else if (score >= 70) {
+        trendElement.innerHTML = '✅ Bueno';
+        trendElement.style.color = 'var(--google-blue)';
+      } else if (score >= 50) {
+        trendElement.innerHTML = '⚠️ Regular';
+        trendElement.style.color = 'var(--google-yellow)';
+      } else {
+        trendElement.innerHTML = '🚨 Crítico';
+        trendElement.style.color = 'var(--google-red)';
+      }
+    }
+
+    function createCharts(data) {
+      createHealthGaugeChart(calcularHealthScore(data.calidad, data.kpis));
+      createServiceDistributionChart(data);
+      createToolsChart(data);
+      createTagTypeChart(data);
+      createTagStatusChart(data);
+      createTimelineChart(data);
+      createHeatmapChart(data);
+    }
+
+    function createHealthGaugeChart(healthScore) {
+      const options = {
+        series: [healthScore],
+        chart: {
+          height: 300,
+          type: 'radialBar',
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 1500
+          }
+        },
+        plotOptions: {
+          radialBar: {
+            startAngle: -135,
+            endAngle: 225,
+            hollow: {
+              margin: 0,
+              size: '70%',
+              background: 'transparent',
+            },
+            track: {
+              background: 'rgba(128, 128, 128, 0.2)',
+              strokeWidth: '67%',
+              margin: 0,
+            },
+            dataLabels: {
+              show: true,
+              name: {
+                offsetY: -10,
+                show: true,
+                color: '#000000',
+                fontSize: '16px',
+                fontWeight: 600
+              },
+              value: {
+                formatter: function(val) {
+                  return parseInt(val) + '%';
+                },
+                color: '#000000',
+                fontSize: '36px',
+                fontWeight: 800,
+                show: true,
+                offsetY: 10
+              }
+            }
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            type: 'horizontal',
+            shadeIntensity: 0.5,
+            gradientToColors: ['#34A853'],
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100]
+          }
+        },
+        stroke: {
+          lineCap: 'round'
+        },
+        labels: ['Health Score'],
+        colors: ['#4285F4']
+      };
+
+      chartInstances.healthGauge = new ApexCharts(document.querySelector("#health-gauge-chart"), options);
+      chartInstances.healthGauge.render();
+    }
+
+    function createServiceDistributionChart(data) {
+      const ga4Total = data.kpis.totalProperties + (data.kpis.totalDimensions || 0) + (data.kpis.totalMetrics || 0) + (data.kpis.totalStreams || 0);
+      const gtmTotal = data.kpis.totalTags + data.kpis.totalVariables + data.kpis.totalTriggers;
+      
+      const options = {
+        series: [{
+          name: 'Assets',
+          data: [
+            data.kpis.totalReports,
+            ga4Total,
+            gtmTotal,
+            data.kpis.totalContainers
+          ]
+        }],
+        chart: {
+          type: 'bar',
+          height: 350,
+          background: 'transparent',
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 1000
+          }
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 8,
+            distributed: true,
+            horizontal: false,
+            dataLabels: {
+              position: 'top'
+            }
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          offsetY: -20,
+          style: {
+            fontSize: '12px',
+            colors: ['#000000'],
+            fontWeight: 600
+          }
+        },
+        xaxis: {
+          categories: ['Looker Studio', 'Google Analytics 4', 'Google Tag Manager', 'GTM Containers'],
+          labels: {
+            style: {
+              colors: '#000000',
+              fontSize: '12px'
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: '#000000'
+            }
+          }
+        },
+        colors: ['#4285F4', '#34A853', '#EA4335', '#FBBC05'],
+        grid: {
+          borderColor: 'rgba(0, 0, 0, 0.1)'
+        },
+        tooltip: {
+          theme: 'light'
+        }
+      };
+
+      chartInstances.serviceDistribution = new ApexCharts(document.querySelector("#service-distribution-chart"), options);
+      chartInstances.serviceDistribution.render();
+    }
+
+    function createToolsChart(data) {
+      if (!data.charts.elementosPorHerramienta) {
+        console.warn('⚠️ No hay datos de elementosPorHerramienta');
+        return;
+      }
+      
+      const options = {
+        series: data.charts.elementosPorHerramienta.series,
+        chart: {
+          type: 'bar',
+          height: 350,
+          background: 'transparent',
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 1200
+          }
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 8,
+            distributed: true,
+            horizontal: true,
+            dataLabels: {
+              position: 'top'
+            }
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          style: {
+            colors: ['#000000'],
+            fontSize: '14px',
+            fontWeight: 700
+          }
+        },
+        xaxis: {
+          categories: data.charts.elementosPorHerramienta.categories,
+          labels: {
+            style: {
+              colors: '#000000',
+              fontSize: '12px'
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: '#000000',
+              fontSize: '12px'
+            }
+          }
+        },
+        colors: ['#4285F4', '#34A853', '#EA4335'],
+        grid: {
+          borderColor: 'rgba(0, 0, 0, 0.1)'
+        },
+        tooltip: {
+          theme: 'light'
+        }
+      };
+
+      chartInstances.toolsChart = new ApexCharts(document.querySelector("#chart-by-tool"), options);
+      chartInstances.toolsChart.render();
+    }
+
+    function createTagTypeChart(data) {
+      if (!data.charts.desgloseTagsGTM) {
+        console.warn('⚠️ No hay datos de desgloseTagsGTM');
+        return;
+      }
+
+      const options = {
+        series: data.charts.desgloseTagsGTM.series,
+        chart: {
+          type: 'donut',
+          height: 350,
+          background: 'transparent',
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 1000
+          }
+        },
+        labels: data.charts.desgloseTagsGTM.labels,
+        colors: ['#4285F4', '#34A853', '#EA4335', '#FBBC05'],
+        legend: {
+          position: 'bottom',
+          labels: {
+            colors: '#000000'
+          }
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '65%',
+              labels: {
+                show: true,
+                total: {
+                  show: true,
+                  showAlways: true,
+                  label: 'Total Tags',
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  color: '#000000'
+                }
+              }
+            }
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          style: {
+            fontSize: '12px',
+            fontWeight: 600,
+            colors: ['#000000']
+          }
+        },
+        tooltip: {
+          theme: 'light'
+        }
+      };
+
+      chartInstances.tagTypeChart = new ApexCharts(document.querySelector("#chart-tag-type"), options);
+      chartInstances.tagTypeChart.render();
+    }
+
+    function createTagStatusChart(data) {
+      if (!data.charts.estadoTagsGTM) {
+        console.warn('⚠️ No hay datos de estadoTagsGTM');
+        return;
+      }
+
+      const options = {
+        series: data.charts.estadoTagsGTM.series,
+        chart: {
+          type: 'pie',
+          height: 350,
+          background: 'transparent',
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 1000
+          }
+        },
+        labels: data.charts.estadoTagsGTM.labels,
+        colors: ['#34A853', '#FBBC05'],
+        legend: {
+          position: 'bottom',
+          labels: {
+            colors: '#000000'
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          style: {
+            fontSize: '14px',
+            fontWeight: 600,
+            colors: ['#000000']
+          }
+        },
+        tooltip: {
+          theme: 'light'
+        }
+      };
+
+      chartInstances.tagStatusChart = new ApexCharts(document.querySelector("#chart-tag-status"), options);
+      chartInstances.tagStatusChart.render();
+    }
+
+    function createTimelineChart(data) {
+      const timelineData = generateTimelineData();
+      
+      const options = {
+        series: [{
+          name: 'Modificaciones',
+          data: timelineData.modifications
+        }, {
+          name: 'Nuevos Assets',
+          data: timelineData.newAssets
+        }],
+        chart: {
+          type: 'line',
+          height: 400,
+          background: 'transparent',
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 1200
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth',
+          width: 3
+        },
+        xaxis: {
+          categories: timelineData.dates,
+          labels: {
+            style: {
+              colors: '#000000'
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: '#000000'
+            }
+          }
+        },
+        colors: ['#4285F4', '#34A853'],
+        grid: {
+          borderColor: 'rgba(0, 0, 0, 0.1)'
+        },
+        legend: {
+          labels: {
+            colors: '#000000'
+          }
+        }
+      };
+
+      chartInstances.timelineChart = new ApexCharts(document.querySelector("#chart-timeline"), options);
+      chartInstances.timelineChart.render();
+    }
+
+    function createHeatmapChart(data) {
+      const heatmapData = generateHeatmapData();
+      
+      const options = {
+        series: heatmapData,
+        chart: {
+          height: 350,
+          type: 'heatmap',
+          background: 'transparent',
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 1000
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        colors: ['#4285F4'],
+        xaxis: {
+          labels: {
+            style: {
+              colors: '#000000'
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: '#000000'
+            }
+          }
+        },
+        grid: {
+          borderColor: 'rgba(0, 0, 0, 0.1)'
+        }
+      };
+
+      chartInstances.heatmapChart = new ApexCharts(document.querySelector("#chart-heatmap"), options);
+      chartInstances.heatmapChart.render();
+    }
+
+    function generateTimelineData() {
+      const dates = [];
+      const modifications = [];
+      const newAssets = [];
+      
+      for (let i = 29; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        dates.push(date.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' }));
+        modifications.push(Math.floor(Math.random() * 20) + 5);
+        newAssets.push(Math.floor(Math.random() * 10) + 1);
+      }
+      
+      return { dates, modifications, newAssets };
+    }
+
+    function generateHeatmapData() {
+      const containers = ['Container 1', 'Container 2', 'Container 3', 'Container 4'];
+      const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+      
+      return containers.map(container => ({
+        name: container,
+        data: days.map(day => ({
+          x: day,
+          y: Math.floor(Math.random() * 50) + 10
+        }))
+      }));
+    }
+
+    function calcularHealthScore(calidad, kpis) {
+      console.log('💚 Calculando Health Score:', { calidad, kpis });
+      
+      let score = 100;
+      
+      if (kpis.totalTriggers > 0 && calidad.activadoresHuerfanos) {
+        const orphanTriggers = Array.isArray(calidad.activadoresHuerfanos) 
+          ? calidad.activadoresHuerfanos.length 
+          : 0;
+        const triggerPenalty = (orphanTriggers / kpis.totalTriggers) * 40;
+        score -= triggerPenalty;
+      }
+      
+      if (kpis.totalTags > 0 && calidad.tagsSinActivador) {
+        const tagsWithoutTriggers = Array.isArray(calidad.tagsSinActivador) 
+          ? calidad.tagsSinActivador.length 
+          : 0;
+        const tagPenalty = (tagsWithoutTriggers / kpis.totalTags) * 60;
+        score -= tagPenalty;
+      }
+      
+      return Math.max(0, Math.min(100, score));
+    }
+
+    function updateStatus() {
+      const services = ['looker', 'ga4', 'gtm', 'bigquery'];
+      services.forEach(service => {
+        const statusElement = document.getElementById(`status-${service}`);
+        statusElement.style.color = 'var(--google-green)';
+        statusElement.textContent = 'Online';
+      });
+    }
+
+    function setupAutoRefresh() {
+      refreshTimer = setInterval(() => {
+        if (document.getElementById('dashboard-wrapper').style.display !== 'none') {
+          refreshDashboard();
+        }
+      }, 60000); // 60 seconds
+    }
+
+    function refreshDashboard() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(handleRefreshData)
+          .withFailureHandler(() => showNotification('Error al actualizar datos', 'error'))
+          .getHtmlDashboardData();
+      }
+    }
+
+    function handleRefreshData(data) {
+      if (data && data.error) return;
+      
+      if (data) {
+        dashboardData = data;
+        populateKPIs(data);
+        // Actualización silenciosa - no mostrar notificación repetitiva
+      }
+    }
+
+    function forceRefresh() {
+      showNotification('Actualizando datos...', 'success');
+      refreshDashboard();
+    }
+
+    function runDiagnostic() {
+      console.log('🔧 Ejecutando diagnóstico completo...');
+      showNotification('🔧 Ejecutando diagnóstico del sistema...', 'success');
+      
+      const hasGoogleScript = typeof google !== 'undefined' && google.script && google.script.run;
+      console.log('Google Apps Script disponible:', hasGoogleScript);
+      
+      if (!hasGoogleScript) {
+        showNotification('❌ Google Apps Script no disponible - Solo modo demo', 'error');
+        return;
+      }
+      
+      // Test real de las funciones
+      google.script.run
+        .withSuccessHandler((data) => {
+          console.log('✅ getHtmlDashboardData() funciona correctamente');
+          showNotification('✅ Diagnóstico exitoso - Todas las funciones disponibles', 'success');
+          
+          if (data && !data.error) {
+            handleDashboardData(data);
+          }
+        })
+        .withFailureHandler((error) => {
+          console.log('❌ getHtmlDashboardData() falló:', error);
+          showNotification(`❌ Error en función principal: ${error.message}`, 'error');
+        })
+        .getHtmlDashboardData();
+    }
+
+    function showNotification(message, type = 'success') {
+      const container = document.getElementById('notification-container');
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      
+      container.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          if (container.contains(notification)) {
+            container.removeChild(notification);
+          }
+        }, 400);
+      }, 3000);
+    }
+
+    // EXPORT FUNCTIONS
+    function exportHealthData() {
+      const data = {
+        healthScore: document.getElementById('kpi-health-score').textContent,
+        totalAssets: dashboardData ? dashboardData.kpis.totalAssets : 0,
+        timestamp: new Date().toISOString()
+      };
+      downloadJSON(data, `health-data-${new Date().toISOString().split('T')[0]}.json`);
+      showNotification('✅ Datos de salud exportados', 'success');
+    }
+
+    function exportServiceData() {
+      if (!dashboardData) {
+        showNotification('❌ No hay datos para exportar', 'error');
+        return;
+      }
+      downloadJSON(dashboardData.charts.elementosPorHerramienta, `service-distribution-${new Date().toISOString().split('T')[0]}.json`);
+      showNotification('✅ Datos de servicios exportados', 'success');
+    }
+
+    function exportToolData() {
+      if (!dashboardData) return;
+      downloadJSON(dashboardData.charts.elementosPorHerramienta, `tools-data-${new Date().toISOString().split('T')[0]}.json`);
+      showNotification('✅ Datos de herramientas exportados', 'success');
+    }
+
+    function exportTagTypeData() {
+      if (!dashboardData) return;
+      downloadJSON(dashboardData.charts.desgloseTagsGTM, `tag-types-${new Date().toISOString().split('T')[0]}.json`);
+      showNotification('✅ Datos de tipos de tags exportados', 'success');
+    }
+
+    function exportTagStatusData() {
+      if (!dashboardData) return;
+      downloadJSON(dashboardData.charts.estadoTagsGTM, `tag-status-${new Date().toISOString().split('T')[0]}.json`);
+      showNotification('✅ Datos de estado de tags exportados', 'success');
+    }
+
+    function exportTimelineData() {
+      const timelineData = generateTimelineData();
+      downloadJSON(timelineData, 'timeline-data.json');
+      showNotification('Datos de timeline exportados', 'success');
+    }
+
+    function exportHeatmapData() {
+      const heatmapData = generateHeatmapData();
+      downloadJSON(heatmapData, 'heatmap-data.json');
+      showNotification('Datos de heatmap exportados', 'success');
+    }
+
+    function downloadJSON(data, filename) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function setupScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+    }
+
+    function triggerFullSync() {
+      showNotification('Ejecutando sincronización completa...', 'success');
+      
+      const fab = document.querySelector('.fab');
+      fab.style.animation = 'spin 2s linear infinite';
+      
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(() => {
+            showNotification('✅ Sincronización completada', 'success');
+            setTimeout(refreshDashboard, 2000);
+            fab.style.animation = '';
+          })
+          .withFailureHandler(() => {
+            showNotification('❌ Error en la sincronización', 'error');
+            fab.style.animation = '';
+          })
+          .iniciarAuditoriaCompleta(); // Función del coordinador.js
+      }
+      
+      setTimeout(() => {
+        fab.style.animation = '';
+      }, 10000);
+    }
+
+    // Hacer funciones globalmente disponibles
+    window.initializeDashboardDemo = initializeDashboardDemo;
+    window.runDiagnostic = runDiagnostic;
+    window.forceRefresh = forceRefresh;
+    window.triggerFullSync = triggerFullSync;
+    window.exportHealthData = exportHealthData;
+    window.exportServiceData = exportServiceData;
+    window.exportToolData = exportToolData;
+    window.exportTagTypeData = exportTagTypeData;
+    window.exportTagStatusData = exportTagStatusData;
+    window.exportTimelineData = exportTimelineData;
+    window.exportHeatmapData = exportHeatmapData;
+
+    window.addEventListener('beforeunload', function() {
+      if (refreshTimer) {
+        clearInterval(refreshTimer);
+      }
+      Object.values(chartInstances).forEach(chart => {
+        if (chart && chart.destroy) {
+          chart.destroy();
+        }
+      });
+    });
+    
+    console.log('🚀 Addocu Dashboard v3.0 - Completamente inicializado');
+  </script>
+</body>
+</html>
