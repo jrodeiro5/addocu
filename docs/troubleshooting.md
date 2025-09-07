@@ -101,7 +101,7 @@ This guide helps you resolve common issues with Addocu installation, configurati
 **Wrong Key Format:**
 ```
 ❌ Wrong: API_KEY_WITH_EXTRA_SPACES
-✅ Correct: AIzaSyDaGmWKa4JsXMe-EQfdGbr2X7dSxGVkrU4
+✅ Correct (example): AIzaexampleexample1-EQfdGbr2X7dSexample
 ```
 
 **API Not Enabled:**
