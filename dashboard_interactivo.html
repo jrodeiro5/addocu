@@ -213,7 +213,7 @@
     }
 
     .logo-icon {
-      width: 36px;
+      width: 120px;
       height: 36px;
       border-radius: var(--radius-md);
       display: flex;
@@ -221,12 +221,27 @@
       justify-content: center;
       box-shadow: var(--shadow-sm);
       overflow: hidden;
+      background: rgba(255, 255, 255, 0.95);
+      position: relative;
     }
 
     .logo-icon img {
-      width: 32px;
+      width: 110px;
       height: 32px;
       object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Responsive logo */
+    @media (max-width: 768px) {
+      .logo-icon {
+        width: 100px;
+        height: 32px;
+      }
+      .logo-icon img {
+        width: 90px;
+        height: 28px;
+      }
     }
 
     .logo-text {
@@ -927,10 +942,19 @@
     <div class="header-content">
       <div class="logo">
         <div class="logo-icon">
-          <img src="docs/addocu_logo-removebg-preview.png" alt="Addocu Logo" />
-        </div>
-        <div>
-          <div class="logo-text">Addocu</div>
+          <img src="./docs/addocu_logo-removebg-preview.png" 
+               alt="Addocu" 
+               onerror="
+                 this.onerror=null;
+                 if(this.src.includes('./docs/')) {
+                   this.src='docs/addocu_logo-removebg-preview.png';
+                 } else if(this.src.includes('docs/addocu_logo-removebg-preview.png')) {
+                   this.src='../docs/addocu_logo-removebg-preview.png';
+                 } else {
+                   this.style.display='none';
+                   this.parentNode.innerHTML='<div style=\"color: var(--addocu-blue-primary); font-weight: 700; font-size: 20px; text-align: center; width: 100%;\">Addocu</div>';
+                 }
+               " />
         </div>
       </div>
       

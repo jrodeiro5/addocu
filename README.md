@@ -1,4 +1,4 @@
-# Addocu 🚀 (Community Edition)
+# Addocu 🚀
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Google Apps Script](https://img.shields.io/badge/Google%20Apps%20Script-4285F4?logo=google&logoColor=white)](https://script.google.com/)
@@ -12,7 +12,7 @@ Addocu is a powerful, **free and open-source** Google Sheets™ Add-on designed 
 
 This project was born from countless hours spent on manual documentation and a belief that there had to be a better way. I'm sharing it with the community to give back and to build, together, the best auditing tool possible.
 
-![Addocu Dashboard Preview](https://via.placeholder.com/800x400/1A5DBB/FFFFFF?text=Addocu+Dashboard+Preview)
+![Addocu Logo](docs/addocu_logo-removebg-preview.png)
 
 ---
 
@@ -178,7 +178,7 @@ Addocu is distributed under the **Creative Commons Attribution-NonCommercial-Sha
 
 ## 🗺️ Roadmap & Future
 
-### **Current Status: Community Edition v1.0**
+### **Current Status: v1.0**
 - ✅ Complete GA4, GTM, and Looker Studio integration
 - ✅ Interactive dashboard and reporting
 - ✅ Open source codebase with CC BY-NC-SA 4.0 license
@@ -200,7 +200,7 @@ We're planning a separate, commercial **Addocu Pro** version that will expand on
 - 🔮 **Smart Monitoring:** Proactive alerts for configuration changes
 - 🔮 **Team Collaboration:** Enhanced sharing and collaboration features
 
-**Important:** Addocu Community Edition will always remain free and fully functional.
+**Important:** Addocu will always remain free and fully functional.
 
 ---
 
