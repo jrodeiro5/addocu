@@ -640,23 +640,22 @@
       <div class="section">
         <div class="section-title">Authentication</div>
         <div class="section-description">
-          Google Analytics 4 and Tag Manager work with OAuth2 (automatic). Looker Studio requires an optional API key.
+          All services work with OAuth2 authorization (automatic). No API keys required.
         </div>
 
-        <div class="input-group">
-          <label class="input-label">Looker Studio API Key (Optional)</label>
+        <div class="input-group" style="display: none;">
+          <label class="input-label">Looker Studio API Key (Legacy - Not Required)</label>
           <div class="input-field">
             <input 
               type="password" 
               id="api-key" 
-              placeholder="AIzaSyC... (only needed for Looker Studio)" 
+              placeholder="Not needed - OAuth2 is used automatically" 
               autocomplete="off"
+              disabled
             >
           </div>
           <div class="input-help">
-            <a href="https://console.cloud.google.com/apis/credentials" target="_blank">
-              Create API Key in Google Cloud Console
-            </a>
+            Looker Studio now uses OAuth2 authentication automatically. No API key required.
           </div>
         </div>
 
@@ -692,7 +691,7 @@
             <div class="connection-indicator indicator-pending" id="looker-indicator"></div>
             <div>
               <div class="connection-name">Looker Studio</div>
-              <div class="connection-details" id="looker-status">API key optional</div>
+              <div class="connection-details" id="looker-status">OAuth2 automatic</div>
             </div>
           </div>
         </div>
@@ -944,10 +943,8 @@
     function saveConfiguration() {
       const apiKey = document.getElementById('api-key').value.trim();
       
-      if (apiKey && (apiKey.length < 20 || !apiKey.startsWith('AIza'))) {
-        showStatus('Please enter a valid API key for Looker Studio', 'error');
-        return;
-      }
+      // API key validation no longer needed for OAuth2-only setup
+      // Legacy support maintained for backwards compatibility
       
       updateFilters();
       showButtonLoading('audit-button', 'Saving configuration...');
@@ -962,11 +959,7 @@
         .withSuccessHandler(function(response) {
           if (response.success) {
             appState.apiKey = apiKey;
-            if (apiKey) {
-              showStatus('Configuration saved successfully', 'success');
-            } else {
-              showStatus('Configuration saved (OAuth2 ready for GA4/GTM)', 'success');
-            }
+            showStatus('Configuration saved (OAuth2 ready for all services)', 'success');
             
             // Auto-test after save
             setTimeout(() => testConnection(), 1000);
@@ -1028,8 +1021,8 @@
         const element = document.getElementById(id);
         if (id === 'ga4-status' || id === 'gtm-status') {
           element.textContent = 'Testing...';
-        } else {
-          element.textContent = 'API key optional';
+        } else if (id === 'looker-status') {
+          element.textContent = 'Testing...';
         }
       });
     }
@@ -1061,7 +1054,14 @@
           
           if (result.estado === 'OK') {
             indicator.className = 'connection-indicator indicator-success';
-            status.textContent = result.cuenta || 'Connected';
+            
+            // Manejo específico para cada servicio
+            if (serviceKey === 'looker') {
+              status.textContent = result.cuenta === 'N/A' || result.cuenta === 'Pendiente' ? 'OAuth2 conectado' : result.cuenta;
+            } else {
+              status.textContent = result.cuenta || 'Connected';
+            }
+            
             appState.connectionStatus[serviceKey] = 'success';
           } else {
             indicator.className = 'connection-indicator indicator-error';

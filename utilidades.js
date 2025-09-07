@@ -643,6 +643,11 @@ function validateService(serviceName) {
     let mensaje = '';
     let cuenta = 'N/A';
     
+    // Inicializar cuenta con valor más descriptivo para Looker Studio
+    if (serviceName === 'looker' || serviceName === 'lookerStudio') {
+      cuenta = 'Pendiente';
+    }
+    
     if (statusCode === 200) {
       estado = 'OK';
       mensaje = 'Conectado correctamente';
@@ -654,11 +659,15 @@ function validateService(serviceName) {
           cuenta = `${data.accounts.length} cuentas GA4`;
         } else if (serviceName === 'gtm' && data.account) {
           cuenta = `${data.account.length} cuentas GTM`;
-        } else if (serviceName === 'looker') {
-          cuenta = 'Looker Studio accesible';
+        } else if (serviceName === 'looker' || serviceName === 'lookerStudio') {
+          // Para Looker Studio, mostrar mensaje claro de éxito
+          cuenta = 'OAuth2 conectado';
         }
       } catch (e) {
-        // No crítico si no se puede parsear
+        // Si no se puede parsear pero la conexión es exitosa, mostrar mensaje apropiado
+        if (serviceName === 'looker' || serviceName === 'lookerStudio') {
+          cuenta = 'OAuth2 conectado';
+        }
       }
       
     } else if (statusCode === 403) {
