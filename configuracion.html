@@ -4,8 +4,6 @@
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -17,11 +15,13 @@
       --addocu-blue-light: #00AEEF;
       --addocu-green: #4CAF50;
       --addocu-green-light: #8BC34A;
-      --addocu-bg-light: #F8F9FA;
-      --addocu-text-primary: #202124;
-      --addocu-text-secondary: #5F6368;
-      --addocu-border: #E8EAED;
-      --addocu-shadow: 0 1px 3px rgba(60,64,67,0.3);
+      --addocu-bg: #FAFAFA;
+      --addocu-text-primary: #1A1A1A;
+      --addocu-text-secondary: #666666;
+      --addocu-text-muted: #999999;
+      --addocu-border: #E1E1E1;
+      --addocu-border-light: #F0F0F0;
+      --addocu-white: #FFFFFF;
       --addocu-gradient: linear-gradient(135deg, var(--addocu-blue-primary), var(--addocu-blue-light));
     }
 
@@ -32,8 +32,8 @@
     body { 
       padding: 0; 
       margin: 0; 
-      font-family: 'Google Sans', 'Roboto', sans-serif;
-      background: var(--addocu-bg-light);
+      font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--addocu-bg);
       color: var(--addocu-text-primary);
       line-height: 1.5;
       overflow: hidden;
@@ -42,156 +42,139 @@
     .sidebar-container {
       height: 100vh;
       overflow-y: auto;
-      background: white;
-      box-shadow: var(--addocu-shadow);
+      background: var(--addocu-white);
       width: 100%;
-      max-width: 350px;
+      max-width: 380px;
     }
     
     /* Header */
-    .addocu-header {
-      background: var(--addocu-gradient);
-      color: white;
-      padding: 24px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .addocu-header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 100px;
-      height: 100px;
-      background: rgba(255,255,255,0.1);
-      transform: rotate(45deg);
-      border-radius: 12px;
+    .header {
+      padding: 32px 24px 24px;
+      border-bottom: 1px solid var(--addocu-border-light);
     }
     
-    .addocu-logo {
+    .logo {
       display: flex;
       align-items: center;
       margin-bottom: 8px;
     }
 
-    .addocu-logo-icon {
-      width: 32px;
-      height: 32px;
-      background: white;
-      border-radius: 8px;
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--addocu-gradient);
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-right: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
     }
 
-    .addocu-logo-text {
-      font-size: 24px;
+    .logo-text {
+      font-size: 20px;
       font-weight: 600;
-      letter-spacing: -0.5px;
+      color: var(--addocu-text-primary);
+      letter-spacing: -0.3px;
     }
     
-    .addocu-tagline {
-      font-size: 13px;
-      opacity: 0.9;
-      font-weight: 300;
+    .tagline {
+      font-size: 14px;
+      color: var(--addocu-text-secondary);
+      font-weight: 400;
       margin: 0;
     }
 
     /* Content */
-    .sidebar-content {
-      padding: 20px;
+    .content {
+      padding: 24px;
     }
 
-    /* Setup Steps */
-    .setup-steps {
+    /* Section */
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section:last-child {
       margin-bottom: 24px;
-    }
-
-    .step-item {
-      display: flex;
-      align-items: center;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      background: var(--addocu-bg-light);
-      border: 1px solid var(--addocu-border);
-      transition: all 0.2s ease;
-    }
-
-    .step-item.completed {
-      background: #E8F5E8;
-      border-color: var(--addocu-green);
-    }
-
-    .step-number {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--addocu-text-secondary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      margin-right: 12px;
-      flex-shrink: 0;
-    }
-
-    .step-item.completed .step-number {
-      background: var(--addocu-green);
-    }
-
-    .step-text {
-      font-size: 13px;
-      color: var(--addocu-text-primary);
-      font-weight: 400;
-    }
-
-    /* API Configuration */
-    .config-section {
-      margin-bottom: 24px;
-      padding: 16px;
-      border-radius: 12px;
-      background: white;
-      border: 1px solid var(--addocu-border);
-      box-shadow: 0 1px 3px rgba(60,64,67,0.1);
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .section-icon {
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-      color: var(--addocu-blue-primary);
     }
 
     .section-title {
       font-size: 16px;
       font-weight: 500;
       color: var(--addocu-text-primary);
-      margin: 0;
+      margin: 0 0 16px 0;
     }
 
-    /* Input Fields */
+    .section-description {
+      font-size: 14px;
+      color: var(--addocu-text-secondary);
+      margin: 0 0 20px 0;
+      line-height: 1.4;
+    }
+
+    /* Status Steps */
+    .status-steps {
+      margin-bottom: 24px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+    }
+
+    .step-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--addocu-border);
+      border: 2px solid var(--addocu-border);
+      margin-right: 12px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .step.completed .step-indicator {
+      background: var(--addocu-green);
+      border-color: var(--addocu-green);
+    }
+
+    .step.completed .step-indicator::after {
+      content: '✓';
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .step-text {
+      font-size: 14px;
+      color: var(--addocu-text-primary);
+      font-weight: 400;
+    }
+
+    .step.completed .step-text {
+      color: var(--addocu-text-secondary);
+    }
+
+    /* Input Groups */
     .input-group {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .input-label {
       display: block;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--addocu-text-primary);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .input-field {
@@ -204,28 +187,25 @@
       border: 1px solid var(--addocu-border);
       border-radius: 8px;
       font-size: 14px;
+      font-family: inherit;
+      background: var(--addocu-white);
       transition: all 0.2s ease;
-      background: white;
     }
 
     .input-field input:focus {
       outline: none;
       border-color: var(--addocu-blue-primary);
-      box-shadow: 0 0 0 3px rgba(26, 93, 187, 0.1);
+      box-shadow: 0 0 0 3px rgba(26, 93, 187, 0.08);
     }
 
-    .input-field.error input {
-      border-color: #EA4335;
-    }
-
-    .input-field.success input {
-      border-color: var(--addocu-green);
+    .input-field input::placeholder {
+      color: var(--addocu-text-muted);
     }
 
     .input-help {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--addocu-text-secondary);
-      margin-top: 4px;
+      margin-top: 6px;
       line-height: 1.4;
     }
 
@@ -238,102 +218,26 @@
       text-decoration: underline;
     }
 
-    /* Buttons */
-    .btn-addocu {
-      background: var(--addocu-gradient);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      width: 100%;
-      font-family: inherit;
-    }
-
-    .btn-addocu:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(26, 93, 187, 0.3);
-    }
-
-    .btn-addocu:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .btn-secondary {
-      background: white;
-      border: 1px solid var(--addocu-border);
-      color: var(--addocu-text-primary);
-    }
-
-    .btn-secondary:hover {
-      background: var(--addocu-bg-light);
-      box-shadow: 0 2px 8px rgba(60,64,67,0.15);
-    }
-
-    .btn-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .btn-full {
-      grid-column: 1 / -1;
-    }
-
-    /* Status Cards */
-    .status-card {
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin: 12px 0;
-      border-left: 4px solid;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .status-success {
-      background: #E8F5E8;
-      border-color: var(--addocu-green);
-      color: #1B5E20;
-    }
-
-    .status-error {
-      background: #FFEAEA;
-      border-color: #EA4335;
-      color: #C5221F;
-    }
-
-    .status-warning {
-      background: #FFF8E1;
-      border-color: #FBBC04;
-      color: #E37400;
-    }
-
-    .status-info {
-      background: #E3F2FD;
-      border-color: var(--addocu-blue-light);
-      color: #1565C0;
-    }
-
     /* Connection Status */
+    .connection-status {
+      background: var(--addocu-bg);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
     .connection-item {
       display: flex;
       align-items: center;
       padding: 8px 0;
-      border-bottom: 1px solid var(--addocu-border);
+    }
+
+    .connection-item:first-child {
+      padding-top: 0;
     }
 
     .connection-item:last-child {
-      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .connection-indicator {
@@ -344,71 +248,196 @@
       flex-shrink: 0;
     }
 
+    .indicator-pending { background: var(--addocu-text-muted); }
     .indicator-success { background: var(--addocu-green); }
-    .indicator-error { background: #EA4335; }
-    .indicator-pending { background: var(--addocu-text-secondary); }
-    .indicator-pro { background: linear-gradient(135deg, #FFD700, #FFA500); }
-
-    .connection-details {
-      flex: 1;
-    }
+    .indicator-error { background: #DC2626; }
 
     .connection-name {
-      font-weight: 500;
-      font-size: 13px;
+      font-size: 14px;
+      font-weight: 400;
       color: var(--addocu-text-primary);
     }
 
-    .connection-status {
-      font-size: 11px;
+    .connection-details {
+      font-size: 13px;
       color: var(--addocu-text-secondary);
       margin-top: 2px;
     }
 
-    /* Freemium Badge */
-    .freemium-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 8px;
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      color: #8B4513;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-left: 8px;
+    /* Service Selection */
+    .service-grid {
+      display: grid;
+      gap: 8px;
     }
 
-    .free-badge {
-      background: linear-gradient(135deg, var(--addocu-green), var(--addocu-green-light));
+    .service-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: var(--addocu-bg);
+      border: 1px solid var(--addocu-border-light);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .service-item:hover {
+      border-color: var(--addocu-border);
+    }
+
+    .service-info {
+      flex: 1;
+    }
+
+    .service-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--addocu-text-primary);
+      margin-bottom: 2px;
+    }
+
+    .service-description {
+      font-size: 13px;
+      color: var(--addocu-text-secondary);
+    }
+
+    /* Toggle Switch */
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--addocu-border);
+      transition: 0.2s ease;
+      border-radius: 24px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 2px;
+      bottom: 2px;
+      background: white;
+      transition: 0.2s ease;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .toggle input:checked + .toggle-slider {
+      background: var(--addocu-blue-primary);
+    }
+
+    .toggle input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Buttons */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: var(--addocu-gradient);
       color: white;
     }
 
-    /* Checkboxes */
-    .checkbox-group {
-      margin: 12px 0;
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(26, 93, 187, 0.25);
     }
 
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      padding: 8px 0;
-    }
-
-    .checkbox-item input[type="checkbox"] {
-      margin-right: 12px;
-      transform: scale(1.2);
-      accent-color: var(--addocu-blue-primary);
-    }
-
-    .checkbox-label {
-      font-size: 13px;
+    .btn-secondary {
+      background: var(--addocu-white);
+      border: 1px solid var(--addocu-border);
       color: var(--addocu-text-primary);
-      cursor: pointer;
     }
 
-    /* Loading States */
+    .btn-secondary:hover {
+      background: var(--addocu-bg);
+      border-color: var(--addocu-blue-primary);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn-full {
+      grid-column: 1 / -1;
+    }
+
+    /* Status Messages */
+    .status-message {
+      padding: 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 14px;
+      line-height: 1.4;
+      border-left: 3px solid;
+    }
+
+    .status-success {
+      background: #F0F9F0;
+      border-color: var(--addocu-green);
+      color: #166534;
+    }
+
+    .status-error {
+      background: #FEF2F2;
+      border-color: #DC2626;
+      color: #991B1B;
+    }
+
+    .status-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    .status-info {
+      background: #EFF6FF;
+      border-color: var(--addocu-blue-light);
+      color: #1E40AF;
+    }
+
+    /* Loading */
     .loading {
       display: inline-flex;
       align-items: center;
@@ -429,7 +458,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Animations */
+    /* Fade animation */
     .fade-in {
       animation: fadeIn 0.3s ease-out;
     }
@@ -437,7 +466,7 @@
     @keyframes fadeIn {
       from { 
         opacity: 0; 
-        transform: translateY(8px); 
+        transform: translateY(4px); 
       }
       to { 
         opacity: 1; 
@@ -445,92 +474,10 @@
       }
     }
 
-    /* Quick Setup Flow */
-    .quick-setup {
-      background: linear-gradient(135deg, #F0F7FF, #E8F4FD);
-      border: 1px solid var(--addocu-blue-light);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .quick-setup h3 {
-      margin: 0 0 12px 0;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--addocu-blue-primary);
-    }
-
-    .quick-setup p {
-      margin: 0 0 16px 0;
-      font-size: 13px;
-      color: var(--addocu-text-secondary);
-      line-height: 1.4;
-    }
-
-    /* Service Toggles */
-    .service-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      margin: 16px 0;
-    }
-
-    .service-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: var(--addocu-bg-light);
-      border: 1px solid var(--addocu-border);
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .service-toggle:hover {
-      background: white;
-      box-shadow: 0 2px 8px rgba(60,64,67,0.1);
-    }
-
-    .service-info {
-      display: flex;
-      align-items: center;
-    }
-
-    .service-icon {
-      font-size: 16px;
-      margin-right: 8px;
-    }
-
-    .service-name {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--addocu-text-primary);
-    }
-
-    .service-description {
-      font-size: 11px;
-      color: var(--addocu-text-secondary);
-      margin-top: 2px;
-    }
-
-    
-
-
-/* Estilos para el borde redondeado */
-.slider.round {
-  border-radius: 28px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
     /* Responsive */
     @media (max-width: 400px) {
-      .sidebar-content {
-        padding: 16px;
+      .content {
+        padding: 20px;
       }
       
       .btn-group {
@@ -542,240 +489,148 @@
 <body>
   <div class="sidebar-container">
     <!-- Header -->
-    <div class="addocu-header">
-      <div class="addocu-logo">
-        <div class="addocu-logo-icon">
-          <span style="color: var(--addocu-blue-primary); font-weight: 600; font-size: 16px;">A</span>
-        </div>
-        <span class="addocu-logo-text">Addocu</span>
+    <div class="header">
+      <div class="logo">
+        <div class="logo-icon">A</div>
+        <span class="logo-text">Addocu</span>
       </div>
-      <p class="addocu-tagline">Audit and Document Your Google Marketing Stack in Seconds</p>
+      <p class="tagline">Audit and Document Your Google Marketing Stack in Seconds</p>
     </div>
 
-    <div class="sidebar-content">
-      <!-- Quick Setup (First Time) -->
-      <div id="quick-setup" class="quick-setup" style="display: none;">
-        <h3>🚀 Configuración Rápida</h3>
-        <p>¿Primera vez usando Addocu? Te guiamos en 2 minutos para auditar tu stack de marketing completo.</p>
-        <button class="btn-addocu" onclick="startQuickSetup()">
-          <i class="material-icons" style="margin-right: 8px; font-size: 18px;">play_arrow</i>
-          Comenzar Setup
-        </button>
-      </div>
-
+    <div class="content">
       <!-- Setup Progress -->
-      <div class="setup-steps">
-      <div class="step-item" id="step-1">
-      <div class="step-number">1</div>
-      <div class="step-text">Autorizar OAuth2 (automático en primera ejecución)</div>
-      </div>
-      <div class="step-item" id="step-2">
-      <div class="step-number">2</div>
-      <div class="step-text">Verificar conexión con las APIs</div>
-      </div>
-      <div class="step-item" id="step-3">
-      <div class="step-number">3</div>
-      <div class="step-text">Ejecutar primera auditoría</div>
-      </div>
-      </div>
-
-      <!-- OAuth2 Configuration -->
-      <div class="config-section">
-        <div class="section-header">
-          <i class="material-icons section-icon">security</i>
-          <h3 class="section-title">Configuración de Autenticación</h3>
-          <span class="freemium-badge free-badge">OAuth2</span>
+      <div class="section">
+        <div class="section-title">Setup Progress</div>
+        <div class="status-steps">
+          <div class="step completed" id="step-oauth">
+            <div class="step-indicator"></div>
+            <div class="step-text">OAuth authorization ready</div>
+          </div>
+          <div class="step" id="step-connection">
+            <div class="step-indicator"></div>
+            <div class="step-text">Test API connections</div>
+          </div>
+          <div class="step" id="step-audit">
+            <div class="step-indicator"></div>
+            <div class="step-text">Run first audit</div>
+          </div>
         </div>
+      </div>
 
-        <div class="status-card status-info">
-          <strong>🔒 Autenticación OAuth2 Automática</strong><br>
-          • Google Analytics 4: OAuth2 nativo (sin configuración)<br>
-          • Google Tag Manager: OAuth2 nativo (sin configuración)<br>
-          • Looker Studio: API Key opcional
-        </div>
-
-        <div class="status-card status-success">
-          <strong>✅ Todos los servicios disponibles</strong><br>
-          GA4 y GTM funcionan con OAuth2 automático. Looker Studio requiere API Key opcional.
+      <!-- Authentication -->
+      <div class="section">
+        <div class="section-title">Authentication</div>
+        <div class="section-description">
+          Google Analytics 4 and Tag Manager work with OAuth2 (automatic). Looker Studio requires an optional API key.
         </div>
 
         <div class="input-group">
-          <label class="input-label">API Key para Looker Studio (Opcional)</label>
-          <div class="input-field" id="api-key-field">
+          <label class="input-label">Looker Studio API Key (Optional)</label>
+          <div class="input-field">
             <input 
               type="password" 
               id="api-key" 
-              placeholder="AIzaSyC-... (solo para Looker Studio)" 
-              maxlength="100"
+              placeholder="AIzaSyC... (only needed for Looker Studio)" 
               autocomplete="off"
             >
           </div>
           <div class="input-help">
-            Solo necesario para auditorías de Looker Studio.<br>
             <a href="https://console.cloud.google.com/apis/credentials" target="_blank">
-              🔗 Crear API Key en Google Cloud Console
+              Create API Key in Google Cloud Console
             </a>
           </div>
         </div>
 
-        <div class="checkbox-group">
-          <div class="checkbox-item">
-            <input type="checkbox" id="show-api-key">
-            <label class="checkbox-label" for="show-api-key">Mostrar API Key</label>
-          </div>
-        </div>
-
         <div class="btn-group">
-          <button class="btn-addocu btn-secondary" onclick="testConnection()">
-            <i class="material-icons" style="margin-right: 6px; font-size: 16px;">router</i>
-            Probar OAuth2
+          <button class="btn btn-secondary" onclick="testConnection()">
+            Test Connection
           </button>
-          <button class="btn-addocu" onclick="saveApiKey()">
-            <i class="material-icons" style="margin-right: 6px; font-size: 16px;">save</i>
-            Guardar Looker
+          <button class="btn btn-primary" onclick="saveConfiguration()">
+            Save Configuration
           </button>
         </div>
       </div>
 
       <!-- Connection Status -->
-      <div class="config-section" id="connection-section" style="display: none;">
-        <div class="section-header">
-          <i class="material-icons section-icon">lan</i>
-          <h3 class="section-title">Estado de Conexión</h3>
-        </div>
-
-        <div id="connection-results">
+      <div class="section" id="connection-section" style="display: none;">
+        <div class="section-title">Connection Status</div>
+        <div class="connection-status">
           <div class="connection-item">
-            <div class="connection-indicator indicator-pending"></div>
-            <div class="connection-details">
+            <div class="connection-indicator indicator-pending" id="ga4-indicator"></div>
+            <div>
               <div class="connection-name">Google Analytics 4</div>
-              <div class="connection-status">OAuth2 Automático</div>
+              <div class="connection-details" id="ga4-status">OAuth2 automatic</div>
             </div>
           </div>
           <div class="connection-item">
-            <div class="connection-indicator indicator-pending"></div>
-            <div class="connection-details">
+            <div class="connection-indicator indicator-pending" id="gtm-indicator"></div>
+            <div>
               <div class="connection-name">Google Tag Manager</div>
-              <div class="connection-status">OAuth2 Automático</div>
+              <div class="connection-details" id="gtm-status">OAuth2 automatic</div>
             </div>
           </div>
           <div class="connection-item">
-            <div class="connection-indicator indicator-pending"></div>
-            <div class="connection-details">
+            <div class="connection-indicator indicator-pending" id="looker-indicator"></div>
+            <div>
               <div class="connection-name">Looker Studio</div>
-              <div class="connection-status">API Key Opcional</div>
+              <div class="connection-details" id="looker-status">API key optional</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Services Configuration -->
-      <div class="config-section">
-  <div class="section-header">
-    <i class="material-icons section-icon">build</i>
-    <h3 class="section-title">Servicios a Auditar</h3>
-  </div>
-
-  <div class="service-grid">
-    <div class="service-toggle">
-      <div class="service-info">
-        <span class="service-icon">📊</span>
-        <div>
-          <div class="service-name">
-            Google Analytics 4
-            <span class="freemium-badge free-badge">Free</span>
+      <!-- Services -->
+      <div class="section">
+        <div class="section-title">Services to Audit</div>
+        <div class="service-grid">
+          <div class="service-item">
+            <div class="service-info">
+              <div class="service-name">Google Analytics 4</div>
+              <div class="service-description">Properties, dimensions, metrics, data streams</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="service-ga4" checked>
+              <span class="toggle-slider"></span>
+            </label>
           </div>
-          <div class="service-description">Propiedades, dimensiones, métricas, flujos de datos</div>
-        </div>
-      </div>
-      <div class="switch">
-        <label>
-          <input type="checkbox" id="service-ga4" checked>
-          <span class="lever"></span>
-        </label>
-      </div>
-    </div>
 
-    <div class="service-toggle">
-      <div class="service-info">
-        <span class="service-icon">🏷️</span>
-        <div>
-          <div class="service-name">
-            Google Tag Manager
-            <span class="freemium-badge free-badge">Gratis</span>
+          <div class="service-item">
+            <div class="service-info">
+              <div class="service-name">Google Tag Manager</div>
+              <div class="service-description">Tags, triggers, variables, workspaces</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="service-gtm" checked>
+              <span class="toggle-slider"></span>
+            </label>
           </div>
-          <div class="service-description">Tags, triggers, variables, workspaces</div>
-        </div>
-      </div>
-      <div class="switch">
-        <label>
-          <input type="checkbox" id="service-gtm" checked>
-          <span class="lever"></span>
-        </label>
-      </div>
-    </div>
 
-    <div class="service-toggle">
-      <div class="service-info">
-        <span class="service-icon">📈</span>
-        <div>
-          <div class="service-name">
-            Looker Studio
-            <span class="freemium-badge free-badge">Gratis</span>
-          </div>
-          <div class="service-description">Informes, fuentes de datos, permisos</div>
-        </div>
-      </div>
-      <div class="switch">
-        <label>
-          <input type="checkbox" id="service-looker" checked>
-          <span class="lever"></span>
-        </label>
-      </div>
-    </div>
-  </div>
-</div>
-
-      <!-- GTM Filters -->
-      <div class="config-section" id="gtm-filters-section" style="display: none;">
-        <div class="section-header">
-          <i class="material-icons section-icon">filter_list</i>
-          <h3 class="section-title">Filtros GTM</h3>
-        </div>
-
-        <div class="input-group">
-          <label class="input-label">Contenedores Específicos (opcional)</label>
-          <div class="input-field">
-            <input 
-              type="text" 
-              id="gtm-filter" 
-              placeholder="GTM-123456, GTM-789012..."
-            >
-          </div>
-          <div class="input-help">
-            Deja vacío para auditar todos los contenedores accesibles
+          <div class="service-item">
+            <div class="service-info">
+              <div class="service-name">Looker Studio</div>
+              <div class="service-description">Reports, data sources, permissions</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="service-looker" checked>
+              <span class="toggle-slider"></span>
+            </label>
           </div>
         </div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="config-section">
-        <div class="section-header">
-          <i class="material-icons section-icon">play_circle</i>
-          <h3 class="section-title">Ejecutar Auditoría</h3>
-        </div>
-
-        <button class="btn-addocu btn-full" onclick="runFullAudit()" id="audit-button">
-          <i class="material-icons" style="margin-right: 8px; font-size: 18px;">search</i>
-          Auditar Stack de Marketing
+      <!-- Actions -->
+      <div class="section">
+        <div class="section-title">Run Audit</div>
+        <button class="btn btn-primary btn-full" onclick="runAudit()" id="audit-button">
+          Audit Marketing Stack
         </button>
 
-        <div class="btn-group" style="margin-top: 12px;">
-          <button class="btn-addocu btn-secondary" onclick="runGA4Only()">
-            📊 Solo GA4
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="runGA4Only()">
+            GA4 Only
           </button>
-          <button class="btn-addocu btn-secondary" onclick="testConnection()">
-            🔍 Probar Conexión
+          <button class="btn btn-secondary" onclick="testConnection()">
+            Test APIs
           </button>
         </div>
       </div>
@@ -785,15 +640,13 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     // ========================================
-    // CONFIGURATION & STATE
+    // STATE MANAGEMENT
     // ========================================
     
     let appState = {
       apiKey: '',
-      isConfigured: false,
       connectionStatus: {
         ga4: 'pending',
         gtm: 'pending', 
@@ -803,9 +656,7 @@
         ga4: true,
         gtm: true,
         looker: true
-      },
-      isFirstTime: true,
-      isPro: true
+      }
     };
 
     // ========================================
@@ -813,157 +664,75 @@
     // ========================================
     
     document.addEventListener('DOMContentLoaded', function() {
-      initializeApp();
+      loadConfiguration();
       setupEventListeners();
     });
 
-    function initializeApp() {
-      loadUserConfiguration();
-      checkProStatus();
-      updateUI();
-    }
-
     function setupEventListeners() {
-      // API Key events
-      document.getElementById('api-key').addEventListener('input', validateApiKey);
-      document.getElementById('show-api-key').addEventListener('change', toggleApiKeyVisibility);
-      
       // Service toggles
-      document.getElementById('service-gtm').addEventListener('change', handleServiceToggle);
-      document.getElementById('service-looker').addEventListener('change', handleServiceToggle);
-      
-      // Form validation
-      document.getElementById('api-key').addEventListener('blur', validateApiKeyFormat);
+      document.getElementById('service-ga4').addEventListener('change', updateServices);
+      document.getElementById('service-gtm').addEventListener('change', updateServices);
+      document.getElementById('service-looker').addEventListener('change', updateServices);
     }
 
-    // ========================================
-    // CONFIGURATION MANAGEMENT
-    // ========================================
-    
-    function loadUserConfiguration() {
-      showStatus('Cargando configuración...', 'info');
+    function loadConfiguration() {
+      showStatus('Loading configuration...', 'info');
       
       google.script.run
         .withSuccessHandler(function(config) {
-          // OAuth2 siempre está listo
-          appState.isConfigured = true;
-          updateStepStatus(1, true);
-          
           if (config && config.lookerApiKey) {
             appState.apiKey = config.lookerApiKey;
             document.getElementById('api-key').value = config.lookerApiKey;
-            appState.isFirstTime = false;
-          } else {
-            // Primera vez o sin API Key de Looker Studio
-            if (!config || !config.userEmail) {
-              appState.isFirstTime = true;
-              document.getElementById('quick-setup').style.display = 'block';
-            }
           }
           
-          if (config && config.gtmFilter) {
-            document.getElementById('gtm-filter').value = config.gtmFilter;
-          }
-          
-          updateUI();
           hideStatus();
-          
-          // Auto-probar conexión al cargar
-          setTimeout(() => testConnection(), 1500);
+          // Auto-test connection
+          setTimeout(() => testConnection(), 1000);
         })
         .withFailureHandler(function(error) {
-          showStatus(`Error cargando configuración: ${error.message}`, 'error');
+          showStatus(`Error loading configuration: ${error.message}`, 'error');
         })
         .getUserConfig();
     }
 
-    function checkProStatus() {
-      // Open source - all features available
-      appState.isPro = true;
-    }
-
     // ========================================
-    // API KEY MANAGEMENT
+    // CONFIGURATION
     // ========================================
     
-    function validateApiKey() {
-      const apiKey = document.getElementById('api-key').value.trim();
-      const field = document.getElementById('api-key-field');
-      
-      if (apiKey.length === 0) {
-        field.className = 'input-field';
-        return false;
-      }
-      
-      if (apiKey.length < 20 || !apiKey.startsWith('AIza')) {
-        field.className = 'input-field error';
-        return false;
-      }
-      
-      field.className = 'input-field success';
-      return true;
-    }
-
-    function validateApiKeyFormat() {
-      const isValid = validateApiKey();
+    function saveConfiguration() {
       const apiKey = document.getElementById('api-key').value.trim();
       
-      if (apiKey.length > 0 && !isValid) {
-        showStatus('⚠️ Formato de API Key inválido. Debe comenzar con "AIza" y tener al menos 20 caracteres.', 'warning');
-      }
-    }
-
-    function toggleApiKeyVisibility() {
-      const apiKeyInput = document.getElementById('api-key');
-      const showCheckbox = document.getElementById('show-api-key');
-      
-      apiKeyInput.type = showCheckbox.checked ? 'text' : 'password';
-    }
-
-    function saveApiKey() {
-      const apiKey = document.getElementById('api-key').value.trim();
-      
-      // API Key es opcional para Looker Studio
-      if (apiKey && !validateApiKey()) {
-        showStatus('❌ Por favor introduce una API Key válida para Looker Studio', 'error');
+      if (apiKey && (apiKey.length < 20 || !apiKey.startsWith('AIza'))) {
+        showStatus('Please enter a valid API key for Looker Studio', 'error');
         return;
       }
       
-      showButtonLoading('Guardando configuración...');
+      showButtonLoading('audit-button', 'Saving configuration...');
       
       const config = {
-        lookerApiKey: apiKey, // Solo para Looker Studio
-        gtmFilter: document.getElementById('gtm-filter').value.trim()
+        lookerApiKey: apiKey
       };
       
       google.script.run
         .withSuccessHandler(function(response) {
           if (response.success) {
             appState.apiKey = apiKey;
-            appState.isConfigured = true;
-            updateStepStatus(1, true);
-            
             if (apiKey) {
-              showStatus('✅ API Key de Looker Studio guardada correctamente', 'success');
+              showStatus('Looker Studio API key saved successfully', 'success');
             } else {
-              showStatus('✅ Configuración guardada (OAuth2 listo para GA4/GTM)', 'success');
+              showStatus('Configuration saved (OAuth2 ready for GA4/GTM)', 'success');
             }
             
-            if (appState.isFirstTime) {
-              document.getElementById('quick-setup').style.display = 'none';
-              appState.isFirstTime = false;
-            }
-            
-            // Auto-test connection after save
+            // Auto-test after save
             setTimeout(() => testConnection(), 1000);
           } else {
-            showStatus(`❌ Error: ${response.error}`, 'error');
+            showStatus(`Error: ${response.error}`, 'error');
           }
-          hideButtonLoading();
+          hideButtonLoading('audit-button', 'Audit Marketing Stack');
         })
         .withFailureHandler(function(error) {
-          showStatus(`❌ Error guardando: ${error.message}`, 'error');
-          hideButtonLoading();
+          showStatus(`Error saving: ${error.message}`, 'error');
+          hideButtonLoading('audit-button', 'Audit Marketing Stack');
         })
         .guardarConfiguracionUsuario(config);
     }
@@ -973,134 +742,88 @@
     // ========================================
     
     function testConnection() {
-      // Mostrar siempre la sección de estado de conexión
       document.getElementById('connection-section').style.display = 'block';
-      showConnectionTesting();
       
-      showStatus('🔒 Probando OAuth2 para GA4/GTM y API Key para Looker Studio...', 'info');
+      // Reset indicators
+      resetConnectionStatus();
+      showStatus('Testing API connections...', 'info');
       
       google.script.run
         .withSuccessHandler(function(results) {
-          console.log('Resultados del diagnóstico:', results);
           updateConnectionResults(results);
+          updateStepStatus('connection', true);
           
-          // Verificar conexiones OAuth2 (GA4/GTM)
-          const oauth2Results = results.filter(r => {
-            const servicio = Array.isArray(r) ? r[0] : r.servicio;
-            return servicio.includes('Analytics') || servicio.includes('Tag Manager');
-          });
-          
-          const oauth2Success = oauth2Results.every(r => {
+          const hasErrors = results.some(r => {
             const estado = Array.isArray(r) ? r[2] : r.estado;
-            return estado === 'OK';
+            return estado !== 'OK';
           });
           
-          if (oauth2Success) {
-            updateStepStatus(2, true);
-            showStatus('✅ OAuth2 funcionando correctamente para GA4 y GTM', 'success');
+          if (!hasErrors) {
+            showStatus('All connections working correctly', 'success');
           } else {
-            showStatus('⚠️ Error en OAuth2. El script necesita autorización en la primera ejecución.', 'warning');
-          }
-          
-          // Informar sobre Looker Studio
-          const lookerResult = results.find(r => {
-            const servicio = Array.isArray(r) ? r[0] : r.servicio;
-            return servicio.includes('Looker');
-          });
-          
-          if (lookerResult) {
-            const estado = Array.isArray(lookerResult) ? lookerResult[2] : lookerResult.estado;
-            if (estado === 'OK') {
-              showStatus('✅ & Looker Studio también configurado correctamente', 'success');
-            }
+            showStatus('Some services need configuration', 'warning');
           }
         })
         .withFailureHandler(function(error) {
-          console.error('Error en la prueba de conexión:', error);
-          showStatus(`❌ Error en la prueba: ${error.message}`, 'error');
-          resetConnectionResults();
+          showStatus(`Connection test failed: ${error.message}`, 'error');
+          resetConnectionStatus();
         })
         .diagnosticarConexionesCompleto();
     }
 
-    function showConnectionTesting() {
-      const indicators = document.querySelectorAll('.connection-indicator');
-      const statuses = document.querySelectorAll('.connection-status');
+    function resetConnectionStatus() {
+      const indicators = ['ga4-indicator', 'gtm-indicator', 'looker-indicator'];
+      const statuses = ['ga4-status', 'gtm-status', 'looker-status'];
       
-      indicators.forEach(ind => {
-        ind.className = 'connection-indicator indicator-pending';
+      indicators.forEach(id => {
+        document.getElementById(id).className = 'connection-indicator indicator-pending';
       });
       
-      statuses.forEach(status => {
-        status.textContent = 'Probando...';
+      statuses.forEach(id => {
+        const element = document.getElementById(id);
+        if (id === 'ga4-status' || id === 'gtm-status') {
+          element.textContent = 'Testing...';
+        } else {
+          element.textContent = 'API key optional';
+        }
       });
     }
 
     function updateConnectionResults(results) {
-      // Mapeo de nombres de API a índices en la UI
       const serviceMapping = {
-        'Google Analytics 4 Admin API': { index: 0, displayName: 'Google Analytics 4' },
-        'Google Tag Manager API': { index: 1, displayName: 'Google Tag Manager' },
-        'Looker Studio API': { index: 2, displayName: 'Looker Studio' }
+        'Google Analytics 4 Admin API': 'ga4',
+        'Google Tag Manager API': 'gtm',
+        'Looker Studio API': 'looker'
       };
       
-      // Convertir arrays a objetos si es necesario
       const formattedResults = results.map(result => {
         if (Array.isArray(result)) {
-          // Resultado en formato array [servicio, cuenta, estado, mensaje, usuario, timestamp]
           return {
             servicio: result[0],
             cuenta: result[1],
             estado: result[2],
-            mensaje: result[3],
-            usuario: result[4],
-            timestamp: result[5]
+            mensaje: result[3]
           };
         }
-        return result; // Ya es objeto
+        return result;
       });
       
-      console.log('Resultados de conexión recibidos:', formattedResults);
-      
       formattedResults.forEach(result => {
-        const mapping = serviceMapping[result.servicio];
-        if (mapping) {
-          const indicator = document.querySelectorAll('.connection-indicator')[mapping.index];
-          const status = document.querySelectorAll('.connection-status')[mapping.index];
-          
-          console.log(`Actualizando ${mapping.displayName}: ${result.estado}`);
+        const serviceKey = serviceMapping[result.servicio];
+        if (serviceKey) {
+          const indicator = document.getElementById(`${serviceKey}-indicator`);
+          const status = document.getElementById(`${serviceKey}-status`);
           
           if (result.estado === 'OK') {
             indicator.className = 'connection-indicator indicator-success';
-            status.textContent = result.cuenta || 'Conectado correctamente';
-            
-            // Update app state
-            if (result.servicio.includes('Analytics')) appState.connectionStatus.ga4 = 'success';
-            if (result.servicio.includes('Tag Manager')) appState.connectionStatus.gtm = 'success';
-            if (result.servicio.includes('Looker')) appState.connectionStatus.looker = 'success';
-          } else if (result.estado === 'REQUIRES_PRO') {
-            indicator.className = 'connection-indicator indicator-pro';
-            status.textContent = '📎 Requiere Addocu Pro';
+            status.textContent = result.cuenta || 'Connected';
+            appState.connectionStatus[serviceKey] = 'success';
           } else {
             indicator.className = 'connection-indicator indicator-error';
-            status.textContent = result.mensaje || 'Error de conexión';
+            status.textContent = result.mensaje || 'Connection error';
+            appState.connectionStatus[serviceKey] = 'error';
           }
-        } else {
-          console.warn('Servicio no encontrado en el mapeo:', result.servicio);
         }
-      });
-    }
-
-    function resetConnectionResults() {
-      const indicators = document.querySelectorAll('.connection-indicator');
-      const statuses = document.querySelectorAll('.connection-status');
-      
-      indicators.forEach(ind => {
-        ind.className = 'connection-indicator indicator-pending';
-      });
-      
-      statuses.forEach(status => {
-        status.textContent = 'No probado';
       });
     }
 
@@ -1108,186 +831,73 @@
     // SERVICE MANAGEMENT
     // ========================================
     
-    function handleServiceToggle(event) {
-      const serviceId = event.target.id.replace('service-', '');
-      const isEnabled = event.target.checked;
-      
-      if (!appState.isPro && (serviceId === 'gtm' || serviceId === 'looker')) {
-        event.preventDefault();
-        event.target.checked = false;
-        upgradeProModal();
-        return;
-      }
-      
-      appState.services[serviceId] = isEnabled;
-      
-      // Show/hide GTM filters
-      if (serviceId === 'gtm') {
-        const gtmSection = document.getElementById('gtm-filters-section');
-        gtmSection.style.display = isEnabled ? 'block' : 'none';
-      }
-      
-      updateUI();
+    function updateServices() {
+      appState.services.ga4 = document.getElementById('service-ga4').checked;
+      appState.services.gtm = document.getElementById('service-gtm').checked;
+      appState.services.looker = document.getElementById('service-looker').checked;
     }
 
     // ========================================
     // AUDIT EXECUTION
     // ========================================
     
-    function runFullAudit() {
+    function runAudit() {
+      updateServices();
+      
       const enabledServices = Object.entries(appState.services)
         .filter(([key, value]) => value)
         .map(([key]) => key);
       
       if (enabledServices.length === 0) {
-        showStatus('❌ Selecciona al menos un servicio para auditar', 'error');
+        showStatus('Select at least one service to audit', 'error');
         return;
       }
       
-      // GA4 siempre disponible con OAuth2
-      if (enabledServices.includes('ga4')) {
-        showStatus('🚀 Iniciando auditoría con OAuth2...', 'info');
-      }
-      
-      showAuditProgress(enabledServices);
+      showButtonLoading('audit-button', `Auditing ${enabledServices.length} services...`);
       
       google.script.run
         .withSuccessHandler(function(response) {
           if (response.success) {
-            updateStepStatus(3, true);
-            showStatus('✅ Auditoría completada exitosamente', 'success');
+            updateStepStatus('audit', true);
+            showStatus('Audit completed successfully', 'success');
           } else {
-            showStatus(`❌ Error en la auditoría: ${response.error}`, 'error');
+            showStatus(`Audit error: ${response.error}`, 'error');
           }
-          hideAuditProgress();
+          hideButtonLoading('audit-button', 'Audit Marketing Stack');
         })
         .withFailureHandler(function(error) {
-          showStatus(`❌ Error ejecutando auditoría: ${error.message}`, 'error');
-          hideAuditProgress();
+          showStatus(`Audit failed: ${error.message}`, 'error');
+          hideButtonLoading('audit-button', 'Audit Marketing Stack');
         })
         .ejecutarAuditoriaCompleta(enabledServices);
     }
 
     function runGA4Only() {
-      showButtonLoading('Auditando GA4 con OAuth2...');
+      showButtonLoading('audit-button', 'Auditing GA4...');
       
       google.script.run
         .withSuccessHandler(function(response) {
           if (response.success) {
-            showStatus('✅ Auditoría de GA4 completada', 'success');
-            updateStepStatus(3, true);
+            showStatus('GA4 audit completed', 'success');
+            updateStepStatus('audit', true);
           } else {
-            showStatus(`❌ Error: ${response.error}`, 'error');
+            showStatus(`Error: ${response.error}`, 'error');
           }
-          hideButtonLoading();
+          hideButtonLoading('audit-button', 'Audit Marketing Stack');
         })
         .withFailureHandler(function(error) {
-          showStatus(`❌ Error: ${error.message}`, 'error');
-          hideButtonLoading();
+          showStatus(`Error: ${error.message}`, 'error');
+          hideButtonLoading('audit-button', 'Audit Marketing Stack');
         })
         .sincronizarGA4();
     }
 
     // ========================================
-    // FREEMIUM FEATURES
+    // UI HELPERS
     // ========================================
     
-    function upgradeProModal() {
-      const modal = document.createElement('div');
-      modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        padding: 20px;
-      `;
-      
-      modal.innerHTML = `
-        <div style="
-          background: white;
-          border-radius: 12px;
-          padding: 24px;
-          max-width: 300px;
-          text-align: center;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        ">
-          <div style="font-size: 48px; margin-bottom: 16px;">💎</div>
-          <h3 style="margin: 0 0 12px 0; color: var(--addocu-blue-primary);">Actualizar a Pro</h3>
-          <p style="margin: 0 0 20px 0; color: var(--addocu-text-secondary); font-size: 14px;">
-            Desbloquea GTM y Looker Studio por solo €9/mes
-          </p>
-          <button onclick="window.open('https://addocu.com/upgrade', '_blank')" style="
-            background: var(--addocu-gradient);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 8px;
-          ">
-            Actualizar a Pro
-          </button>
-          <button onclick="this.closest('[style*=fixed]').remove()" style="
-            background: none;
-            border: none;
-            color: var(--addocu-text-secondary);
-            font-size: 13px;
-            cursor: pointer;
-          ">
-            Tal vez después
-          </button>
-        </div>
-      `;
-      
-      document.body.appendChild(modal);
-    }
-
-    // ========================================
-    // QUICK SETUP FLOW
-    // ========================================
-    
-    function startQuickSetup() {
-      document.getElementById('quick-setup').style.display = 'none';
-      
-      showStatus('👋 ¡Bienvenido a Addocu! OAuth2 está listo para GA4/GTM. Opcionalmente configura Looker Studio.', 'info');
-      
-      // Marcar paso 1 como completado (OAuth2 está listo)
-      updateStepStatus(1, true);
-      
-      // Probar conexión automáticamente
-      setTimeout(() => testConnection(), 1000);
-    }
-
-    // ========================================
-    // UI UPDATES
-    // ========================================
-    
-    function updateUI() {
-      // Update Pro features visibility
-      const proButtons = document.querySelectorAll('#pro-features-btn');
-      proButtons.forEach(btn => {
-        btn.textContent = appState.isPro ? '⚙️ Configuración' : '💎 Funciones Pro';
-      });
-      
-      // Update service toggles based on Pro status
-      if (!appState.isPro) {
-        document.getElementById('service-gtm').checked = false;
-        document.getElementById('service-looker').checked = false;
-        document.getElementById('gtm-filters-section').style.display = 'none';
-      }
-    }
-
-    function updateStepStatus(stepNumber, completed) {
-      const step = document.getElementById(`step-${stepNumber}`);
+    function updateStepStatus(stepId, completed) {
+      const step = document.getElementById(`step-${stepId}`);
       if (completed) {
         step.classList.add('completed');
       } else {
@@ -1295,15 +905,11 @@
       }
     }
 
-    // ========================================
-    // STATUS & MESSAGING
-    // ========================================
-    
     function showStatus(message, type) {
       const statusDiv = document.getElementById('status-messages');
       const statusCard = document.createElement('div');
-      statusCard.className = `status-card status-${type} fade-in`;
-      statusCard.innerHTML = message;
+      statusCard.className = `status-message status-${type} fade-in`;
+      statusCard.textContent = message;
       
       statusDiv.innerHTML = '';
       statusDiv.appendChild(statusCard);
@@ -1321,8 +927,8 @@
       document.getElementById('status-messages').innerHTML = '';
     }
 
-    function showButtonLoading(text) {
-      const button = document.getElementById('audit-button');
+    function showButtonLoading(buttonId, text) {
+      const button = document.getElementById(buttonId);
       button.innerHTML = `
         <div class="loading">
           <div class="spinner"></div>
@@ -1332,21 +938,10 @@
       button.disabled = true;
     }
 
-    function hideButtonLoading() {
-      const button = document.getElementById('audit-button');
-      button.innerHTML = `
-        <i class="material-icons" style="margin-right: 8px; font-size: 18px;">search</i>
-        Auditar Stack de Marketing
-      `;
+    function hideButtonLoading(buttonId, originalText) {
+      const button = document.getElementById(buttonId);
+      button.innerHTML = originalText;
       button.disabled = false;
-    }
-
-    function showAuditProgress(services) {
-      showButtonLoading(`Auditando ${services.length} servicios...`);
-    }
-
-    function hideAuditProgress() {
-      hideButtonLoading();
     }
   </script>
 </body>
