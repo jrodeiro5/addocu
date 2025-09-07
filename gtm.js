@@ -193,12 +193,18 @@ function obtenerTodosLosContenedoresGTM() {
 }
 
 /**
- * Obtiene el workspace por defecto de un contenedor
+ * Obtiene los workspaces especificados de un contenedor (con filtros)
  */
-function obtenerDefaultWorkspaceGTM(container) {
+function obtenerWorkspacesGTM(container) {
   try {
     const auth = getAuthConfig('gtm');
     const options = { method: 'GET', headers: auth.headers, muteHttpExceptions: true };
+    
+    // Obtener filtros de workspaces desde configuración
+    const userProperties = PropertiesService.getUserProperties();
+    const filtrosWorkspaces = userProperties.getProperty('ADDOCU_GTM_WORKSPACES_FILTER') || '';
+    const workspacesObjetivo = filtrosWorkspaces ? 
+      filtrosWorkspaces.split(',').map(w => w.trim()).filter(w => w.length > 0) : [];
     
     const workspacesUrl = `https://tagmanager.googleapis.com/tagmanager/v2/accounts/${container.accountId}/containers/${container.containerId}/workspaces`;
     const workspacesResponse = fetchWithRetry(workspacesUrl, options, 'GTM-Workspaces');
@@ -207,24 +213,56 @@ function obtenerDefaultWorkspaceGTM(container) {
       throw new Error(`No se encontraron workspaces para ${container.name}`);
     }
 
-    // Buscar el workspace por defecto (nombre "Default Workspace")
-    let defaultWorkspace = workspacesResponse.workspace.find(ws => 
-      ws.name === 'Default Workspace' || ws.name.toLowerCase().includes('default')
-    );
+    let workspacesSeleccionados = [];
     
-    // Si no encuentra el default, usar el primero
-    if (!defaultWorkspace) {
-      defaultWorkspace = workspacesResponse.workspace[0];
-      logWarning('GTM', `No se encontró 'Default Workspace' en ${container.name}, usando: ${defaultWorkspace.name}`);
+    if (workspacesObjetivo.length > 0) {
+      // Aplicar filtros de workspaces
+      logEvent('GTM', `Aplicando filtro de workspaces para ${container.name}: ${workspacesObjetivo.join(', ')}`);
+      
+      workspacesSeleccionados = workspacesResponse.workspace.filter(ws => {
+        return workspacesObjetivo.some(filtro => 
+          ws.name.toLowerCase().includes(filtro.toLowerCase()) ||
+          filtro.toLowerCase().includes(ws.name.toLowerCase())
+        );
+      });
+      
+      if (workspacesSeleccionados.length === 0) {
+        logWarning('GTM', `No se encontraron workspaces que coincidan con el filtro en ${container.name}. Usando Default Workspace.`);
+        // Fallback al default si no hay coincidencias
+        const defaultWorkspace = workspacesResponse.workspace.find(ws => 
+          ws.name === 'Default Workspace' || ws.name.toLowerCase().includes('default')
+        ) || workspacesResponse.workspace[0];
+        workspacesSeleccionados = [defaultWorkspace];
+      }
+    } else {
+      // Sin filtros: usar solo el workspace por defecto
+      const defaultWorkspace = workspacesResponse.workspace.find(ws => 
+        ws.name === 'Default Workspace' || ws.name.toLowerCase().includes('default')
+      );
+      
+      if (defaultWorkspace) {
+        workspacesSeleccionados = [defaultWorkspace];
+      } else {
+        workspacesSeleccionados = [workspacesResponse.workspace[0]];
+        logWarning('GTM', `No se encontró 'Default Workspace' en ${container.name}, usando: ${workspacesResponse.workspace[0].name}`);
+      }
     }
 
-    logEvent('GTM', `🔧 Workspace seleccionado: ${defaultWorkspace.name} en ${container.name}`);
-    return defaultWorkspace;
+    logEvent('GTM', `🔧 Workspaces seleccionados en ${container.name}: ${workspacesSeleccionados.map(w => w.name).join(', ')}`);
+    return workspacesSeleccionados;
     
   } catch (error) {
-    logError('GTM', `Error obteniendo workspace para ${container.name}: ${error.message}`);
+    logError('GTM', `Error obteniendo workspaces para ${container.name}: ${error.message}`);
     throw error;
   }
+}
+
+/**
+ * Obtiene el workspace por defecto de un contenedor (funcionalidad legacy)
+ */
+function obtenerDefaultWorkspaceGTM(container) {
+  const workspaces = obtenerWorkspacesGTM(container);
+  return workspaces[0]; // Retorna el primer workspace seleccionado
 }
 
 // =================================================================
@@ -239,19 +277,33 @@ function recolectarDatosDeContenedores(contenedores, errores) {
     try {
       logEvent('GTM', `📦 [${procesados + 1}/${contenedores.length}] Procesando: ${container.name}`);
       
-      const workspace = obtenerDefaultWorkspaceGTM(container);
-      if (!workspace) {
-        throw new Error(`No se pudo obtener workspace para ${container.name}`);
+      const workspaces = obtenerWorkspacesGTM(container);
+      if (!workspaces || workspaces.length === 0) {
+        throw new Error(`No se pudieron obtener workspaces para ${container.name}`);
       }
 
-      const recursos = obtenerRecursosDeWorkspace(workspace, container);
-      
-      // Agregar datos con logging detallado
-      logEvent('GTM', `📊 ${container.name}: ${recursos.tags.length} tags, ${recursos.variables.length} variables, ${recursos.triggers.length} triggers`);
-      
-      datos.tags.push(...recursos.tags);
-      datos.variables.push(...recursos.variables);
-      datos.triggers.push(...recursos.triggers);
+      // Procesar todos los workspaces seleccionados
+      for (const workspace of workspaces) {
+        try {
+          logEvent('GTM', `🔧 Procesando workspace: ${workspace.name} en ${container.name}`);
+          
+          const recursos = obtenerRecursosDeWorkspace(workspace, container);
+          
+          // Agregar datos con logging detallado
+          logEvent('GTM', `📊 ${container.name}/${workspace.name}: ${recursos.tags.length} tags, ${recursos.variables.length} variables, ${recursos.triggers.length} triggers`);
+          
+          datos.tags.push(...recursos.tags);
+          datos.variables.push(...recursos.variables);
+          datos.triggers.push(...recursos.triggers);
+          
+          Utilities.sleep(500); // Pausa entre workspaces
+          
+        } catch (workspaceError) {
+          const errorMsg = `${container.name}/${workspace.name}: ${workspaceError.message}`;
+          errores.push(errorMsg);
+          logError('GTM', `❌ Error procesando workspace: ${errorMsg}`);
+        }
+      }
       
       procesados++;
       Utilities.sleep(1000); // Pausa para no saturar la API

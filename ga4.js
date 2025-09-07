@@ -124,6 +124,18 @@ function obtenerCuentasYPropiedadesGA4() {
     const auth = getAuthConfig('ga4');
     const options = { method: 'GET', headers: auth.headers, muteHttpExceptions: true };
     
+    // Obtener filtros de propiedades desde configuración
+    const userProperties = PropertiesService.getUserProperties();
+    const filtrosPropiedades = userProperties.getProperty('ADDOCU_GA4_PROPERTIES_FILTER') || '';
+    const propiedadesObjetivo = filtrosPropiedades ? 
+      filtrosPropiedades.split(',').map(p => p.trim()).filter(p => p.length > 0) : [];
+    
+    if (propiedadesObjetivo.length > 0) {
+      logEvent('GA4', `Aplicando filtro de propiedades: ${propiedadesObjetivo.join(', ')}`);
+    } else {
+      logEvent('GA4', 'Sin filtros de propiedades - obteniendo todas las propiedades accesibles');
+    }
+    
     // Obtener cuentas usando REST API
     const accountsUrl = 'https://analyticsadmin.googleapis.com/v1alpha/accounts?pageSize=200';
     const accountsResponse = fetchWithRetry(accountsUrl, options, 'GA4-Accounts');
@@ -142,7 +154,26 @@ function obtenerCuentasYPropiedadesGA4() {
         
         if (propertiesResponse.properties) {
           for (const property of propertiesResponse.properties) {
-            allProperties.push({ property, account });
+            // Aplicar filtro si existe
+            if (propiedadesObjetivo.length > 0) {
+              const propertyId = property.name.split('/').pop();
+              const fullPropertyName = `properties/${propertyId}`;
+              
+              // Verificar si esta propiedad está en la lista de filtros
+              const estaEnFiltro = propiedadesObjetivo.some(filtro => 
+                filtro === fullPropertyName || 
+                filtro === propertyId || 
+                filtro === property.name
+              );
+              
+              if (estaEnFiltro) {
+                allProperties.push({ property, account });
+                logEvent('GA4', `Propiedad incluida por filtro: ${property.displayName} (${fullPropertyName})`);
+              }
+            } else {
+              // Sin filtros, incluir todas
+              allProperties.push({ property, account });
+            }
           }
         }
         
@@ -152,6 +183,13 @@ function obtenerCuentasYPropiedadesGA4() {
         logWarning('GA4', `No se pudieron obtener propiedades para la cuenta ${account.displayName}: ${e.message}`);
       }
     }
+    
+    if (propiedadesObjetivo.length > 0) {
+      logEvent('GA4', `Filtrado aplicado: ${allProperties.length} propiedades de ${propiedadesObjetivo.length} especificadas`);
+    } else {
+      logEvent('GA4', `Sin filtros: ${allProperties.length} propiedades encontradas`);
+    }
+    
     return allProperties;
   } catch (error) {
     logError('GA4', `Error obteniendo cuentas y propiedades GA4: ${error.message}`);

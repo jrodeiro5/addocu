@@ -109,6 +109,10 @@ function leerConfiguracionUsuario() {
       lookerApiKey: userProperties.getProperty('ADDOCU_LOOKER_API_KEY') || '', // Mantenido para compatibilidad
       gtmFilter: userProperties.getProperty('ADDOCU_GTM_FILTER') || '',
       
+      // Advanced Filters
+      ga4Properties: userProperties.getProperty('ADDOCU_GA4_PROPERTIES_FILTER') || '',
+      gtmWorkspaces: userProperties.getProperty('ADDOCU_GTM_WORKSPACES_FILTER') || '',
+      
       // Service Configuration
       syncFrequency: userProperties.getProperty('ADDOCU_SYNC_FREQUENCY') || 'manual',
       requestTimeout: parseInt(userProperties.getProperty('ADDOCU_REQUEST_TIMEOUT')) || 60,
@@ -148,7 +152,7 @@ function leerConfiguracionUsuario() {
 }
 
 /**
- * Guarda la configuración del usuario (OAuth2 + API Key opcional de Looker).
+ * Guarda la configuración del usuario (OAuth2 + API Key opcional de Looker + Filtros).
  * @param {Object} config - Objeto con la configuración a guardar.
  * @returns {Object} Resultado de la operación.
  */
@@ -167,6 +171,23 @@ function guardarConfiguracionUsuario(config) {
     
     if (config.gtmFilter !== undefined) {
       userProperties.setProperty('ADDOCU_GTM_FILTER', config.gtmFilter);
+    }
+    
+    // Guardar filtros avanzados
+    if (config.ga4Properties !== undefined) {
+      if (config.ga4Properties.trim()) {
+        userProperties.setProperty('ADDOCU_GA4_PROPERTIES_FILTER', config.ga4Properties.trim());
+      } else {
+        userProperties.deleteProperty('ADDOCU_GA4_PROPERTIES_FILTER');
+      }
+    }
+    
+    if (config.gtmWorkspaces !== undefined) {
+      if (config.gtmWorkspaces.trim()) {
+        userProperties.setProperty('ADDOCU_GTM_WORKSPACES_FILTER', config.gtmWorkspaces.trim());
+      } else {
+        userProperties.deleteProperty('ADDOCU_GTM_WORKSPACES_FILTER');
+      }
     }
     
     // Marcar como no primer uso (OAuth2 siempre está listo)
@@ -188,6 +209,87 @@ function guardarConfiguracionUsuario(config) {
  */
 function probarConexionCompleta() {
   return diagnosticarConexionesCompleto();
+}
+
+/**
+ * Ejecuta una auditoría con filtros avanzados.
+ * @param {Object} auditConfig - Configuración de auditoría con servicios y filtros.
+ * @returns {Object} Resultado de la auditoría.
+ */
+function ejecutarAuditoriaConFiltros(auditConfig) {
+  const startTime = Date.now();
+  logEvent('AUDIT_FILTERED', `Iniciando auditoría con filtros: ${JSON.stringify(auditConfig)}`);
+  
+  try {
+    const servicios = auditConfig.services || [];
+    const filtros = auditConfig.filters || {};
+    const resultados = {};
+    let totalRegistros = 0;
+    
+    // Guardar filtros en configuración del usuario
+    if (filtros.ga4Properties || filtros.gtmWorkspaces) {
+      const userProperties = PropertiesService.getUserProperties();
+      if (filtros.ga4Properties && filtros.ga4Properties.length > 0) {
+        userProperties.setProperty('ADDOCU_GA4_PROPERTIES_FILTER', filtros.ga4Properties.join(','));
+      }
+      if (filtros.gtmWorkspaces && filtros.gtmWorkspaces.length > 0) {
+        userProperties.setProperty('ADDOCU_GTM_WORKSPACES_FILTER', filtros.gtmWorkspaces.join(','));
+      }
+      logEvent('AUDIT_FILTERED', `Filtros guardados: GA4=${filtros.ga4Properties?.length || 0}, GTM=${filtros.gtmWorkspaces?.length || 0}`);
+    }
+    
+    // Auditar GA4 con filtros
+    if (servicios.includes('ga4')) {
+      logEvent('AUDIT_FILTERED', 'Iniciando auditoría GA4 con filtros de propiedades');
+      const resultadoGA4 = sincronizarGA4Core();
+      resultados.ga4 = resultadoGA4;
+      totalRegistros += resultadoGA4.registros || 0;
+    }
+    
+    // Auditar GTM con filtros
+    if (servicios.includes('gtm')) {
+      logEvent('AUDIT_FILTERED', 'Iniciando auditoría GTM con filtros de workspaces');
+      const resultadoGTM = sincronizarGTMCore();
+      resultados.gtm = resultadoGTM;
+      totalRegistros += resultadoGTM.registros || 0;
+    }
+    
+    // Auditar Looker Studio
+    if (servicios.includes('looker')) {
+      logEvent('AUDIT_FILTERED', 'Iniciando auditoría Looker Studio');
+      const resultadoLooker = sincronizarLookerStudioCore();
+      resultados.looker = resultadoLooker;
+      totalRegistros += resultadoLooker.registros || 0;
+    }
+    
+    // Generar dashboard ejecutivo
+    generarDashboardEjecutivo(resultados);
+    
+    const duration = Date.now() - startTime;
+    logEvent('AUDIT_FILTERED', `Auditoría con filtros completada en ${Math.round(duration / 1000)}s. Total: ${totalRegistros} registros`);
+    
+    flushLogs();
+    
+    return {
+      success: true,
+      servicios: servicios,
+      filtros: filtros,
+      resultados: resultados,
+      totalRegistros: totalRegistros,
+      duracion: duration
+    };
+    
+  } catch (e) {
+    const duration = Date.now() - startTime;
+    logError('AUDIT_FILTERED', `Error en auditoría con filtros: ${e.message}`);
+    flushLogs();
+    
+    return {
+      success: false,
+      error: e.message,
+      duracion: duration
+    };
+  }
 }
 
 /**

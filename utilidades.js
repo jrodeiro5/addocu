@@ -75,6 +75,8 @@ function getUserConfig() {
   return {
     lookerApiKey: userProperties.getProperty('ADDOCU_LOOKER_API_KEY') || '',
     gtmFilter: userProperties.getProperty('ADDOCU_GTM_FILTER') || '',
+    ga4Properties: userProperties.getProperty('ADDOCU_GA4_PROPERTIES_FILTER') || '',
+    gtmWorkspaces: userProperties.getProperty('ADDOCU_GTM_WORKSPACES_FILTER') || '',
     requestTimeout: parseInt(userProperties.getProperty('ADDOCU_REQUEST_TIMEOUT')) || 60,
     logLevel: userProperties.getProperty('ADDOCU_LOG_LEVEL') || 'INFO',
     userEmail: Session.getActiveUser().getEmail()
@@ -172,6 +174,50 @@ function obtenerContenedoresObjetivoDesdeConfig() {
     
   logEvent('GTM', `Filtro de contenedores configurado: ${containers.join(', ')}`);
   return containers;
+}
+
+/**
+ * Lee la configuración de workspaces GTM desde las propiedades del usuario.
+ * @returns {Array<string>} Un array con los nombres de los workspaces.
+ */
+function obtenerWorkspacesObjetivoDesdeConfig() {
+  const userProperties = PropertiesService.getUserProperties();
+  const value = userProperties.getProperty('ADDOCU_GTM_WORKSPACES_FILTER');
+
+  if (!value || value.trim() === '') {
+    logEvent('GTM', 'No se ha definido filtro de workspaces. Se usará el workspace por defecto.');
+    return []; // Array vacío = workspace por defecto
+  }
+  
+  // Limpiar y validar formato de workspaces
+  const workspaces = value.split(',')
+    .map(name => name.trim())
+    .filter(name => name.length > 0);
+    
+  logEvent('GTM', `Filtro de workspaces configurado: ${workspaces.join(', ')}`);
+  return workspaces;
+}
+
+/**
+ * Lee la configuración de propiedades GA4 desde las propiedades del usuario.
+ * @returns {Array<string>} Un array con los IDs de las propiedades.
+ */
+function obtenerPropiedadesGA4ObjetivoDesdeConfig() {
+  const userProperties = PropertiesService.getUserProperties();
+  const value = userProperties.getProperty('ADDOCU_GA4_PROPERTIES_FILTER');
+
+  if (!value || value.trim() === '') {
+    logEvent('GA4', 'No se ha definido filtro de propiedades. Se auditarán todas las propiedades accesibles.');
+    return []; // Array vacío = todas las propiedades
+  }
+  
+  // Limpiar y validar formato de propiedades GA4
+  const properties = value.split(',')
+    .map(id => id.trim())
+    .filter(id => id.length > 0);
+    
+  logEvent('GA4', `Filtro de propiedades configurado: ${properties.join(', ')}`);
+  return properties;
 }
 
 // =================================================================
