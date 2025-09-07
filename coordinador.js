@@ -92,9 +92,24 @@ function openHtmlDashboard() {
   }
 }
 
+/**
+ * Alias para openHtmlDashboard() - llamado desde la sidebar.
+ */
+function abrirDashboard() {
+  return openHtmlDashboard();
+}
+
 // =================================================================
 // COMUNICACIÓN CON LA SIDEBAR V2.0
 // =================================================================
+
+/**
+ * Alias para leerConfiguracionUsuario() - usado por la sidebar.
+ * @returns {Object} Configuración del usuario.
+ */
+function getUserConfig() {
+  return leerConfiguracionUsuario();
+}
 
 /**
  * Lee la configuración completa del usuario actual (OAuth2 + Looker API Key).

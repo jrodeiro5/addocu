@@ -593,6 +593,141 @@
       }
     }
 
+    /* SUCCESS MODAL */
+    .success-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .success-modal.show {
+      display: flex;
+    }
+
+    .success-modal-content {
+      background: var(--addocu-white);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transform: scale(0.9);
+      animation: modalPopIn 0.3s ease-out forwards;
+    }
+
+    @keyframes modalPopIn {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--addocu-green), var(--addocu-green-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 20px;
+      animation: successPulse 0.6s ease-out;
+    }
+
+    @keyframes successPulse {
+      0% { transform: scale(0) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(180deg); }
+      100% { transform: scale(1) rotate(360deg); }
+    }
+
+    .success-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--addocu-text-primary);
+      margin-bottom: 12px;
+    }
+
+    .success-message {
+      font-size: 14px;
+      color: var(--addocu-text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .success-stats {
+      background: var(--addocu-bg);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .success-stat {
+      text-align: center;
+    }
+
+    .success-stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--addocu-green);
+      margin-bottom: 4px;
+    }
+
+    .success-stat-label {
+      font-size: 11px;
+      color: var(--addocu-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .success-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .success-btn {
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .success-btn.primary {
+      background: var(--addocu-green);
+      color: white;
+    }
+
+    .success-btn.primary:hover {
+      background: #3d9142;
+      transform: translateY(-1px);
+    }
+
+    .success-btn.secondary {
+      background: var(--addocu-bg);
+      color: var(--addocu-text-primary);
+      border: 1px solid var(--addocu-border);
+    }
+
+    .success-btn.secondary:hover {
+      background: var(--addocu-border-light);
+    }
+
     /* Responsive */
     @media (max-width: 400px) {
       .content {
@@ -600,6 +735,10 @@
       }
       
       .btn-group {
+        grid-template-columns: 1fr;
+      }
+      
+      .success-actions {
         grid-template-columns: 1fr;
       }
     }
@@ -636,6 +775,17 @@
         </div>
       </div>
 
+      <!-- Run Audit - Moved here for better UX flow -->
+      <div class="section">
+        <div class="section-title">Run Audit</div>
+        <div class="section-description">
+          Ready to audit your Google Marketing Stack? This will extract all configurations and generate a comprehensive report.
+        </div>
+        <button class="btn btn-primary btn-full" onclick="runAudit()" id="audit-button">
+          Audit Marketing Stack
+        </button>
+      </div>
+
       <!-- Authentication -->
       <div class="section">
         <div class="section-title">Authentication</div>
@@ -660,11 +810,8 @@
         </div>
 
         <div class="btn-group">
-          <button class="btn btn-secondary" onclick="testConnection()">
-            Test Connection
-          </button>
-          <button class="btn btn-primary" onclick="saveConfiguration()">
-            Save Configuration
+          <button class="btn btn-secondary btn-full" onclick="testConnection()">
+            Test All Connections
           </button>
         </div>
       </div>
@@ -783,15 +930,8 @@
         </div>
       </div>
 
-      <!-- Actions -->
-      <div class="section">
-        <div class="section-title">Run Audit</div>
-        <button class="btn btn-primary btn-full" onclick="runAudit()" id="audit-button">
-          Audit Marketing Stack
-        </button>
-
-        <!-- Future Features -->
-        <div class="future-section">
+      <!-- Future Features -->
+      <div class="future-section">
           <div class="future-header">
             <div class="future-icon">★</div>
             <h4 class="future-title">Pro Version Coming Soon</h4>
@@ -830,6 +970,41 @@
 
       <!-- Status Messages -->
       <div id="status-messages"></div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="success-modal" id="success-modal">
+    <div class="success-modal-content">
+      <div class="success-icon">✅</div>
+      <h3 class="success-title">Auditoría Completada</h3>
+      <p class="success-message">
+        Tu Google Marketing Stack ha sido auditado exitosamente. Todos los datos han sido extraídos y organizados en hojas de cálculo.
+      </p>
+      
+      <div class="success-stats">
+        <div class="success-stat">
+          <div class="success-stat-value" id="modal-assets-count">0</div>
+          <div class="success-stat-label">Assets</div>
+        </div>
+        <div class="success-stat">
+          <div class="success-stat-value" id="modal-sheets-count">0</div>
+          <div class="success-stat-label">Hojas</div>
+        </div>
+        <div class="success-stat">
+          <div class="success-stat-value" id="modal-time">0s</div>
+          <div class="success-stat-label">Tiempo</div>
+        </div>
+      </div>
+      
+      <div class="success-actions">
+        <button class="success-btn secondary" onclick="closeSuccessModal()">
+          Cerrar
+        </button>
+        <button class="success-btn primary" onclick="openDashboard()">
+          Ver Dashboard
+        </button>
+      </div>
     </div>
   </div>
 
@@ -937,42 +1112,16 @@
     }
 
     // ========================================
-    // CONFIGURATION
+    // CONFIGURATION - Simplified for OAuth2-only setup
     // ========================================
     
     function saveConfiguration() {
-      const apiKey = document.getElementById('api-key').value.trim();
+      // Configuration is now automatic with OAuth2
+      // This function is kept for backwards compatibility
+      showStatus('Configuration is automatic with OAuth2', 'success');
       
-      // API key validation no longer needed for OAuth2-only setup
-      // Legacy support maintained for backwards compatibility
-      
-      updateFilters();
-      showButtonLoading('audit-button', 'Saving configuration...');
-      
-      const config = {
-        lookerApiKey: apiKey,
-        ga4Properties: appState.filters.ga4Properties,
-        gtmWorkspaces: appState.filters.gtmWorkspaces
-      };
-      
-      google.script.run
-        .withSuccessHandler(function(response) {
-          if (response.success) {
-            appState.apiKey = apiKey;
-            showStatus('Configuration saved (OAuth2 ready for all services)', 'success');
-            
-            // Auto-test after save
-            setTimeout(() => testConnection(), 1000);
-          } else {
-            showStatus(`Error: ${response.error}`, 'error');
-          }
-          hideButtonLoading('audit-button', 'Audit Marketing Stack');
-        })
-        .withFailureHandler(function(error) {
-          showStatus(`Error saving: ${error.message}`, 'error');
-          hideButtonLoading('audit-button', 'Audit Marketing Stack');
-        })
-        .guardarConfiguracionUsuario(config);
+      // Auto-test after message
+      setTimeout(() => testConnection(), 1000);
     }
 
     // ========================================
@@ -1099,6 +1248,7 @@
         return;
       }
       
+      const startTime = Date.now();
       showButtonLoading('audit-button', `Auditing ${enabledServices.length} services...`);
       
       // Prepare audit configuration with filters
@@ -1114,6 +1264,17 @@
         .withSuccessHandler(function(response) {
           if (response.success) {
             updateStepStatus('audit', true);
+            
+            // Calculate execution time
+            const executionTime = Math.round((Date.now() - startTime) / 1000);
+            
+            // Show success modal with stats
+            showSuccessModal({
+              assetsCount: response.totalAssets || 'N/A',
+              sheetsCount: response.sheetsCreated || enabledServices.length,
+              executionTime: executionTime
+            });
+            
             showStatus('Audit completed successfully', 'success');
           } else {
             showStatus(`Audit error: ${response.error}`, 'error');
@@ -1178,6 +1339,58 @@
       button.innerHTML = originalText;
       button.disabled = false;
     }
+
+    // ========================================
+    // SUCCESS MODAL FUNCTIONS
+    // ========================================
+    
+    function showSuccessModal(stats) {
+      // Update modal stats
+      document.getElementById('modal-assets-count').textContent = stats.assetsCount;
+      document.getElementById('modal-sheets-count').textContent = stats.sheetsCount;
+      document.getElementById('modal-time').textContent = stats.executionTime + 's';
+      
+      // Show modal
+      const modal = document.getElementById('success-modal');
+      modal.classList.add('show');
+      
+      // Auto-close after 10 seconds
+      setTimeout(() => {
+        closeSuccessModal();
+      }, 10000);
+    }
+    
+    function closeSuccessModal() {
+      const modal = document.getElementById('success-modal');
+      modal.classList.remove('show');
+    }
+    
+    function openDashboard() {
+      closeSuccessModal();
+      
+      // Try to open dashboard in current tab or new tab
+      try {
+        // For Google Sheets environment, try to create a new dashboard
+        google.script.run
+          .withSuccessHandler(function() {
+            showStatus('Dashboard opened successfully', 'success');
+          })
+          .withFailureHandler(function() {
+            showStatus('Dashboard available in your spreadsheet', 'success');
+          })
+          .abrirDashboard();
+      } catch (error) {
+        showStatus('Dashboard data is now available in your spreadsheet', 'success');
+      }
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const modal = document.getElementById('success-modal');
+      if (event.target === modal) {
+        closeSuccessModal();
+      }
+    });
   </script>
 </body>
 </html>
