@@ -4,7 +4,7 @@
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Addocu - Analytics Dashboard</title>
+  <title>Addocu v3.0 - Analytics Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.2/apexcharts.min.js"></script>
   <style>
@@ -213,35 +213,17 @@
     }
 
     .logo-icon {
-      width: 120px;
+      width: 36px;
       height: 36px;
+      background: linear-gradient(135deg, var(--addocu-blue-primary) 0%, var(--addocu-green) 100%);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 16px;
+      color: white;
+      font-weight: 600;
       box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.95);
-      position: relative;
-    }
-
-    .logo-icon img {
-      width: 110px;
-      height: 32px;
-      object-fit: contain;
-      transition: opacity 0.3s ease;
-    }
-
-    /* Responsive logo */
-    @media (max-width: 768px) {
-      .logo-icon {
-        width: 100px;
-        height: 32px;
-      }
-      .logo-icon img {
-        width: 90px;
-        height: 28px;
-      }
     }
 
     .logo-text {
@@ -932,7 +914,7 @@
   <div id="loader">
     <div class="loader-content">
       <div class="loader-icon">🚀</div>
-      <div class="loader-text">Addocu</div>
+      <div class="loader-text">Addocu v3.0 Community</div>
       <div class="loader-subtext">Inicializando dashboard analytics...</div>
     </div>
   </div>
@@ -941,20 +923,9 @@
   <div class="header" id="header" style="display: none;">
     <div class="header-content">
       <div class="logo">
-        <div class="logo-icon">
-          <img src="./docs/addocu_logo-removebg-preview.png" 
-               alt="Addocu" 
-               onerror="
-                 this.onerror=null;
-                 if(this.src.includes('./docs/')) {
-                   this.src='docs/addocu_logo-removebg-preview.png';
-                 } else if(this.src.includes('docs/addocu_logo-removebg-preview.png')) {
-                   this.src='../docs/addocu_logo-removebg-preview.png';
-                 } else {
-                   this.style.display='none';
-                   this.parentNode.innerHTML='<div style=\"color: var(--addocu-blue-primary); font-weight: 700; font-size: 20px; text-align: center; width: 100%;\">Addocu</div>';
-                 }
-               " />
+        <div class="logo-icon">A</div>
+        <div>
+          <div class="logo-text">Addocu v3.0 Community</div>
         </div>
       </div>
       
