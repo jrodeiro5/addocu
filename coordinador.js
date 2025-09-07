@@ -79,7 +79,7 @@ function openHtmlDashboard() {
       .setWidth(1400)
       .setHeight(850);
     
-    SpreadsheetApp.getUi().showModalDialog(html, '📊 Dashboard Interactivo Addocu');
+    SpreadsheetApp.getUi().showModalDialog(html, 'Dashboard - Addocu');
     
     logEvent('DASHBOARD', 'Dashboard HTML abierto');
   } catch (e) {
