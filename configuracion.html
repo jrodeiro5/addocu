@@ -23,6 +23,7 @@
       --addocu-border-light: #F0F0F0;
       --addocu-white: #FFFFFF;
       --addocu-gradient: linear-gradient(135deg, var(--addocu-blue-primary), var(--addocu-blue-light));
+      --addocu-future: linear-gradient(135deg, #8B5CF6, #A78BFA);
     }
 
     * {
@@ -301,6 +302,61 @@
       color: var(--addocu-text-secondary);
     }
 
+    /* Advanced Filters */
+    .filters-container {
+      background: var(--addocu-bg);
+      border: 1px solid var(--addocu-border-light);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .filters-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .filters-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--addocu-text-primary);
+    }
+
+    .filters-toggle {
+      background: none;
+      border: none;
+      color: var(--addocu-blue-primary);
+      font-size: 13px;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    .filters-content {
+      display: none;
+    }
+
+    .filters-content.expanded {
+      display: block;
+    }
+
+    .filter-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .filter-example {
+      background: var(--addocu-white);
+      border: 1px solid var(--addocu-border-light);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--addocu-text-muted);
+      margin-top: 4px;
+    }
+
     /* Toggle Switch */
     .toggle {
       position: relative;
@@ -401,6 +457,69 @@
 
     .btn-full {
       grid-column: 1 / -1;
+    }
+
+    /* Future Features */
+    .future-section {
+      background: linear-gradient(135deg, #F8F4FF, #F3F1FF);
+      border: 1px solid #E5E2FF;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .future-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .future-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--addocu-future);
+      border-radius: 4px;
+      margin-right: 8px;
+      font-size: 12px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .future-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #6B46C1;
+      margin: 0;
+    }
+
+    .future-description {
+      font-size: 13px;
+      color: var(--addocu-text-secondary);
+      margin: 0 0 16px 0;
+      line-height: 1.4;
+    }
+
+    .future-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .future-item {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: var(--addocu-text-primary);
+    }
+
+    .future-bullet {
+      width: 4px;
+      height: 4px;
+      background: #8B5CF6;
+      border-radius: 50%;
+      margin-right: 8px;
+      flex-shrink: 0;
     }
 
     /* Status Messages */
@@ -616,6 +735,53 @@
             </label>
           </div>
         </div>
+
+        <!-- Advanced Filters -->
+        <div class="filters-container">
+          <div class="filters-header">
+            <span class="filters-title">Advanced Filters</span>
+            <button class="filters-toggle" onclick="toggleFilters()">
+              <span id="filters-toggle-text">Show filters</span>
+            </button>
+          </div>
+          <div class="filters-content" id="filters-content">
+            <div class="filter-grid">
+              <div class="input-group">
+                <label class="input-label">GA4 Properties (Optional)</label>
+                <div class="input-field">
+                  <input 
+                    type="text" 
+                    id="ga4-properties" 
+                    placeholder="properties/123456789, properties/987654321"
+                  >
+                </div>
+                <div class="input-help">
+                  Specific property IDs to audit. Leave empty to audit all accessible properties.
+                </div>
+                <div class="filter-example">
+                  Example: properties/123456789, properties/987654321
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">GTM Workspaces (Optional)</label>
+                <div class="input-field">
+                  <input 
+                    type="text" 
+                    id="gtm-workspaces" 
+                    placeholder="Default Workspace, Marketing Team"
+                  >
+                </div>
+                <div class="input-help">
+                  Specific workspace names to audit. Leave empty to audit all workspaces.
+                </div>
+                <div class="filter-example">
+                  Example: Default Workspace, Marketing Team, Development
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Actions -->
@@ -625,13 +791,41 @@
           Audit Marketing Stack
         </button>
 
-        <div class="btn-group">
-          <button class="btn btn-secondary" onclick="runGA4Only()">
-            GA4 Only
-          </button>
-          <button class="btn btn-secondary" onclick="testConnection()">
-            Test APIs
-          </button>
+        <!-- Future Features -->
+        <div class="future-section">
+          <div class="future-header">
+            <div class="future-icon">★</div>
+            <h4 class="future-title">Pro Version Coming Soon</h4>
+          </div>
+          <p class="future-description">
+            We're working on advanced features to make Addocu even more powerful for professional teams.
+          </p>
+          <div class="future-list">
+            <div class="future-item">
+              <div class="future-bullet"></div>
+              <span>BigQuery integration for data warehouse audits</span>
+            </div>
+            <div class="future-item">
+              <div class="future-bullet"></div>
+              <span>Google Ads campaigns and conversion tracking</span>
+            </div>
+            <div class="future-item">
+              <div class="future-bullet"></div>
+              <span>AI-powered analysis and optimization suggestions</span>
+            </div>
+            <div class="future-item">
+              <div class="future-bullet"></div>
+              <span>Scheduled audits and automated monitoring</span>
+            </div>
+            <div class="future-item">
+              <div class="future-bullet"></div>
+              <span>Google Search Console performance insights</span>
+            </div>
+            <div class="future-item">
+              <div class="future-bullet"></div>
+              <span>Multi-team collaboration and permissions</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -656,6 +850,10 @@
         ga4: true,
         gtm: true,
         looker: true
+      },
+      filters: {
+        ga4Properties: '',
+        gtmWorkspaces: ''
       }
     };
 
@@ -673,6 +871,10 @@
       document.getElementById('service-ga4').addEventListener('change', updateServices);
       document.getElementById('service-gtm').addEventListener('change', updateServices);
       document.getElementById('service-looker').addEventListener('change', updateServices);
+      
+      // Filter inputs
+      document.getElementById('ga4-properties').addEventListener('input', updateFilters);
+      document.getElementById('gtm-workspaces').addEventListener('input', updateFilters);
     }
 
     function loadConfiguration() {
@@ -685,6 +887,17 @@
             document.getElementById('api-key').value = config.lookerApiKey;
           }
           
+          // Load saved filters
+          if (config && config.ga4Properties) {
+            appState.filters.ga4Properties = config.ga4Properties;
+            document.getElementById('ga4-properties').value = config.ga4Properties;
+          }
+          
+          if (config && config.gtmWorkspaces) {
+            appState.filters.gtmWorkspaces = config.gtmWorkspaces;
+            document.getElementById('gtm-workspaces').value = config.gtmWorkspaces;
+          }
+          
           hideStatus();
           // Auto-test connection
           setTimeout(() => testConnection(), 1000);
@@ -693,6 +906,35 @@
           showStatus(`Error loading configuration: ${error.message}`, 'error');
         })
         .getUserConfig();
+    }
+
+    // ========================================
+    // FILTERS MANAGEMENT
+    // ========================================
+    
+    function toggleFilters() {
+      const content = document.getElementById('filters-content');
+      const toggleText = document.getElementById('filters-toggle-text');
+      
+      if (content.classList.contains('expanded')) {
+        content.classList.remove('expanded');
+        toggleText.textContent = 'Show filters';
+      } else {
+        content.classList.add('expanded');
+        toggleText.textContent = 'Hide filters';
+      }
+    }
+
+    function updateFilters() {
+      appState.filters.ga4Properties = document.getElementById('ga4-properties').value.trim();
+      appState.filters.gtmWorkspaces = document.getElementById('gtm-workspaces').value.trim();
+    }
+
+    function parseCommaSeparatedValues(input) {
+      if (!input) return [];
+      return input.split(',')
+        .map(item => item.trim())
+        .filter(item => item.length > 0);
     }
 
     // ========================================
@@ -707,10 +949,13 @@
         return;
       }
       
+      updateFilters();
       showButtonLoading('audit-button', 'Saving configuration...');
       
       const config = {
-        lookerApiKey: apiKey
+        lookerApiKey: apiKey,
+        ga4Properties: appState.filters.ga4Properties,
+        gtmWorkspaces: appState.filters.gtmWorkspaces
       };
       
       google.script.run
@@ -718,7 +963,7 @@
           if (response.success) {
             appState.apiKey = apiKey;
             if (apiKey) {
-              showStatus('Looker Studio API key saved successfully', 'success');
+              showStatus('Configuration saved successfully', 'success');
             } else {
               showStatus('Configuration saved (OAuth2 ready for GA4/GTM)', 'success');
             }
@@ -843,6 +1088,7 @@
     
     function runAudit() {
       updateServices();
+      updateFilters();
       
       const enabledServices = Object.entries(appState.services)
         .filter(([key, value]) => value)
@@ -854,6 +1100,15 @@
       }
       
       showButtonLoading('audit-button', `Auditing ${enabledServices.length} services...`);
+      
+      // Prepare audit configuration with filters
+      const auditConfig = {
+        services: enabledServices,
+        filters: {
+          ga4Properties: parseCommaSeparatedValues(appState.filters.ga4Properties),
+          gtmWorkspaces: parseCommaSeparatedValues(appState.filters.gtmWorkspaces)
+        }
+      };
       
       google.script.run
         .withSuccessHandler(function(response) {
@@ -869,27 +1124,7 @@
           showStatus(`Audit failed: ${error.message}`, 'error');
           hideButtonLoading('audit-button', 'Audit Marketing Stack');
         })
-        .ejecutarAuditoriaCompleta(enabledServices);
-    }
-
-    function runGA4Only() {
-      showButtonLoading('audit-button', 'Auditing GA4...');
-      
-      google.script.run
-        .withSuccessHandler(function(response) {
-          if (response.success) {
-            showStatus('GA4 audit completed', 'success');
-            updateStepStatus('audit', true);
-          } else {
-            showStatus(`Error: ${response.error}`, 'error');
-          }
-          hideButtonLoading('audit-button', 'Audit Marketing Stack');
-        })
-        .withFailureHandler(function(error) {
-          showStatus(`Error: ${error.message}`, 'error');
-          hideButtonLoading('audit-button', 'Audit Marketing Stack');
-        })
-        .sincronizarGA4();
+        .ejecutarAuditoriaConFiltros(auditConfig);
     }
 
     // ========================================
