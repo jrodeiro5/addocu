@@ -4,112 +4,104 @@
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Addocu v3.0 - Analytics Dashboard</title>
+  <title>Addocu - Analytics Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.2/apexcharts.min.js"></script>
   <style>
     :root {
-      /* Addocu Brand Colors - Preservados */
+      /* Addocu Brand Colors */
       --addocu-blue-primary: #1A5DBB;
       --addocu-blue-light: #00AEEF;
       --addocu-green: #4CAF50;
       --addocu-green-light: #8BC34A;
       
-      /* Modern Dashboard Color System - Light Mode */
+      /* Modern Design System - Light Mode */
       --bg-primary: #ffffff;
-      --bg-secondary: #f8fafc;
-      --bg-tertiary: #f1f5f9;
+      --bg-secondary: #fafafa;
+      --bg-tertiary: #f4f4f5;
       --surface: #ffffff;
       --surface-elevated: #ffffff;
-      --surface-hover: #f8fafc;
+      --surface-hover: #f9fafb;
       
-      /* Text Colors - Light Mode */
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --text-tertiary: #64748b;
+      /* Text Colors */
+      --text-primary: #18181b;
+      --text-secondary: #71717a;
+      --text-tertiary: #a1a1aa;
       --text-accent: var(--addocu-blue-primary);
       
-      /* Semantic Colors - Modern Palette */
-      --success: #10b981;
-      --success-bg: #ecfdf5;
+      /* Semantic Colors */
+      --success: #22c55e;
+      --success-bg: #f0fdf4;
       --warning: #f59e0b;
-      --warning-bg: #fefce8;
+      --warning-bg: #fffbeb;
       --error: #ef4444;
       --error-bg: #fef2f2;
       --info: #3b82f6;
       --info-bg: #eff6ff;
       
-      /* Chart Colors - Balanced & Accessible */
+      /* Chart Colors */
       --chart-primary: var(--addocu-blue-primary);
       --chart-secondary: var(--success);
       --chart-tertiary: var(--warning);
-      --chart-quaternary: #a855f7;
+      --chart-quaternary: #8b5cf6;
       --chart-quinary: #ec4899;
       --chart-senary: #06b6d4;
       
       /* Interactive Elements */
-      --border-light: #e2e8f0;
-      --border-medium: #cbd5e1;
-      --border-dark: #94a3b8;
+      --border-light: #e4e4e7;
+      --border-medium: #d4d4d8;
+      --border-dark: #a1a1aa;
       
       /* Shadows */
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
       
       /* Spacing & Sizing */
-      --radius-sm: 6px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --radius-xl: 16px;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
     }
 
-    /* Dark Mode Colors - OPTIMIZED FOR READABILITY */
-[data-theme="dark"] {
-  /* Backgrounds */
-  --bg-primary: #0D1117; /* Más oscuro para mayor contraste */
-  --bg-secondary: #161B22; /* Ligeramente más claro que el primario, pero aún oscuro */
-  --bg-tertiary: #21262D; /* Para elementos de mayor elevación o secciones */
-  --surface: #161B22; /* Misma que secondary */
-  --surface-elevated: #21262D; /* Misma que tertiary, para tarjetas/modales */
-  --surface-hover: #30363D; /* Suficiente contraste para el hover */
-  
-  /* Text Colors - Aumentado el brillo para mejor contraste */
-  --text-primary: #E6EDF3; /* Blanco casi puro para el texto principal */
-  --text-secondary: #C9D1D9; /* Gris claro para el texto secundario (labels, descripciones) */
-  --text-tertiary: #8B949E; /* Gris medio para el texto menos importante o muted */
-  --text-accent: #58A6FF; /* Azul brillante para enlaces/botones (mantener buena legibilidad) */
-  
-  /* Semantic Colors - Ligeramente ajustados para visibilidad */
-  --success: #3FB950;
-  --success-bg: #238636;
-  --warning: #D29922;
-  --warning-bg: #89572F;
-  --error: #F85149;
-  --error-bg: #DA3633;
-  --info: #58A6FF;
-  --info-bg: #1F6FEB;
-  
-  /* Chart Colors - Optimizado para distinguirse en fondo oscuro */
-  --chart-primary: #79C0FF; /* Azul claro */
-  --chart-secondary: #8BCE4D; /* Verde brillante */
-  --chart-tertiary: #F0B347; /* Amarillo dorado */
-  --chart-quaternary: #AD83FF; /* Púrpura */
-  --chart-quinary: #FF7B72; /* Rojo coral */
-  --chart-senary: #52BFCA; /* Cian */
-  
-  /* Interactive Elements */
-  --border-light: #30363D; /* Suficientemente visible para líneas de separación */
-  --border-medium: #444C56;
-  --border-dark: #64748B;
-  
-  /* Shadows - Ligeras, ya que las sombras son menos evidentes en oscuro */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-}
+    /* Dark Mode */
+    [data-theme="dark"] {
+      --bg-primary: #09090b;
+      --bg-secondary: #18181b;
+      --bg-tertiary: #27272a;
+      --surface: #18181b;
+      --surface-elevated: #27272a;
+      --surface-hover: #3f3f46;
+      
+      --text-primary: #fafafa;
+      --text-secondary: #d4d4d8;
+      --text-tertiary: #a1a1aa;
+      --text-accent: #60a5fa;
+      
+      --success: #22c55e;
+      --success-bg: #14532d;
+      --warning: #f59e0b;
+      --warning-bg: #451a03;
+      --error: #ef4444;
+      --error-bg: #450a0a;
+      --info: #3b82f6;
+      --info-bg: #1e3a8a;
+      
+      --chart-primary: #60a5fa;
+      --chart-secondary: #4ade80;
+      --chart-tertiary: #fbbf24;
+      --chart-quaternary: #a78bfa;
+      --chart-quinary: #f472b6;
+      --chart-senary: #22d3ee;
+      
+      --border-light: #3f3f46;
+      --border-medium: #52525b;
+      --border-dark: #71717a;
+      
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    }
 
     * {
       margin: 0;
@@ -123,12 +115,14 @@
       color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       line-height: 1.5;
       font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* LOADING STATE */
+    /* ELEGANT LOADING STATE - Vercel/Linear Style */
     #loader {
       display: flex;
       flex-direction: column;
@@ -136,51 +130,172 @@
       justify-content: center;
       height: 100vh;
       background: var(--bg-primary);
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: loaderBreathing 3s ease-in-out infinite;
+    }
+
+    @keyframes loaderBreathing {
+      0%, 100% { background: var(--bg-primary); }
+      50% { background: var(--bg-secondary); }
     }
 
     .loader-content {
       text-align: center;
-      animation: fadeInScale 1s ease-out;
+      animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
     }
 
     @keyframes fadeInScale {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
+      from { 
+        opacity: 0; 
+        transform: scale(0.96) translateY(4px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+      }
     }
 
     .loader-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, var(--chart-primary) 0%, var(--chart-secondary) 100%);
-      border-radius: var(--radius-xl);
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--chart-primary), var(--addocu-blue-light));
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      margin: 0 auto 24px;
-      animation: pulse 2s ease-in-out infinite;
-      box-shadow: var(--shadow-lg);
+      margin: 0 auto 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(26, 93, 187, 0.12);
+      animation: iconFloat 2.5s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: var(--shadow-lg); }
-      50% { transform: scale(1.05); box-shadow: var(--shadow-xl); }
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-2px) scale(1.02); }
+    }
+
+    .loader-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent
+      );
+      animation: shimmerWave 2.2s ease-in-out infinite;
+    }
+
+    @keyframes shimmerWave {
+      0% { left: -100%; opacity: 0; }
+      50% { opacity: 1; }
+      100% { left: 100%; opacity: 0; }
+    }
+
+    .loader-icon::after {
+      content: 'A';
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      z-index: 1;
+      position: relative;
+      animation: letterPulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes letterPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .loader-text {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 8px;
+      animation: textFade 1s ease-out 0.2s both;
+    }
+
+    @keyframes textFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .loader-subtext {
       font-size: 14px;
       color: var(--text-secondary);
+      font-weight: 400;
+      animation: textFade 1s ease-out 0.4s both;
     }
 
-    /* HEADER - Optimizado */
+    /* Vercel-style progress dots */
+    .loader-progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 32px auto 0;
+      animation: textFade 1s ease-out 0.6s both;
+    }
+
+    .progress-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border-medium);
+      animation: dotPulse 1.4s ease-in-out infinite;
+    }
+
+    .progress-dot:nth-child(1) { animation-delay: 0s; }
+    .progress-dot:nth-child(2) { animation-delay: 0.2s; }
+    .progress-dot:nth-child(3) { animation-delay: 0.4s; }
+    .progress-dot:nth-child(4) { animation-delay: 0.6s; }
+    .progress-dot:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes dotPulse {
+      0%, 80%, 100% {
+        background: var(--border-medium);
+        transform: scale(1);
+      }
+      40% {
+        background: var(--chart-primary);
+        transform: scale(1.2);
+      }
+    }
+
+    /* Linear-style subtle wave */
+    .loader-wave {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent,
+        var(--chart-primary),
+        transparent
+      );
+      border-radius: 1px;
+      animation: waveMove 3s ease-in-out infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes waveMove {
+      0%, 100% {
+        transform: translateX(-50%) scaleX(0.5);
+        opacity: 0.4;
+      }
+      50% {
+        transform: translateX(-50%) scaleX(1);
+        opacity: 0.8;
+      }
+    }
+
+    /* CLEAN HEADER */
     .header {
       background: var(--surface);
       border-bottom: 1px solid var(--border-light);
@@ -188,9 +303,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(10px);
-      animation: slideDown 0.6s ease-out;
+      backdrop-filter: blur(8px);
+      animation: slideDown 0.5s ease-out;
     }
 
     @keyframes slideDown {
@@ -202,7 +316,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1440px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
@@ -213,100 +327,28 @@
     }
 
     .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--addocu-blue-primary) 0%, var(--addocu-green) 100%);
+      width: 32px;
+      height: 32px;
+      background: var(--chart-primary);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
       color: white;
-      font-weight: 600;
-      box-shadow: var(--shadow-sm);
+      font-size: 16px;
+      font-weight: 700;
     }
 
     .logo-text {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-primary);
-    }
-
-    .logo-version {
-      font-size: 12px;
-      color: var(--text-tertiary);
-      font-weight: 500;
-      margin-left: 8px;
-      padding: 2px 8px;
-      background: var(--bg-tertiary);
-      border-radius: var(--radius-sm);
     }
 
     .header-controls {
       display: flex;
-      gap: 12px;
+      gap: 8px;
       align-items: center;
-    }
-
-    .theme-toggle {
-      background: var(--surface-hover);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-md);
-      padding: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      color: var(--text-secondary);
-      font-size: 16px;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .theme-toggle:hover {
-      background: var(--surface-elevated);
-      color: var(--text-primary);
-      transform: scale(1.05);
-    }
-
-    .action-btn {
-      background: var(--chart-primary);
-      border: none;
-      color: white;
-      padding: 8px 16px;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .action-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .action-btn:active {
-      transform: translateY(0);
-    }
-
-    .action-btn.secondary {
-      background: var(--success);
-    }
-
-    .action-btn.secondary:hover {
-      background: #059669;
-    }
-
-    .action-btn.audit-btn {
-      background: linear-gradient(135deg, var(--chart-primary) 0%, var(--chart-secondary) 100%);
-      font-weight: 700;
     }
 
     .sync-status {
@@ -315,39 +357,92 @@
       gap: 8px;
       color: var(--text-secondary);
       font-size: 12px;
+      margin-right: 12px;
     }
 
     .sync-dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--success);
       animation: pulse-dot 2s ease-in-out infinite;
     }
 
     @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.2); }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
 
-    /* DASHBOARD LAYOUT - Optimizado */
+    .btn {
+      background: var(--surface-hover);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--border-medium);
+    }
+
+    .btn.primary {
+      background: var(--chart-primary);
+      border-color: var(--chart-primary);
+      color: white;
+    }
+
+    .btn.primary:hover {
+      background: #1348a0;
+      border-color: #1348a0;
+    }
+
+    .btn.success {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+
+    .btn.success:hover {
+      background: #16a34a;
+      border-color: #16a34a;
+    }
+
+    .theme-toggle {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      justify-content: center;
+    }
+
+    /* DASHBOARD LAYOUT */
     #dashboard-wrapper {
       display: none;
       padding: 24px;
-      max-width: 1440px;
+      max-width: 1400px;
       margin: 0 auto;
-      animation: fadeInUp 0.8s ease-out;
+      animation: fadeInUp 0.6s ease-out;
     }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
       margin-bottom: 32px;
     }
 
@@ -360,195 +455,150 @@
     }
 
     .dashboard-grid.grid-4 {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 
     .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
       color: var(--text-primary);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .section-icon {
-      width: 28px;
-      height: 28px;
-      background: linear-gradient(135deg, var(--chart-primary) 0%, var(--chart-secondary) 100%);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: white;
-      font-weight: 600;
+      width: 4px;
+      height: 16px;
+      background: var(--chart-primary);
+      border-radius: 2px;
     }
 
-    /* CARDS - Sistema mejorado */
-    .glass-card {
+    /* CLEAN CARDS */
+    .card {
       background: var(--surface);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
+      padding: 20px;
+      transition: all 0.2s ease;
+      animation: cardSlideIn 0.5s ease-out forwards;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .card:hover {
+      border-color: var(--border-medium);
       box-shadow: var(--shadow-sm);
-      padding: 24px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      animation: cardSlideIn 0.6s ease-out forwards;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--chart-primary) 0%, var(--chart-secondary) 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .glass-card:hover {
-      background: var(--surface-hover);
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
-      border-color: var(--chart-primary);
-    }
-
-    .glass-card:hover::before {
-      opacity: 1;
     }
 
     @keyframes cardSlideIn {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* KPI CARDS - Rediseñadas */
+    /* KPI CARDS */
     .kpi-card {
-      text-align: center;
-      min-height: 160px;
+      text-align: left;
+      min-height: 120px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      position: relative;
+      justify-content: space-between;
     }
 
-    .kpi-icon {
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 16px;
-      background: var(--chart-primary);
-      border-radius: var(--radius-xl);
+    .kpi-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: white;
-      box-shadow: var(--shadow-md);
-      animation: iconFloat 4s ease-in-out infinite;
-    }
-
-    @keyframes iconFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      25% { transform: translateY(-4px) rotate(1deg); }
-      75% { transform: translateY(-2px) rotate(-1deg); }
+      justify-content: space-between;
+      margin-bottom: 12px;
     }
 
     .kpi-title {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 12px;
+    }
+
+    .kpi-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--chart-primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
     }
 
     .kpi-value {
-      font-size: 32px;
-      font-weight: 800;
+      font-size: 28px;
+      font-weight: 700;
       color: var(--text-primary);
       margin-bottom: 8px;
       font-family: 'JetBrains Mono', monospace;
-      animation: countUp 1.5s ease-out;
+      animation: countUp 1s ease-out;
     }
 
     @keyframes countUp {
-      from { transform: scale(0.8); opacity: 0; }
+      from { transform: scale(0.9); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
     .kpi-trend {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--success);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 4px;
     }
 
-    .kpi-trend.warning {
-      color: var(--warning);
+    .kpi-trend.success { color: var(--success); }
+    .kpi-trend.warning { color: var(--warning); }
+    .kpi-trend.error { color: var(--error); }
+
+    .trend-indicator {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
     }
 
-    .kpi-trend.error {
-      color: var(--error);
-    }
-
-    /* PROGRESS BARS - Modernizadas */
+    /* PROGRESS BARS */
     .progress-bar {
       width: 100%;
-      height: 6px;
+      height: 4px;
       background: var(--bg-tertiary);
-      border-radius: var(--radius-sm);
+      border-radius: 2px;
       overflow: hidden;
       margin-top: 12px;
-      position: relative;
     }
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--chart-primary) 0%, var(--chart-secondary) 100%);
+      background: var(--chart-primary);
       width: 0%;
-      transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 2px;
     }
 
-    .progress-fill::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      animation: shimmer 2s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    /* CHARTS - Optimizados */
+    /* CHARTS */
     .chart-card {
-      min-height: 380px;
+      min-height: 360px;
     }
 
     .chart-wide {
       grid-column: 1 / -1;
-      min-height: 420px;
+      min-height: 400px;
     }
 
     .chart-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
       color: var(--text-primary);
       display: flex;
       align-items: center;
@@ -559,27 +609,25 @@
       background: var(--bg-tertiary);
       border: 1px solid var(--border-light);
       color: var(--text-secondary);
-      padding: 6px 12px;
-      border-radius: var(--radius-md);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       font-size: 11px;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      font-family: inherit;
     }
 
     .chart-export:hover {
       background: var(--surface-elevated);
       color: var(--text-primary);
-      border-color: var(--chart-primary);
+      border-color: var(--border-medium);
     }
 
-    /* STATUS GRID - Modernizada */
+    /* STATUS GRID */
     .status-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
       margin-bottom: 32px;
     }
@@ -588,22 +636,19 @@
       background: var(--surface);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
-      padding: 20px;
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.3s ease;
+      padding: 16px;
+      text-align: left;
+      transition: all 0.2s ease;
       position: relative;
-      overflow: hidden;
-      min-height: 120px;
+      min-height: 100px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
     }
 
     .status-item:hover {
-      background: var(--surface-hover);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      border-color: var(--border-medium);
+      box-shadow: var(--shadow-sm);
     }
 
     .status-item::before {
@@ -612,27 +657,19 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
+      height: 2px;
       background: var(--success);
-      transition: all 0.3s ease;
     }
 
-    .status-item.warning::before {
-      background: var(--warning);
-    }
+    .status-item.warning::before { background: var(--warning); }
+    .status-item.error::before { background: var(--error); }
+    .status-item.info::before { background: var(--info); }
 
-    .status-item.error::before {
-      background: var(--error);
-    }
-
-    .status-item.coming-soon::before {
-      background: var(--info);
-    }
-
-    .status-icon {
-      font-size: 24px;
-      margin-bottom: 12px;
-      display: block;
+    .status-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
     }
 
     .status-text {
@@ -641,42 +678,30 @@
       color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
     }
+
+    .status-icon {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .status-icon.warning { background: var(--warning); }
+    .status-icon.error { background: var(--error); }
+    .status-icon.info { background: var(--info); }
 
     .status-value {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--success);
-      word-wrap: break-word;
-      line-height: 1.3;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
     }
 
-    .status-value.warning {
-      color: var(--warning);
-    }
-
-    .status-value.error {
-      color: var(--error);
-    }
-
-    .status-value.info {
-      color: var(--info);
-    }
-
-    /* RESPONSIVE DESIGN - Mejorado */
+    /* RESPONSIVE DESIGN */
     @media (max-width: 1024px) {
-      .dashboard-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
-      }
-      
       .dashboard-grid.grid-2 {
         grid-template-columns: 1fr;
-      }
-      
-      .chart-wide {
-        min-height: 360px;
       }
     }
 
@@ -691,12 +716,11 @@
       
       .header-content {
         flex-direction: column;
-        gap: 16px;
-        align-items: flex-start;
+        gap: 12px;
+        align-items: stretch;
       }
       
       .header-controls {
-        width: 100%;
         justify-content: space-between;
       }
       
@@ -705,35 +729,12 @@
         gap: 12px;
       }
       
-      .glass-card {
+      .card {
         padding: 16px;
       }
       
-      .kpi-card {
-        min-height: 140px;
-      }
-      
       .kpi-value {
-        font-size: 28px;
-      }
-      
-      .status-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .chart-card, .chart-wide {
-        min-height: 300px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .action-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-      
-      .logo-text {
-        font-size: 18px;
+        font-size: 24px;
       }
       
       .status-grid {
@@ -741,7 +742,7 @@
       }
     }
 
-    /* NOTIFICATIONS - Sistema mejorado */
+    /* NOTIFICATIONS */
     .notification {
       position: fixed;
       top: 24px;
@@ -749,16 +750,16 @@
       background: var(--surface);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
-      padding: 16px 20px;
+      padding: 12px 16px;
       color: var(--text-primary);
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: 500;
+      font-size: 13px;
       box-shadow: var(--shadow-lg);
       transform: translateX(400px);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 1001;
       max-width: 320px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
 
     .notification.show {
@@ -766,21 +767,45 @@
     }
 
     .notification.success {
-      border-left: 4px solid var(--success);
-      background: var(--success-bg);
+      border-left: 3px solid var(--success);
     }
 
     .notification.error {
-      border-left: 4px solid var(--error);
-      background: var(--error-bg);
+      border-left: 3px solid var(--error);
     }
 
     .notification.warning {
-      border-left: 4px solid var(--warning);
-      background: var(--warning-bg);
+      border-left: 3px solid var(--warning);
     }
 
-    /* ANIMATIONS - Suaves y modernas */
+    /* CHART COLOR FIXES */
+    [data-theme="dark"] .apexcharts-legend-text,
+    [data-theme="dark"] .apexcharts-legend-text tspan,
+    [data-theme="dark"] .apexcharts-xaxis-label,
+    [data-theme="dark"] .apexcharts-yaxis-label,
+    [data-theme="dark"] .apexcharts-xaxis-label tspan,
+    [data-theme="dark"] .apexcharts-yaxis-label tspan {
+      color: #fafafa !important;
+      fill: #fafafa !important;
+    }
+    
+    [data-theme="light"] .apexcharts-legend-text,
+    [data-theme="light"] .apexcharts-legend-text tspan,
+    [data-theme="light"] .apexcharts-xaxis-label,
+    [data-theme="light"] .apexcharts-yaxis-label,
+    [data-theme="light"] .apexcharts-xaxis-label tspan,
+    [data-theme="light"] .apexcharts-yaxis-label tspan {
+      color: #18181b !important;
+      fill: #18181b !important;
+    }
+
+    /* UTILITY CLASSES */
+    .text-success { color: var(--success); }
+    .text-warning { color: var(--warning); }
+    .text-error { color: var(--error); }
+    .text-info { color: var(--info); }
+
+    /* ANIMATIONS */
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -788,51 +813,6 @@
 
     .loading-spin {
       animation: spin 1s linear infinite;
-    }
-
-    /* UTILITY CLASSES */
-    .text-center { text-align: center; }
-    .text-success { color: var(--success); }
-    .text-warning { color: var(--warning); }
-    .text-error { color: var(--error); }
-    .text-primary { color: var(--text-primary); }
-    .text-secondary { color: var(--text-secondary); }
-
-    .bg-success { background-color: var(--success-bg); }
-    .bg-warning { background-color: var(--warning-bg); }
-    .bg-error { background-color: var(--error-bg); }
-
-    .border-success { border-color: var(--success); }
-    .border-warning { border-color: var(--warning); }
-    .border-error { border-color: var(--error); }
-
-    /* TOOLTIPS */
-    .tooltip {
-      position: relative;
-    }
-
-    .tooltip::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      padding: 8px 12px;
-      border-radius: var(--radius-md);
-      font-size: 11px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1000;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-light);
-    }
-
-    .tooltip:hover::after {
-      opacity: 1;
     }
 
     /* ACCESSIBILITY */
@@ -844,163 +824,127 @@
       }
     }
 
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* FORCE APEXCHARTS LEGEND COLORS - MAXIMUM SPECIFICITY */
-    [data-theme="dark"] .apexcharts-legend-text,
-    [data-theme="dark"] .apexcharts-legend-text tspan {
-      color: #E6EDF3 !important;
-      fill: #E6EDF3 !important;
-    }
-    
-    [data-theme="light"] .apexcharts-legend-text,
-    [data-theme="light"] .apexcharts-legend-text tspan {
-      color: #0f172a !important;
-      fill: #0f172a !important;
-    }
-    
-    [data-theme="dark"] .apexcharts-xaxis-label,
-    [data-theme="dark"] .apexcharts-yaxis-label,
-    [data-theme="dark"] .apexcharts-xaxis-label tspan,
-    [data-theme="dark"] .apexcharts-yaxis-label tspan {
-      fill: #E6EDF3 !important;
-    }
-    
-    [data-theme="light"] .apexcharts-xaxis-label,
-    [data-theme="light"] .apexcharts-yaxis-label,
-    [data-theme="light"] .apexcharts-xaxis-label tspan,
-    [data-theme="light"] .apexcharts-yaxis-label tspan {
-      fill: #0f172a !important;
-    }
-    
-    /* Additional specificity for stubborn elements */
-    .apexcharts-svg .apexcharts-legend-text[style*="color"] {
-      color: var(--text-primary) !important;
-    }
-    
-    [data-theme="dark"] .apexcharts-svg .apexcharts-legend-text,
-    [data-theme="dark"] .apexcharts-svg .apexcharts-legend-text tspan {
-      color: #E6EDF3 !important;
-      fill: #E6EDF3 !important;
-    }
-    
-    [data-theme="light"] .apexcharts-svg .apexcharts-legend-text,
-    [data-theme="light"] .apexcharts-svg .apexcharts-legend-text tspan {
-      color: #0f172a !important;
-      fill: #0f172a !important;
-    }
-    
-    /* FOCUS STYLES */
-    .action-btn:focus,
-    .theme-toggle:focus,
-    .chart-export:focus {
+    .btn:focus {
       outline: 2px solid var(--chart-primary);
       outline-offset: 2px;
     }
   </style>
 </head>
 <body data-theme="light">
-  <!-- LOADER OPTIMIZADO -->
+  <!-- ELEGANT LOADER - Vercel/Linear Style -->
   <div id="loader">
     <div class="loader-content">
-      <div class="loader-icon">🚀</div>
-      <div class="loader-text">Addocu v3.0 Community</div>
-      <div class="loader-subtext">Inicializando dashboard analytics...</div>
+      <div class="loader-icon"></div>
+      <div class="loader-text">Addocu</div>
+      <div class="loader-subtext">Initializing analytics dashboard</div>
+      <div class="loader-progress">
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
     </div>
+    <div class="loader-wave"></div>
   </div>
 
-  <!-- HEADER MODERNO -->
+  <!-- CLEAN HEADER -->
   <div class="header" id="header" style="display: none;">
     <div class="header-content">
       <div class="logo">
         <div class="logo-icon">A</div>
-        <div>
-          <div class="logo-text">Addocu v3.0 Community</div>
-        </div>
+        <div class="logo-text">Addocu</div>
       </div>
       
       <div class="header-controls">
         <div class="sync-status">
           <span class="sync-dot"></span>
-          <span id="last-sync-time">Sincronizado</span>
+          <span id="last-sync-time">Synchronized</span>
         </div>
         
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
-          <span id="theme-icon">🌙</span>
+        <button class="btn theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+          <span id="theme-icon">◐</span>
         </button>
         
-        <button class="action-btn" onclick="forceRefresh()">
-          <span>🔄</span>
-          Actualizar
+        <button class="btn" onclick="forceRefresh()">
+          Refresh
         </button>
         
-        <button class="action-btn secondary" onclick="runDiagnostic()">
-          <span>🔧</span>
-          Diagnóstico
+        <button class="btn" onclick="runDiagnostic()">
+          Diagnostic
         </button>
         
-        <button class="action-btn audit-btn" onclick="triggerFullSync()">
-          <span id="audit-icon">🚀</span>
-          Auditoría Completa
+        <button class="btn primary" onclick="triggerFullSync()">
+          <span id="audit-status">Run Audit</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- DASHBOARD PRINCIPAL -->
+  <!-- DASHBOARD -->
   <div id="dashboard-wrapper">
-    <!-- KPIs PRINCIPALES -->
+    <!-- MAIN METRICS -->
     <section>
       <h2 class="section-title">
-        <span class="section-icon">📊</span>
-        Métricas Principales del Ecosistema
+        <span class="section-icon"></span>
+        Overview
       </h2>
       <div class="dashboard-grid grid-4">
-        <div class="glass-card kpi-card tooltip" data-tooltip="Total de assets sincronizados de todas las herramientas">
-          <div class="kpi-icon">🎯</div>
-          <div class="kpi-title">Total Assets</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">Total Assets</div>
+            <div class="kpi-icon" style="background: var(--chart-primary);">A</div>
+          </div>
           <div class="kpi-value" id="kpi-total-assets">0</div>
-          <div class="kpi-trend" id="assets-trend">📊 Cargando...</div>
+          <div class="kpi-trend" id="assets-trend">
+            <span class="trend-indicator"></span>
+            📊 Loading
+          </div>
           <div class="progress-bar">
             <div class="progress-fill" id="progress-assets"></div>
           </div>
         </div>
 
-        <div class="glass-card kpi-card tooltip" data-tooltip="Informes y dashboards de Looker Studio">
-          <div class="kpi-icon" style="background: var(--info);">📊</div>
-          <div class="kpi-title">Looker Reports</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">Looker Reports</div>
+            <div class="kpi-icon" style="background: var(--info);">L</div>
+          </div>
           <div class="kpi-value" id="kpi-total-reports">0</div>
-          <div class="kpi-trend">📊 Looker Studio</div>
+          <div class="kpi-trend">
+            <span class="trend-indicator"></span>
+            📈 Looker Studio
+          </div>
           <div class="progress-bar">
             <div class="progress-fill" id="progress-reports"></div>
           </div>
         </div>
 
-        <div class="glass-card kpi-card tooltip" data-tooltip="Propiedades de Google Analytics 4">
-          <div class="kpi-icon" style="background: var(--success);">📈</div>
-          <div class="kpi-title">GA4 Properties</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">GA4 Properties</div>
+            <div class="kpi-icon" style="background: var(--success);">G</div>
+          </div>
           <div class="kpi-value" id="kpi-total-properties">0</div>
-          <div class="kpi-trend">📈 Google Analytics</div>
+          <div class="kpi-trend">
+            <span class="trend-indicator"></span>
+            🎯 Google Analytics
+          </div>
           <div class="progress-bar">
             <div class="progress-fill" id="progress-properties"></div>
           </div>
         </div>
 
-        <div class="glass-card kpi-card tooltip" data-tooltip="Tags configuradas en Google Tag Manager">
-          <div class="kpi-icon" style="background: var(--warning);">🏷️</div>
-          <div class="kpi-title">GTM Tags</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">GTM Tags</div>
+            <div class="kpi-icon" style="background: var(--warning);">T</div>
+          </div>
           <div class="kpi-value" id="kpi-total-tags">0</div>
-          <div class="kpi-trend">🏷️ Tag Manager</div>
+          <div class="kpi-trend">
+            <span class="trend-indicator"></span>
+            🏷️ Tag Manager
+          </div>
           <div class="progress-bar">
             <div class="progress-fill" id="progress-tags"></div>
           </div>
@@ -1008,95 +952,126 @@
       </div>
     </section>
 
-    <!-- KPIs GRANULARES -->
+    <!-- DETAILED METRICS -->
     <section>
       <h2 class="section-title">
-        <span class="section-icon">🔢</span>
-        Métricas Detalladas
+        <span class="section-icon"></span>
+        Details
       </h2>
       <div class="dashboard-grid grid-4">
-        <div class="glass-card kpi-card tooltip" data-tooltip="Variables configuradas en GTM">
-          <div class="kpi-icon" style="background: var(--chart-quaternary);">🔧</div>
-          <div class="kpi-title">GTM Variables</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">GTM Variables</div>
+            <div class="kpi-icon" style="background: var(--chart-quaternary);">V</div>
+          </div>
           <div class="kpi-value" id="kpi-total-variables">0</div>
-          <div class="kpi-trend">🔧 Variables</div>
+          <div class="kpi-trend">
+            <span class="trend-indicator"></span>
+            ⚙️ Variables
+          </div>
         </div>
 
-        <div class="glass-card kpi-card tooltip" data-tooltip="Triggers/Activadores en GTM">
-          <div class="kpi-icon" style="background: var(--chart-quinary);">⚡</div>
-          <div class="kpi-title">GTM Triggers</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">GTM Triggers</div>
+            <div class="kpi-icon" style="background: var(--chart-quinary);">R</div>
+          </div>
           <div class="kpi-value" id="kpi-total-triggers">0</div>
-          <div class="kpi-trend">⚡ Activadores</div>
+          <div class="kpi-trend">
+            <span class="trend-indicator"></span>
+            ⚡ Triggers
+          </div>
         </div>
 
-        <div class="glass-card kpi-card tooltip" data-tooltip="Contenedores GTM únicos detectados">
-          <div class="kpi-icon" style="background: var(--chart-senary);">📦</div>
-          <div class="kpi-title">GTM Containers</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">GTM Containers</div>
+            <div class="kpi-icon" style="background: var(--chart-senary);">C</div>
+          </div>
           <div class="kpi-value" id="kpi-total-containers">0</div>
-          <div class="kpi-trend">📦 Contenedores</div>
+          <div class="kpi-trend">
+            <span class="trend-indicator"></span>
+            📦 Containers
+          </div>
         </div>
 
-        <div class="glass-card kpi-card tooltip" data-tooltip="Puntuación de salud calculada del ecosistema">
-          <div class="kpi-icon" style="background: var(--success);">💚</div>
-          <div class="kpi-title">Health Score</div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">Health Score</div>
+            <div class="kpi-icon" style="background: var(--success);">H</div>
+          </div>
           <div class="kpi-value" id="kpi-health-score">0%</div>
-          <div class="kpi-trend" id="health-trend">🔥 Calculando...</div>
+          <div class="kpi-trend" id="health-trend">
+            <span class="trend-indicator"></span>
+            💚 Calculating
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ESTADO DE SERVICIOS -->
+    <!-- CONNECTION STATUS -->
     <section>
       <h2 class="section-title">
-        <span class="section-icon">🔍</span>
-        Estado de Conexiones
+        <span class="section-icon"></span>
+        Connections
       </h2>
       <div class="status-grid">
-        <div class="status-item tooltip" data-tooltip="Estado de la API de Looker Studio">
-          <div class="status-icon">📊</div>
-          <div class="status-text">Looker Studio</div>
-          <div class="status-value" id="status-looker">Conectado</div>
+        <div class="status-item">
+          <div class="status-header">
+            <div class="status-text">Looker Studio</div>
+            <div class="status-icon" id="status-looker-icon"></div>
+          </div>
+          <div class="status-value" id="status-looker">Connected</div>
         </div>
-        <div class="status-item tooltip" data-tooltip="Estado de la API de Google Analytics 4">
-          <div class="status-icon">📈</div>
-          <div class="status-text">Analytics 4</div>
-          <div class="status-value" id="status-ga4">Conectado</div>
+        
+        <div class="status-item">
+          <div class="status-header">
+            <div class="status-text">Analytics 4</div>
+            <div class="status-icon" id="status-ga4-icon"></div>
+          </div>
+          <div class="status-value" id="status-ga4">Connected</div>
         </div>
-        <div class="status-item tooltip" data-tooltip="Estado de la API de Google Tag Manager">
-          <div class="status-icon">🏷️</div>
-          <div class="status-text">Tag Manager</div>
-          <div class="status-value" id="status-gtm">Conectado</div>
+        
+        <div class="status-item">
+          <div class="status-header">
+            <div class="status-text">Tag Manager</div>
+            <div class="status-icon" id="status-gtm-icon"></div>
+          </div>
+          <div class="status-value" id="status-gtm">Connected</div>
         </div>
-        <div class="status-item coming-soon tooltip" data-tooltip="Próximas integraciones en desarrollo">
-          <div class="status-icon">🚀</div>
-          <div class="status-text">Coming Soon</div>
-          <div class="status-value info" id="status-coming-soon">BigQuery, Google Ads, Search Console & more</div>
+        
+        <div class="status-item info">
+          <div class="status-header">
+            <div class="status-text">Coming Soon</div>
+            <div class="status-icon info" id="status-coming-soon-icon"></div>
+          </div>
+          <div class="status-value" id="status-coming-soon">BigQuery, Google Ads, Search Console</div>
         </div>
       </div>
     </section>
 
-    <!-- CHARTS Y ANÁLISIS -->
+    <!-- ANALYTICS CHARTS -->
     <section>
       <h2 class="section-title">
-        <span class="section-icon">📈</span>
-        Analytics Avanzado
+        <span class="section-icon"></span>
+        Analytics
       </h2>
       <div class="dashboard-grid grid-2">
-        <div class="glass-card chart-card">
+        <div class="card chart-card">
           <div class="chart-title">
-            Distribución por Herramienta
+            Distribution by Tool
             <button class="chart-export" onclick="exportToolData()">
-              📊 Exportar JSON
+              Export
             </button>
           </div>
           <div id="chart-by-tool"></div>
         </div>
 
-        <div class="glass-card chart-card">
+        <div class="card chart-card">
           <div class="chart-title">
-            Tipos de Tags GTM
+            GTM Tag Types
             <button class="chart-export" onclick="exportTagTypeData()">
-              📊 Exportar JSON
+              Export
             </button>
           </div>
           <div id="chart-tag-type"></div>
@@ -1104,11 +1079,11 @@
       </div>
 
       <div class="dashboard-grid">
-        <div class="glass-card chart-wide">
+        <div class="card chart-wide">
           <div class="chart-title">
-            Timeline de Actividad (Últimos 30 días)
+            Activity Timeline (Last 30 days)
             <button class="chart-export" onclick="exportTimelineData()">
-              📊 Exportar JSON
+              Export
             </button>
           </div>
           <div id="chart-timeline"></div>
@@ -1116,21 +1091,21 @@
       </div>
 
       <div class="dashboard-grid grid-2">
-        <div class="glass-card chart-card">
+        <div class="card chart-card">
           <div class="chart-title">
-            Estado de Tags GTM
+            GTM Tag Status
             <button class="chart-export" onclick="exportTagStatusData()">
-              📊 Exportar JSON
+              Export
             </button>
           </div>
           <div id="chart-tag-status"></div>
         </div>
 
-        <div class="glass-card chart-card">
+        <div class="card chart-card">
           <div class="chart-title">
-            Mapa de Calor - Actividad
+            Activity Heatmap
             <button class="chart-export" onclick="exportHeatmapData()">
-              📊 Exportar JSON
+              Export
             </button>
           </div>
           <div id="chart-heatmap"></div>
@@ -1155,27 +1130,22 @@
       document.body.setAttribute('data-theme', currentTheme);
       
       const icon = document.getElementById('theme-icon');
-      icon.textContent = currentTheme === 'light' ? '🌙' : '☀️';
+      icon.textContent = currentTheme === 'light' ? '◐' : '◑';
       
       // Update charts for new theme
       if (dashboardData) {
         setTimeout(() => {
           createCharts(dashboardData);
-        }, 300);
+        }, 200);
       }
       
-      // Force colors immediately
-      setTimeout(() => {
-        forceApexChartsColors();
-      }, 600);
-      
       localStorage.setItem('addocu-theme', currentTheme);
-      showNotification(`Tema ${currentTheme === 'light' ? 'claro' : 'oscuro'} activado`, 'success');
+      showNotification(`${currentTheme === 'light' ? 'Light' : 'Dark'} theme activated`, 'success');
     }
 
     // INITIALIZATION
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('🚀 Addocu v3.0 Community - Inicializando...');
+      console.log('Addocu - Initializing dashboard...');
       
       // Load saved theme
       const savedTheme = localStorage.getItem('addocu-theme');
@@ -1183,7 +1153,7 @@
         currentTheme = savedTheme;
         document.body.setAttribute('data-theme', currentTheme);
         const icon = document.getElementById('theme-icon');
-        icon.textContent = currentTheme === 'light' ? '🌙' : '☀️';
+        icon.textContent = currentTheme === 'light' ? '◐' : '◑';
       }
       
       initializeDashboard();
@@ -1191,36 +1161,36 @@
     });
 
     function initializeDashboard() {
-      console.log('🔍 Verificando funciones disponibles...');
+      console.log('Checking for Google Apps Script...');
       
       if (typeof google !== 'undefined' && google.script && google.script.run) {
-        console.log('✅ Google Apps Script detectado - Cargando datos reales...');
+        console.log('Google Apps Script detected - Loading real data...');
         
         const timeoutId = setTimeout(() => {
-          console.log('⏰ Timeout - iniciando modo demo');
+          console.log('Timeout - Starting demo mode');
           initializeDashboardDemo();
         }, 5000);
 
         google.script.run
           .withSuccessHandler((data) => {
             clearTimeout(timeoutId);
-            console.log('✅ Datos reales recibidos:', data);
+            console.log('Real data received:', data);
             handleDashboardData(data);
           })
           .withFailureHandler((error) => {
             clearTimeout(timeoutId);
-            console.log('❌ Error Google Apps Script:', error);
+            console.log('Google Apps Script error:', error);
             initializeDashboardDemo();
           })
           .getHtmlDashboardData();
       } else {
-        console.log('❌ Google Apps Script no disponible - modo demo');
+        console.log('Google Apps Script not available - Demo mode');
         setTimeout(initializeDashboardDemo, 1000);
       }
     }
 
     function initializeDashboardDemo() {
-      console.log('🎯 Iniciando modo demo...');
+      console.log('Starting demo mode...');
       
       const demoData = {
         kpis: {
@@ -1236,8 +1206,8 @@
           totalStreams: 8
         },
         calidad: {
-          activadoresHuerfanos: ['Click sin uso', 'Page view duplicado'],
-          tagsSinActivador: ['GA4 Config huérfano'],
+          activadoresHuerfanos: ['Click without use', 'Duplicate page view'],
+          tagsSinActivador: ['Orphaned GA4 Config'],
           erroresDetectados: 2
         },
         charts: {
@@ -1246,11 +1216,11 @@
             series: [{ name: 'Assets', data: [28, 130, 189] }]
           },
           desgloseTagsGTM: {
-            labels: ['Google Analytics', 'Custom HTML', 'Conversion Linker', 'Facebook Pixel', 'Google Ads', 'Otros'],
+            labels: ['Google Analytics', 'Custom HTML', 'Conversion Linker', 'Facebook Pixel', 'Google Ads', 'Others'],
             series: [52, 38, 31, 24, 21, 23]
           },
           estadoTagsGTM: {
-            labels: ['Activos', 'Pausados', 'Error'],
+            labels: ['Active', 'Paused', 'Error'],
             series: [165, 18, 6]
           }
         },
@@ -1263,24 +1233,19 @@
 
     function handleDashboardData(data) {
       if (data && data.error) {
-        console.error('Error en datos:', data.error);
+        console.error('Data error:', data.error);
         handleError(data);
         return;
       }
 
-      console.log('📊 Procesando datos del dashboard:', data);
+      console.log('Processing dashboard data:', data);
       dashboardData = data;
       transitionToDashboard();
       populateKPIs(data);
       createCharts(data);
       updateStatus();
       
-      // Final force of colors
-      setTimeout(() => {
-        forceApexChartsColors();
-      }, 1000);
-      
-      showNotification('✅ Dashboard cargado exitosamente', 'success');
+      showNotification('Dashboard loaded successfully', 'success');
     }
 
     function transitionToDashboard() {
@@ -1288,9 +1253,9 @@
       const header = document.getElementById('header');
       const wrapper = document.getElementById('dashboard-wrapper');
       
-      loader.style.transition = 'all 0.5s ease-out';
+      loader.style.transition = 'all 0.4s ease-out';
       loader.style.opacity = '0';
-      loader.style.transform = 'scale(0.9)';
+      loader.style.transform = 'scale(0.95)';
       
       setTimeout(() => {
         loader.style.display = 'none';
@@ -1298,24 +1263,21 @@
         wrapper.style.display = 'block';
         
         // Stagger card animations
-        const cards = document.querySelectorAll('.glass-card');
+        const cards = document.querySelectorAll('.card');
         cards.forEach((card, index) => {
-          card.style.animationDelay = `${index * 0.05}s`;
+          card.style.animationDelay = `${index * 0.02}s`;
         });
-        
-        // Setup chart color observer
-        setupChartColorObserver();
-      }, 500);
+      }, 400);
     }
 
     function handleError(error) {
-      console.error('Error en el dashboard:', error);
-      showNotification('❌ Error al cargar datos - Iniciando modo demo', 'error');
+      console.error('Dashboard error:', error);
+      showNotification('Error loading data - Starting demo mode', 'error');
       setTimeout(initializeDashboardDemo, 2000);
     }
 
     function populateKPIs(data) {
-      console.log('📊 Poblando KPIs con datos:', data.kpis);
+      console.log('Populating KPIs with data:', data.kpis);
       
       // Main KPIs
       animateCounter('kpi-total-assets', data.kpis.totalAssets);
@@ -1344,7 +1306,7 @@
       updateAssetsTrend(data.kpis);
       
       // Update sync time
-      document.getElementById('last-sync-time').textContent = new Date().toLocaleTimeString('es-ES', {
+      document.getElementById('last-sync-time').textContent = new Date().toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit'
       });
@@ -1352,13 +1314,13 @@
 
     function updateAssetsTrend(kpis) {
       const trendElement = document.getElementById('assets-trend');
-      const breakdown = `📊${kpis.totalReports} 📈${kpis.totalProperties} 🏷️${kpis.totalTags}`;
-      trendElement.innerHTML = breakdown;
+      const breakdown = `${kpis.totalReports + kpis.totalProperties + kpis.totalTags} total items`;
+      trendElement.innerHTML = `<span class="trend-indicator"></span>📊 ${breakdown}`;
     }
 
     function animateCounter(elementId, targetValue, suffix = '') {
       const element = document.getElementById(elementId);
-      const duration = 1500;
+      const duration = 1200;
       const increment = targetValue / (duration / 16);
       let current = 0;
 
@@ -1368,7 +1330,7 @@
           current = targetValue;
           clearInterval(timer);
         }
-        element.textContent = Math.round(current).toLocaleString('es-ES') + suffix;
+        element.textContent = Math.round(current).toLocaleString() + suffix;
       }, 16);
     }
 
@@ -1378,22 +1340,22 @@
         if (progressBar) {
           progressBar.style.width = `${Math.min(100, percentage)}%`;
         }
-      }, 800);
+      }, 600);
     }
 
     function updateHealthTrend(score) {
       const trendElement = document.getElementById('health-trend');
       if (score >= 90) {
-        trendElement.innerHTML = '🔥 Excelente';
-        trendElement.className = 'kpi-trend';
+        trendElement.innerHTML = '<span class="trend-indicator"></span>🔥 Excellent';
+        trendElement.className = 'kpi-trend success';
       } else if (score >= 75) {
-        trendElement.innerHTML = '✅ Muy Bueno';
-        trendElement.className = 'kpi-trend';
+        trendElement.innerHTML = '<span class="trend-indicator"></span>✅ Very Good';
+        trendElement.className = 'kpi-trend success';
       } else if (score >= 60) {
-        trendElement.innerHTML = '⚠️ Bueno';
+        trendElement.innerHTML = '<span class="trend-indicator"></span>⚠️ Good';
         trendElement.className = 'kpi-trend warning';
       } else {
-        trendElement.innerHTML = '🚨 Necesita Atención';
+        trendElement.innerHTML = '<span class="trend-indicator"></span>🚨 Needs Attention';
         trendElement.className = 'kpi-trend error';
       }
     }
@@ -1434,66 +1396,6 @@
       createTagStatusChart(data);
       createTimelineChart(data);
       createHeatmapChart(data);
-      
-      // Force legend colors after a short delay
-      setTimeout(() => {
-        forceApexChartsColors();
-      }, 500);
-    }
-    
-    function forceApexChartsColors() {
-      const isDark = currentTheme === 'dark';
-      const textColor = isDark ? '#E6EDF3' : '#0f172a';
-      
-      console.log(`🎨 Forzando colores ApexCharts - Tema: ${currentTheme}, Color: ${textColor}`);
-      
-      // Force legend text colors
-      const legendElements = document.querySelectorAll('.apexcharts-legend-text, .apexcharts-legend-text tspan');
-      console.log(`📊 Encontrados ${legendElements.length} elementos de leyenda`);
-      
-      legendElements.forEach(el => {
-        el.style.setProperty('color', textColor, 'important');
-        el.style.setProperty('fill', textColor, 'important');
-      });
-      
-      // Force axis label colors
-      document.querySelectorAll('.apexcharts-xaxis-label, .apexcharts-yaxis-label, .apexcharts-xaxis-label tspan, .apexcharts-yaxis-label tspan').forEach(el => {
-        el.style.setProperty('fill', textColor, 'important');
-      });
-      
-      // Force donut/pie total labels
-      document.querySelectorAll('.apexcharts-datalabel-label, .apexcharts-datalabel-value').forEach(el => {
-        el.style.setProperty('fill', textColor, 'important');
-      });
-    }
-    
-    // Setup mutation observer for ApexCharts
-    function setupChartColorObserver() {
-      const observer = new MutationObserver((mutations) => {
-        let shouldForceColors = false;
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach((node) => {
-              if (node.nodeType === 1 && (node.classList.contains('apexcharts-legend-text') || 
-                  node.querySelector && node.querySelector('.apexcharts-legend-text'))) {
-                shouldForceColors = true;
-              }
-            });
-          }
-        });
-        
-        if (shouldForceColors) {
-          setTimeout(() => forceApexChartsColors(), 50);
-        }
-      });
-      
-      // Observe chart containers
-      document.querySelectorAll('[id^="chart-"]').forEach(container => {
-        observer.observe(container, {
-          childList: true,
-          subtree: true
-        });
-      });
     }
 
     function getChartColors() {
@@ -1507,8 +1409,8 @@
         quaternary: computedStyle.getPropertyValue('--chart-quaternary').trim(),
         quinary: computedStyle.getPropertyValue('--chart-quinary').trim(),
         senary: computedStyle.getPropertyValue('--chart-senary').trim(),
-        text: isDark ? '#E6EDF3' : '#0f172a', // Force explicit colors for charts
-        textSecondary: isDark ? '#C9D1D9' : '#475569',
+        text: isDark ? '#fafafa' : '#18181b',
+        textSecondary: isDark ? '#d4d4d8' : '#71717a',
         border: computedStyle.getPropertyValue('--border-light').trim()
       };
     }
@@ -1521,31 +1423,23 @@
         series: data.charts.elementosPorHerramienta.series,
         chart: {
           type: 'bar',
-          height: 300,
+          height: 280,
           background: 'transparent',
-          fontFamily: 'Inter, sans-serif',
-          animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 1000
-          }
+          fontFamily: 'Inter, sans-serif'
         },
         plotOptions: {
           bar: {
-            borderRadius: 8,
+            borderRadius: 4,
             distributed: true,
-            horizontal: true,
-            dataLabels: {
-              position: 'top'
-            }
+            horizontal: true
           }
         },
         dataLabels: {
           enabled: true,
           style: {
             colors: [colors.text],
-            fontSize: '12px',
-            fontWeight: 600
+            fontSize: '11px',
+            fontWeight: 500
           }
         },
         xaxis: {
@@ -1568,7 +1462,7 @@
         colors: [colors.primary, colors.secondary, colors.tertiary],
         grid: {
           borderColor: colors.border,
-          strokeDashArray: 3
+          strokeDashArray: 2
         },
         tooltip: {
           theme: currentTheme
@@ -1576,10 +1470,7 @@
       };
 
       chartInstances.toolsChart = new ApexCharts(document.querySelector("#chart-by-tool"), options);
-      chartInstances.toolsChart.render().then(() => {
-        // Force colors after render
-        setTimeout(() => forceApexChartsColors(), 100);
-      });
+      chartInstances.toolsChart.render();
     }
 
     function createTagTypeChart(data) {
@@ -1590,14 +1481,9 @@
         series: data.charts.desgloseTagsGTM.series,
         chart: {
           type: 'donut',
-          height: 300,
+          height: 280,
           background: 'transparent',
-          fontFamily: 'Inter, sans-serif',
-          animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 1000
-          }
+          fontFamily: 'Inter, sans-serif'
         },
         labels: data.charts.desgloseTagsGTM.labels,
         colors: [colors.primary, colors.secondary, colors.tertiary, colors.quaternary, colors.quinary, colors.senary],
@@ -1610,18 +1496,7 @@
         plotOptions: {
           pie: {
             donut: {
-              size: '65%',
-              labels: {
-                show: true,
-                total: {
-                  show: true,
-                  showAlways: true,
-                  label: 'Total Tags',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: colors.text
-                }
-              }
+              size: '60%'
             }
           }
         },
@@ -1629,7 +1504,7 @@
           enabled: true,
           style: {
             fontSize: '11px',
-            fontWeight: 600,
+            fontWeight: 500,
             colors: ['#ffffff']
           }
         },
@@ -1639,9 +1514,7 @@
       };
 
       chartInstances.tagTypeChart = new ApexCharts(document.querySelector("#chart-tag-type"), options);
-      chartInstances.tagTypeChart.render().then(() => {
-        setTimeout(() => forceApexChartsColors(), 100);
-      });
+      chartInstances.tagTypeChart.render();
     }
 
     function createTagStatusChart(data) {
@@ -1652,14 +1525,9 @@
         series: data.charts.estadoTagsGTM.series,
         chart: {
           type: 'pie',
-          height: 300,
+          height: 280,
           background: 'transparent',
-          fontFamily: 'Inter, sans-serif',
-          animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 1000
-          }
+          fontFamily: 'Inter, sans-serif'
         },
         labels: data.charts.estadoTagsGTM.labels,
         colors: [colors.secondary, colors.tertiary, colors.quaternary],
@@ -1672,8 +1540,8 @@
         dataLabels: {
           enabled: true,
           style: {
-            fontSize: '12px',
-            fontWeight: 600,
+            fontSize: '11px',
+            fontWeight: 500,
             colors: ['#ffffff']
           }
         },
@@ -1683,9 +1551,7 @@
       };
 
       chartInstances.tagStatusChart = new ApexCharts(document.querySelector("#chart-tag-status"), options);
-      chartInstances.tagStatusChart.render().then(() => {
-        setTimeout(() => forceApexChartsColors(), 100);
-      });
+      chartInstances.tagStatusChart.render();
     }
 
     function createTimelineChart(data) {
@@ -1694,29 +1560,24 @@
       
       const options = {
         series: [{
-          name: 'Modificaciones',
+          name: 'Modifications',
           data: timelineData.modifications
         }, {
-          name: 'Nuevos Assets',
+          name: 'New Assets',
           data: timelineData.newAssets
         }],
         chart: {
           type: 'line',
-          height: 350,
+          height: 320,
           background: 'transparent',
-          fontFamily: 'Inter, sans-serif',
-          animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 1200
-          }
+          fontFamily: 'Inter, sans-serif'
         },
         dataLabels: {
           enabled: false
         },
         stroke: {
           curve: 'smooth',
-          width: 3
+          width: 2
         },
         xaxis: {
           categories: timelineData.dates,
@@ -1736,7 +1597,7 @@
         colors: [colors.primary, colors.secondary],
         grid: {
           borderColor: colors.border,
-          strokeDashArray: 3
+          strokeDashArray: 2
         },
         legend: {
           labels: {
@@ -1749,9 +1610,7 @@
       };
 
       chartInstances.timelineChart = new ApexCharts(document.querySelector("#chart-timeline"), options);
-      chartInstances.timelineChart.render().then(() => {
-        setTimeout(() => forceApexChartsColors(), 100);
-      });
+      chartInstances.timelineChart.render();
     }
 
     function createHeatmapChart(data) {
@@ -1761,15 +1620,10 @@
       const options = {
         series: heatmapData,
         chart: {
-          height: 300,
+          height: 280,
           type: 'heatmap',
           background: 'transparent',
-          fontFamily: 'Inter, sans-serif',
-          animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 1000
-          }
+          fontFamily: 'Inter, sans-serif'
         },
         dataLabels: {
           enabled: false
@@ -1798,9 +1652,7 @@
       };
 
       chartInstances.heatmapChart = new ApexCharts(document.querySelector("#chart-heatmap"), options);
-      chartInstances.heatmapChart.render().then(() => {
-        setTimeout(() => forceApexChartsColors(), 100);
-      });
+      chartInstances.heatmapChart.render();
     }
 
     function generateTimelineData() {
@@ -1811,7 +1663,7 @@
       for (let i = 29; i >= 0; i--) {
         const date = new Date();
         date.setDate(date.getDate() - i);
-        dates.push(date.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' }));
+        dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
         modifications.push(Math.floor(Math.random() * 25) + 5);
         newAssets.push(Math.floor(Math.random() * 12) + 1);
       }
@@ -1821,7 +1673,7 @@
 
     function generateHeatmapData() {
       const containers = ['Container Prod', 'Container Dev', 'Container Test', 'Container Stage'];
-      const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       
       return containers.map(container => ({
         name: container,
@@ -1836,16 +1688,8 @@
       const services = ['looker', 'ga4', 'gtm'];
       services.forEach(service => {
         const statusElement = document.getElementById(`status-${service}`);
-        statusElement.className = 'status-value';
-        statusElement.textContent = 'Conectado';
+        statusElement.textContent = 'Connected';
       });
-      
-      // Update Coming Soon status
-      const comingSoonElement = document.getElementById('status-coming-soon');
-      if (comingSoonElement) {
-        comingSoonElement.className = 'status-value info';
-        comingSoonElement.textContent = 'BigQuery, Google Ads, Search Console & more';
-      }
     }
 
     function setupAutoRefresh() {
@@ -1873,80 +1717,80 @@
     }
 
     function forceRefresh() {
-      showNotification('🔄 Actualizando datos...', 'success');
+      showNotification('Refreshing data...', 'success');
       
       if (typeof google !== 'undefined' && google.script && google.script.run) {
         google.script.run
           .withSuccessHandler((data) => {
             handleDashboardData(data);
-            showNotification('✅ Datos actualizados exitosamente', 'success');
+            showNotification('Data refreshed successfully', 'success');
           })
           .withFailureHandler(() => {
-            showNotification('❌ Error al actualizar - Usando datos cached', 'warning');
+            showNotification('Error refreshing - Using cached data', 'warning');
           })
           .getHtmlDashboardData();
       } else {
         initializeDashboardDemo();
-        showNotification('✅ Demo actualizado', 'success');
+        showNotification('Demo refreshed', 'success');
       }
     }
 
     function runDiagnostic() {
-      showNotification('🔧 Ejecutando diagnóstico completo...', 'success');
+      showNotification('Running comprehensive diagnostic...', 'success');
       
       const hasGoogleScript = typeof google !== 'undefined' && google.script && google.script.run;
       
       if (!hasGoogleScript) {
-        showNotification('❌ Google Apps Script no disponible - Solo modo demo', 'warning');
+        showNotification('Google Apps Script not available - Demo mode only', 'warning');
         return;
       }
       
       google.script.run
         .withSuccessHandler((data) => {
-          showNotification('✅ Diagnóstico exitoso - Sistema funcionando correctamente', 'success');
+          showNotification('Diagnostic successful - System functioning correctly', 'success');
           if (data && !data.error) {
             handleDashboardData(data);
           }
         })
         .withFailureHandler((error) => {
-          showNotification(`❌ Error en diagnóstico: ${error.message}`, 'error');
+          showNotification(`Diagnostic error: ${error.message}`, 'error');
         })
         .getHtmlDashboardData();
     }
 
     function triggerFullSync() {
-      const button = document.querySelector('.audit-btn');
-      const icon = document.getElementById('audit-icon');
+      const button = document.querySelector('.btn.primary');
+      const statusSpan = document.getElementById('audit-status');
       
-      showNotification('🚀 Iniciando auditoría completa del ecosistema...', 'success');
+      showNotification('Starting comprehensive ecosystem audit...', 'success');
       
       button.style.opacity = '0.7';
       button.style.pointerEvents = 'none';
-      icon.classList.add('loading-spin');
+      statusSpan.textContent = 'Running...';
       
       const resetButton = () => {
         button.style.opacity = '1';
         button.style.pointerEvents = 'auto';
-        icon.classList.remove('loading-spin');
+        statusSpan.textContent = 'Run Audit';
       };
       
       if (typeof google !== 'undefined' && google.script && google.script.run) {
         google.script.run
           .withSuccessHandler(() => {
-            showNotification('✅ Auditoría completada - Todos los datos actualizados', 'success');
+            showNotification('Audit completed - All data updated', 'success');
             setTimeout(() => {
               refreshDashboard();
               resetButton();
             }, 2000);
           })
           .withFailureHandler(() => {
-            showNotification('❌ Error durante la auditoría - Reintente más tarde', 'error');
+            showNotification('Error during audit - Please try again later', 'error');
             resetButton();
           })
           .iniciarAuditoriaCompleta();
       } else {
         setTimeout(() => {
-          showNotification('✅ Auditoría demo completada exitosamente', 'success');
+          showNotification('Demo audit completed successfully', 'success');
           resetButton();
         }, 3000);
       }
@@ -1970,7 +1814,7 @@
           if (container.contains(notification)) {
             container.removeChild(notification);
           }
-        }, 400);
+        }, 300);
       }, type === 'error' ? 5000 : 3000);
     }
 
@@ -1978,31 +1822,31 @@
     function exportToolData() {
       if (!dashboardData) return;
       downloadJSON(dashboardData.charts.elementosPorHerramienta, `addocu-tools-${getDateString()}.json`);
-      showNotification('✅ Datos de herramientas exportados', 'success');
+      showNotification('Tool data exported', 'success');
     }
 
     function exportTagTypeData() {
       if (!dashboardData) return;
       downloadJSON(dashboardData.charts.desgloseTagsGTM, `addocu-tag-types-${getDateString()}.json`);
-      showNotification('✅ Tipos de tags exportados', 'success');
+      showNotification('Tag types exported', 'success');
     }
 
     function exportTagStatusData() {
       if (!dashboardData) return;
       downloadJSON(dashboardData.charts.estadoTagsGTM, `addocu-tag-status-${getDateString()}.json`);
-      showNotification('✅ Estado de tags exportado', 'success');
+      showNotification('Tag status exported', 'success');
     }
 
     function exportTimelineData() {
       const timelineData = generateTimelineData();
       downloadJSON(timelineData, `addocu-timeline-${getDateString()}.json`);
-      showNotification('✅ Timeline exportado', 'success');
+      showNotification('Timeline exported', 'success');
     }
 
     function exportHeatmapData() {
       const heatmapData = generateHeatmapData();
       downloadJSON(heatmapData, `addocu-heatmap-${getDateString()}.json`);
-      showNotification('✅ Mapa de calor exportado', 'success');
+      showNotification('Heatmap exported', 'success');
     }
 
     function downloadJSON(data, filename) {
@@ -2010,7 +1854,7 @@
         data: data,
         metadata: {
           exportedAt: new Date().toISOString(),
-          exportedBy: 'Addocu v3.0 Community',
+          exportedBy: 'Addocu',
           theme: currentTheme
         }
       };
@@ -2053,7 +1897,7 @@
       });
     });
     
-    console.log('🚀 Addocu v3.0 Community - Sistema completamente inicializado');
+    console.log('Addocu - System fully initialized');
   </script>
 </body>
 </html>
