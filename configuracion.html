@@ -85,6 +85,13 @@
       justify-content: center;
       margin-right: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .addocu-logo-icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
     }
 
     .addocu-logo-text {
@@ -347,7 +354,6 @@
     .indicator-success { background: var(--addocu-green); }
     .indicator-error { background: #EA4335; }
     .indicator-pending { background: var(--addocu-text-secondary); }
-    .indicator-pro { background: linear-gradient(135deg, #FFD700, #FFA500); }
 
     .connection-details {
       flex: 1;
@@ -365,25 +371,7 @@
       margin-top: 2px;
     }
 
-    /* Freemium Badge */
-    .freemium-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 8px;
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      color: #8B4513;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-left: 8px;
-    }
 
-    .free-badge {
-      background: linear-gradient(135deg, var(--addocu-green), var(--addocu-green-light));
-      color: white;
-    }
 
     /* Checkboxes */
     .checkbox-group {
@@ -545,7 +533,7 @@
     <div class="addocu-header">
       <div class="addocu-logo">
         <div class="addocu-logo-icon">
-          <span style="color: var(--addocu-blue-primary); font-weight: 600; font-size: 16px;">A</span>
+          <img src="docs/addocu_logo-removebg-preview.png" alt="Addocu Logo" />
         </div>
         <span class="addocu-logo-text">Addocu</span>
       </div>
@@ -584,7 +572,6 @@
         <div class="section-header">
           <i class="material-icons section-icon">security</i>
           <h3 class="section-title">Configuración de Autenticación</h3>
-          <span class="freemium-badge free-badge">OAuth2</span>
         </div>
 
         <div class="status-card status-info">
@@ -681,10 +668,7 @@
       <div class="service-info">
         <span class="service-icon">📊</span>
         <div>
-          <div class="service-name">
-            Google Analytics 4
-            <span class="freemium-badge free-badge">Free</span>
-          </div>
+          <div class="service-name">Google Analytics 4</div>
           <div class="service-description">Propiedades, dimensiones, métricas, flujos de datos</div>
         </div>
       </div>
@@ -700,10 +684,7 @@
       <div class="service-info">
         <span class="service-icon">🏷️</span>
         <div>
-          <div class="service-name">
-            Google Tag Manager
-            <span class="freemium-badge free-badge">Gratis</span>
-          </div>
+          <div class="service-name">Google Tag Manager</div>
           <div class="service-description">Tags, triggers, variables, workspaces</div>
         </div>
       </div>
@@ -719,10 +700,7 @@
       <div class="service-info">
         <span class="service-icon">📈</span>
         <div>
-          <div class="service-name">
-            Looker Studio
-            <span class="freemium-badge free-badge">Gratis</span>
-          </div>
+          <div class="service-name">Looker Studio</div>
           <div class="service-description">Informes, fuentes de datos, permisos</div>
         </div>
       </div>
@@ -804,8 +782,7 @@
         gtm: true,
         looker: true
       },
-      isFirstTime: true,
-      isPro: true
+      isFirstTime: true
     };
 
     // ========================================
@@ -819,7 +796,6 @@
 
     function initializeApp() {
       loadUserConfiguration();
-      checkProStatus();
       updateUI();
     }
 
@@ -877,10 +853,7 @@
         .getUserConfig();
     }
 
-    function checkProStatus() {
-      // Open source - all features available
-      appState.isPro = true;
-    }
+
 
     // ========================================
     // API KEY MANAGEMENT
@@ -1078,9 +1051,6 @@
             if (result.servicio.includes('Analytics')) appState.connectionStatus.ga4 = 'success';
             if (result.servicio.includes('Tag Manager')) appState.connectionStatus.gtm = 'success';
             if (result.servicio.includes('Looker')) appState.connectionStatus.looker = 'success';
-          } else if (result.estado === 'REQUIRES_PRO') {
-            indicator.className = 'connection-indicator indicator-pro';
-            status.textContent = '📎 Requiere Addocu Pro';
           } else {
             indicator.className = 'connection-indicator indicator-error';
             status.textContent = result.mensaje || 'Error de conexión';
@@ -1111,13 +1081,6 @@
     function handleServiceToggle(event) {
       const serviceId = event.target.id.replace('service-', '');
       const isEnabled = event.target.checked;
-      
-      if (!appState.isPro && (serviceId === 'gtm' || serviceId === 'looker')) {
-        event.preventDefault();
-        event.target.checked = false;
-        upgradeProModal();
-        return;
-      }
       
       appState.services[serviceId] = isEnabled;
       
@@ -1188,68 +1151,7 @@
         .sincronizarGA4();
     }
 
-    // ========================================
-    // FREEMIUM FEATURES
-    // ========================================
-    
-    function upgradeProModal() {
-      const modal = document.createElement('div');
-      modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        padding: 20px;
-      `;
-      
-      modal.innerHTML = `
-        <div style="
-          background: white;
-          border-radius: 12px;
-          padding: 24px;
-          max-width: 300px;
-          text-align: center;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        ">
-          <div style="font-size: 48px; margin-bottom: 16px;">💎</div>
-          <h3 style="margin: 0 0 12px 0; color: var(--addocu-blue-primary);">Actualizar a Pro</h3>
-          <p style="margin: 0 0 20px 0; color: var(--addocu-text-secondary); font-size: 14px;">
-            Desbloquea GTM y Looker Studio por solo €9/mes
-          </p>
-          <button onclick="window.open('https://addocu.com/upgrade', '_blank')" style="
-            background: var(--addocu-gradient);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 8px;
-          ">
-            Actualizar a Pro
-          </button>
-          <button onclick="this.closest('[style*=fixed]').remove()" style="
-            background: none;
-            border: none;
-            color: var(--addocu-text-secondary);
-            font-size: 13px;
-            cursor: pointer;
-          ">
-            Tal vez después
-          </button>
-        </div>
-      `;
-      
-      document.body.appendChild(modal);
-    }
+
 
     // ========================================
     // QUICK SETUP FLOW
@@ -1272,18 +1174,8 @@
     // ========================================
     
     function updateUI() {
-      // Update Pro features visibility
-      const proButtons = document.querySelectorAll('#pro-features-btn');
-      proButtons.forEach(btn => {
-        btn.textContent = appState.isPro ? '⚙️ Configuración' : '💎 Funciones Pro';
-      });
-      
-      // Update service toggles based on Pro status
-      if (!appState.isPro) {
-        document.getElementById('service-gtm').checked = false;
-        document.getElementById('service-looker').checked = false;
-        document.getElementById('gtm-filters-section').style.display = 'none';
-      }
+      // All services available in open source version
+      // No pro restrictions
     }
 
     function updateStepStatus(stepNumber, completed) {

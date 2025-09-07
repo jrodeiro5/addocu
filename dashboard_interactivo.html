@@ -4,7 +4,7 @@
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Addocu v3.0 - Analytics Dashboard</title>
+  <title>Addocu - Analytics Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.2/apexcharts.min.js"></script>
   <style>
@@ -65,51 +65,51 @@
       --radius-xl: 16px;
     }
 
-    /* Dark Mode Colors */
-    [data-theme="dark"] {
-      /* Backgrounds - Dark Mode */
-      --bg-primary: #0f172a;
-      --bg-secondary: #1e293b;
-      --bg-tertiary: #334155;
-      --surface: #1e293b;
-      --surface-elevated: #334155;
-      --surface-hover: #475569;
-      
-      /* Text Colors - Dark Mode (Desaturated for better readability) */
-      --text-primary: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --text-tertiary: #94a3b8;
-      --text-accent: #60a5fa;
-      
-      /* Semantic Colors - Dark Mode (Less saturated) */
-      --success: #059669;
-      --success-bg: #064e3b;
-      --warning: #d97706;
-      --warning-bg: #92400e;
-      --error: #dc2626;
-      --error-bg: #991b1b;
-      --info: #2563eb;
-      --info-bg: #1e3a8a;
-      
-      /* Chart Colors - Dark Mode Optimized */
-      --chart-primary: #60a5fa;
-      --chart-secondary: #34d399;
-      --chart-tertiary: #fbbf24;
-      --chart-quaternary: #c084fc;
-      --chart-quinary: #f472b6;
-      --chart-senary: #22d3ee;
-      
-      /* Interactive Elements - Dark Mode */
-      --border-light: #334155;
-      --border-medium: #475569;
-      --border-dark: #64748b;
-      
-      /* Shadows - Dark Mode */
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-    }
+    /* Dark Mode Colors - OPTIMIZED FOR READABILITY */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-primary: #0D1117; /* Más oscuro para mayor contraste */
+  --bg-secondary: #161B22; /* Ligeramente más claro que el primario, pero aún oscuro */
+  --bg-tertiary: #21262D; /* Para elementos de mayor elevación o secciones */
+  --surface: #161B22; /* Misma que secondary */
+  --surface-elevated: #21262D; /* Misma que tertiary, para tarjetas/modales */
+  --surface-hover: #30363D; /* Suficiente contraste para el hover */
+  
+  /* Text Colors - Aumentado el brillo para mejor contraste */
+  --text-primary: #E6EDF3; /* Blanco casi puro para el texto principal */
+  --text-secondary: #C9D1D9; /* Gris claro para el texto secundario (labels, descripciones) */
+  --text-tertiary: #8B949E; /* Gris medio para el texto menos importante o muted */
+  --text-accent: #58A6FF; /* Azul brillante para enlaces/botones (mantener buena legibilidad) */
+  
+  /* Semantic Colors - Ligeramente ajustados para visibilidad */
+  --success: #3FB950;
+  --success-bg: #238636;
+  --warning: #D29922;
+  --warning-bg: #89572F;
+  --error: #F85149;
+  --error-bg: #DA3633;
+  --info: #58A6FF;
+  --info-bg: #1F6FEB;
+  
+  /* Chart Colors - Optimizado para distinguirse en fondo oscuro */
+  --chart-primary: #79C0FF; /* Azul claro */
+  --chart-secondary: #8BCE4D; /* Verde brillante */
+  --chart-tertiary: #F0B347; /* Amarillo dorado */
+  --chart-quaternary: #AD83FF; /* Púrpura */
+  --chart-quinary: #FF7B72; /* Rojo coral */
+  --chart-senary: #52BFCA; /* Cian */
+  
+  /* Interactive Elements */
+  --border-light: #30363D; /* Suficientemente visible para líneas de separación */
+  --border-medium: #444C56;
+  --border-dark: #64748B;
+  
+  /* Shadows - Ligeras, ya que las sombras son menos evidentes en oscuro */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
 
     * {
       margin: 0;
@@ -215,15 +215,18 @@
     .logo-icon {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, var(--addocu-blue-primary) 0%, var(--addocu-green) 100%);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      color: white;
-      font-weight: 600;
       box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .logo-icon img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
     }
 
     .logo-text {
@@ -594,6 +597,10 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .status-item:hover {
@@ -621,6 +628,10 @@
       background: var(--error);
     }
 
+    .status-item.coming-soon::before {
+      background: var(--info);
+    }
+
     .status-icon {
       font-size: 24px;
       margin-bottom: 12px;
@@ -637,9 +648,11 @@
     }
 
     .status-value {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--success);
+      word-wrap: break-word;
+      line-height: 1.3;
     }
 
     .status-value.warning {
@@ -648,6 +661,10 @@
 
     .status-value.error {
       color: var(--error);
+    }
+
+    .status-value.info {
+      color: var(--info);
     }
 
     /* RESPONSIVE DESIGN - Mejorado */
@@ -842,6 +859,50 @@
       border: 0;
     }
 
+    /* FORCE APEXCHARTS LEGEND COLORS - MAXIMUM SPECIFICITY */
+    [data-theme="dark"] .apexcharts-legend-text,
+    [data-theme="dark"] .apexcharts-legend-text tspan {
+      color: #E6EDF3 !important;
+      fill: #E6EDF3 !important;
+    }
+    
+    [data-theme="light"] .apexcharts-legend-text,
+    [data-theme="light"] .apexcharts-legend-text tspan {
+      color: #0f172a !important;
+      fill: #0f172a !important;
+    }
+    
+    [data-theme="dark"] .apexcharts-xaxis-label,
+    [data-theme="dark"] .apexcharts-yaxis-label,
+    [data-theme="dark"] .apexcharts-xaxis-label tspan,
+    [data-theme="dark"] .apexcharts-yaxis-label tspan {
+      fill: #E6EDF3 !important;
+    }
+    
+    [data-theme="light"] .apexcharts-xaxis-label,
+    [data-theme="light"] .apexcharts-yaxis-label,
+    [data-theme="light"] .apexcharts-xaxis-label tspan,
+    [data-theme="light"] .apexcharts-yaxis-label tspan {
+      fill: #0f172a !important;
+    }
+    
+    /* Additional specificity for stubborn elements */
+    .apexcharts-svg .apexcharts-legend-text[style*="color"] {
+      color: var(--text-primary) !important;
+    }
+    
+    [data-theme="dark"] .apexcharts-svg .apexcharts-legend-text,
+    [data-theme="dark"] .apexcharts-svg .apexcharts-legend-text tspan {
+      color: #E6EDF3 !important;
+      fill: #E6EDF3 !important;
+    }
+    
+    [data-theme="light"] .apexcharts-svg .apexcharts-legend-text,
+    [data-theme="light"] .apexcharts-svg .apexcharts-legend-text tspan {
+      color: #0f172a !important;
+      fill: #0f172a !important;
+    }
+    
     /* FOCUS STYLES */
     .action-btn:focus,
     .theme-toggle:focus,
@@ -856,7 +917,7 @@
   <div id="loader">
     <div class="loader-content">
       <div class="loader-icon">🚀</div>
-      <div class="loader-text">Addocu v3.0</div>
+      <div class="loader-text">Addocu</div>
       <div class="loader-subtext">Inicializando dashboard analytics...</div>
     </div>
   </div>
@@ -865,10 +926,11 @@
   <div class="header" id="header" style="display: none;">
     <div class="header-content">
       <div class="logo">
-        <div class="logo-icon">A</div>
+        <div class="logo-icon">
+          <img src="docs/addocu_logo-removebg-preview.png" alt="Addocu Logo" />
+        </div>
         <div>
           <div class="logo-text">Addocu</div>
-          <div class="logo-version">v3.0 Community</div>
         </div>
       </div>
       
@@ -1010,10 +1072,10 @@
           <div class="status-text">Tag Manager</div>
           <div class="status-value" id="status-gtm">Conectado</div>
         </div>
-        <div class="status-item tooltip" data-tooltip="Estado de conexión BigQuery">
-          <div class="status-icon">💾</div>
-          <div class="status-text">BigQuery</div>
-          <div class="status-value" id="status-bigquery">Conectado</div>
+        <div class="status-item coming-soon tooltip" data-tooltip="Próximas integraciones en desarrollo">
+          <div class="status-icon">🚀</div>
+          <div class="status-text">Coming Soon</div>
+          <div class="status-value info" id="status-coming-soon">BigQuery, Google Ads, Search Console & more</div>
         </div>
       </div>
     </section>
@@ -1107,13 +1169,18 @@
         }, 300);
       }
       
+      // Force colors immediately
+      setTimeout(() => {
+        forceApexChartsColors();
+      }, 600);
+      
       localStorage.setItem('addocu-theme', currentTheme);
       showNotification(`Tema ${currentTheme === 'light' ? 'claro' : 'oscuro'} activado`, 'success');
     }
 
     // INITIALIZATION
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('🚀 Addocu Dashboard v3.0 - Inicializando...');
+      console.log('🚀 Addocu v3.0 Community - Inicializando...');
       
       // Load saved theme
       const savedTheme = localStorage.getItem('addocu-theme');
@@ -1212,6 +1279,12 @@
       populateKPIs(data);
       createCharts(data);
       updateStatus();
+      
+      // Final force of colors
+      setTimeout(() => {
+        forceApexChartsColors();
+      }, 1000);
+      
       showNotification('✅ Dashboard cargado exitosamente', 'success');
     }
 
@@ -1234,6 +1307,9 @@
         cards.forEach((card, index) => {
           card.style.animationDelay = `${index * 0.05}s`;
         });
+        
+        // Setup chart color observer
+        setupChartColorObserver();
       }, 500);
     }
 
@@ -1363,20 +1439,82 @@
       createTagStatusChart(data);
       createTimelineChart(data);
       createHeatmapChart(data);
+      
+      // Force legend colors after a short delay
+      setTimeout(() => {
+        forceApexChartsColors();
+      }, 500);
+    }
+    
+    function forceApexChartsColors() {
+      const isDark = currentTheme === 'dark';
+      const textColor = isDark ? '#E6EDF3' : '#0f172a';
+      
+      console.log(`🎨 Forzando colores ApexCharts - Tema: ${currentTheme}, Color: ${textColor}`);
+      
+      // Force legend text colors
+      const legendElements = document.querySelectorAll('.apexcharts-legend-text, .apexcharts-legend-text tspan');
+      console.log(`📊 Encontrados ${legendElements.length} elementos de leyenda`);
+      
+      legendElements.forEach(el => {
+        el.style.setProperty('color', textColor, 'important');
+        el.style.setProperty('fill', textColor, 'important');
+      });
+      
+      // Force axis label colors
+      document.querySelectorAll('.apexcharts-xaxis-label, .apexcharts-yaxis-label, .apexcharts-xaxis-label tspan, .apexcharts-yaxis-label tspan').forEach(el => {
+        el.style.setProperty('fill', textColor, 'important');
+      });
+      
+      // Force donut/pie total labels
+      document.querySelectorAll('.apexcharts-datalabel-label, .apexcharts-datalabel-value').forEach(el => {
+        el.style.setProperty('fill', textColor, 'important');
+      });
+    }
+    
+    // Setup mutation observer for ApexCharts
+    function setupChartColorObserver() {
+      const observer = new MutationObserver((mutations) => {
+        let shouldForceColors = false;
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach((node) => {
+              if (node.nodeType === 1 && (node.classList.contains('apexcharts-legend-text') || 
+                  node.querySelector && node.querySelector('.apexcharts-legend-text'))) {
+                shouldForceColors = true;
+              }
+            });
+          }
+        });
+        
+        if (shouldForceColors) {
+          setTimeout(() => forceApexChartsColors(), 50);
+        }
+      });
+      
+      // Observe chart containers
+      document.querySelectorAll('[id^="chart-"]').forEach(container => {
+        observer.observe(container, {
+          childList: true,
+          subtree: true
+        });
+      });
     }
 
     function getChartColors() {
       const isDark = currentTheme === 'dark';
+      const computedStyle = getComputedStyle(document.documentElement);
+      
       return {
-        primary: getComputedStyle(document.documentElement).getPropertyValue('--chart-primary').trim(),
-        secondary: getComputedStyle(document.documentElement).getPropertyValue('--chart-secondary').trim(),
-        tertiary: getComputedStyle(document.documentElement).getPropertyValue('--chart-tertiary').trim(),
-        quaternary: getComputedStyle(document.documentElement).getPropertyValue('--chart-quaternary').trim(),
-        quinary: getComputedStyle(document.documentElement).getPropertyValue('--chart-quinary').trim(),
-        senary: getComputedStyle(document.documentElement).getPropertyValue('--chart-senary').trim(),
-        text: getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim(),
-        textSecondary: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim(),
-        border: getComputedStyle(document.documentElement).getPropertyValue('--border-light').trim()
+        primary: computedStyle.getPropertyValue('--chart-primary').trim(),
+        secondary: computedStyle.getPropertyValue('--chart-secondary').trim(),
+        tertiary: computedStyle.getPropertyValue('--chart-tertiary').trim(),
+        quaternary: computedStyle.getPropertyValue('--chart-quaternary').trim(),
+        quinary: computedStyle.getPropertyValue('--chart-quinary').trim(),
+        senary: computedStyle.getPropertyValue('--chart-senary').trim(),
+        text: isDark ? '#E6EDF3' : '#0f172a', // Force explicit colors for charts
+        textSecondary: isDark ? '#C9D1D9' : '#475569',
+        border: computedStyle.getPropertyValue('--border-light').trim()
       };
     }
 
@@ -1419,7 +1557,7 @@
           categories: data.charts.elementosPorHerramienta.categories,
           labels: {
             style: {
-              colors: colors.textSecondary,
+              colors: colors.text,
               fontSize: '11px'
             }
           }
@@ -1427,7 +1565,7 @@
         yaxis: {
           labels: {
             style: {
-              colors: colors.textSecondary,
+              colors: colors.text,
               fontSize: '11px'
             }
           }
@@ -1443,7 +1581,10 @@
       };
 
       chartInstances.toolsChart = new ApexCharts(document.querySelector("#chart-by-tool"), options);
-      chartInstances.toolsChart.render();
+      chartInstances.toolsChart.render().then(() => {
+        // Force colors after render
+        setTimeout(() => forceApexChartsColors(), 100);
+      });
     }
 
     function createTagTypeChart(data) {
@@ -1468,7 +1609,7 @@
         legend: {
           position: 'bottom',
           labels: {
-            colors: colors.textSecondary
+            colors: colors.text
           }
         },
         plotOptions: {
@@ -1503,7 +1644,9 @@
       };
 
       chartInstances.tagTypeChart = new ApexCharts(document.querySelector("#chart-tag-type"), options);
-      chartInstances.tagTypeChart.render();
+      chartInstances.tagTypeChart.render().then(() => {
+        setTimeout(() => forceApexChartsColors(), 100);
+      });
     }
 
     function createTagStatusChart(data) {
@@ -1528,7 +1671,7 @@
         legend: {
           position: 'bottom',
           labels: {
-            colors: colors.textSecondary
+            colors: colors.text
           }
         },
         dataLabels: {
@@ -1545,7 +1688,9 @@
       };
 
       chartInstances.tagStatusChart = new ApexCharts(document.querySelector("#chart-tag-status"), options);
-      chartInstances.tagStatusChart.render();
+      chartInstances.tagStatusChart.render().then(() => {
+        setTimeout(() => forceApexChartsColors(), 100);
+      });
     }
 
     function createTimelineChart(data) {
@@ -1582,14 +1727,14 @@
           categories: timelineData.dates,
           labels: {
             style: {
-              colors: colors.textSecondary
+              colors: colors.text
             }
           }
         },
         yaxis: {
           labels: {
             style: {
-              colors: colors.textSecondary
+              colors: colors.text
             }
           }
         },
@@ -1600,7 +1745,7 @@
         },
         legend: {
           labels: {
-            colors: colors.textSecondary
+            colors: colors.text
           }
         },
         tooltip: {
@@ -1609,7 +1754,9 @@
       };
 
       chartInstances.timelineChart = new ApexCharts(document.querySelector("#chart-timeline"), options);
-      chartInstances.timelineChart.render();
+      chartInstances.timelineChart.render().then(() => {
+        setTimeout(() => forceApexChartsColors(), 100);
+      });
     }
 
     function createHeatmapChart(data) {
@@ -1636,14 +1783,14 @@
         xaxis: {
           labels: {
             style: {
-              colors: colors.textSecondary
+              colors: colors.text
             }
           }
         },
         yaxis: {
           labels: {
             style: {
-              colors: colors.textSecondary
+              colors: colors.text
             }
           }
         },
@@ -1656,7 +1803,9 @@
       };
 
       chartInstances.heatmapChart = new ApexCharts(document.querySelector("#chart-heatmap"), options);
-      chartInstances.heatmapChart.render();
+      chartInstances.heatmapChart.render().then(() => {
+        setTimeout(() => forceApexChartsColors(), 100);
+      });
     }
 
     function generateTimelineData() {
@@ -1689,12 +1838,19 @@
     }
 
     function updateStatus() {
-      const services = ['looker', 'ga4', 'gtm', 'bigquery'];
+      const services = ['looker', 'ga4', 'gtm'];
       services.forEach(service => {
         const statusElement = document.getElementById(`status-${service}`);
         statusElement.className = 'status-value';
         statusElement.textContent = 'Conectado';
       });
+      
+      // Update Coming Soon status
+      const comingSoonElement = document.getElementById('status-coming-soon');
+      if (comingSoonElement) {
+        comingSoonElement.className = 'status-value info';
+        comingSoonElement.textContent = 'BigQuery, Google Ads, Search Console & more';
+      }
     }
 
     function setupAutoRefresh() {
@@ -1859,7 +2015,7 @@
         data: data,
         metadata: {
           exportedAt: new Date().toISOString(),
-          exportedBy: 'Addocu v3.0',
+          exportedBy: 'Addocu v3.0 Community',
           theme: currentTheme
         }
       };
@@ -1902,7 +2058,7 @@
       });
     });
     
-    console.log('🚀 Addocu Dashboard v3.0 - Sistema completamente inicializado');
+    console.log('🚀 Addocu v3.0 Community - Sistema completamente inicializado');
   </script>
 </body>
 </html>
