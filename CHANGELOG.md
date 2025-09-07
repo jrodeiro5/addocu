@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **🎨 UX**: Improved Looker Studio connection status display in sidebar
+- **Confusion**: Replaced misleading "N/A" status with clear "OAuth2 conectado" message
+- **UI Clarity**: Updated authentication section to reflect OAuth2-only setup
+- **User Experience**: Hidden legacy API key field since all services now use OAuth2
+
 ### Planned
 - Google Ads integration
 - Google Search Console support
